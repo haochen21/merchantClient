@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
     selector: 'cateogry',
     template: `       
       <router-outlet></router-outlet>
+      <ticket-navbar></ticket-navbar>
     `,
     styles: ['.header { background: #3090e6; color: #fff; height: 40px;line-height: 40px;padding-top: 4px;}']
 })
