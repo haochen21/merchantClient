@@ -1,0 +1,28 @@
+.list-container {
+    outline: 0;
+    top: 0;
+    left: 0px;
+    right: 0px;
+    bottom: 50px;
+    margin-left: 0;
+    margin-right: 0;    
+    position: absolute;
+    overflow: auto;
+}
+md-card {
+    margin-top: 0.75rem;
+}
+.create {
+    margin-top: 45%;
+}
+.create-label {
+    padding: 8px;
+    cursor: pointer;    
+    right: 5px;
+    top: 15px;
+    position: absolute;
+}
+.btn-group {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
