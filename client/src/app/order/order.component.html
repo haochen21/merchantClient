@@ -4,8 +4,10 @@
             时间: {{tabs[selectedIndex].beginTime | dateFormatPipe:'HH:mm'}} - {{tabs[selectedIndex].endTime | dateFormatPipe:'HH:mm'}}
         </div>
         <div class="table-btns col-xs-5">
-            <button type="button" class="btn btn-info btn-sm" (click)="refresh($event)"><i class="fa fa-refresh"></i></button>         
-            <button type="button" class="btn btn-warning btn-sm" (click)="openQuery($event)"><i class="fa fa-calendar"></i></button>
+            <div>
+                <button type="button" class="btn btn-info btn-sm" (click)="refresh($event)"><i class="fa fa-refresh"></i></button>
+                <button type="button" class="btn btn-warning btn-sm" (click)="openQuery($event)"><i class="fa fa-calendar"></i></button>
+            </div>
         </div>
     </div>
     <div class="wrapper row">

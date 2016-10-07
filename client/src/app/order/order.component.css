@@ -19,6 +19,9 @@
 .table-btns {
     padding-top: 8px;
 }
+.table-btns > div {
+    float: right;
+}
 .query-panel {
     position: absolute;
     top: 45px;
