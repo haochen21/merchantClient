@@ -68,6 +68,15 @@ export class OrderComponent implements OnInit, OnDestroy {
                 index++;
                 this.tabs.push(openRange);
             }
+            this.tabs.sort(function (a, b) {
+                if (a.beginTime > b.beginTime) {
+                    return 1;
+                }
+                if (a.beginTime < b.beginTime) {
+                    return -1;
+                }
+                return 0;
+            });
             // 24 hours
             let beginTime: moment.Moment = moment(new Date());
             beginTime.hours(0).minutes(0).seconds(0).milliseconds(0);
@@ -80,6 +89,27 @@ export class OrderComponent implements OnInit, OnDestroy {
             this.tabs.push(range);
 
             this.selectedIndex = 0;
+            let now: Date = new Date();
+            let hasSelectedIndex: boolean = false;
+            for (let i = 0; i < this.tabs.length-1; i++) {
+                if (now >= this.tabs[i].beginTime && now <= this.tabs[i].endTime) {
+                    this.selectedIndex = i;
+                    hasSelectedIndex = true;
+                    break;
+                }
+            }
+            if (!hasSelectedIndex) {
+                for (let i = 0; i < this.tabs.length-1; i++) {
+                    if (now > this.tabs[i].endTime) {
+                        if (i < this.tabs.length - 2) {
+                            if (now < this.tabs[i+1].beginTime) {
+                                this.selectedIndex = i + 1;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
 
             return new Promise(resolve => {
                 resolve(this.tabs);
