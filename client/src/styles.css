@@ -352,3 +352,6 @@ md-list[dense] .md-list-item .md-list-text p {
 .tab-group .md-tab-header .md-tab-label{
     min-width: 120px;
 }
+.create-container .md-tab-header .md-tab-label {
+    min-width: 120px;
+}
