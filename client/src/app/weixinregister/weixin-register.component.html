@@ -1,0 +1,17 @@
+<div class="weixin-register-container">
+    <md-card class="phone-card">
+        <md-toolbar color="primary">完善商户信息</md-toolbar>
+        <md-card-content class="content">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <md-input class="full-width" placeholder="手机号" formControlName="phone"></md-input>
+                    <control-messages [control]="form.controls.phone"></control-messages>
+                </div>
+
+                <div class="form-group">
+                    <button md-raised-button class="btn-submit" [disabled]="!form.valid">完&nbsp;成</button>
+                </div>
+            </form>
+        </md-card-content>
+    </md-card>
+</div>

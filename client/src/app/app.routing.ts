@@ -17,6 +17,7 @@ export const routes: Routes = [
   { path: 'modifypassword', loadChildren: 'app/modifypassword/modify-password.module#ModifyPasswordModule' },
   { path: 'modifyimage', loadChildren: 'app/modifyimage/modify-image.module#ModifyImageModule' },
   { path: 'modifyQrCode', loadChildren: 'app/modifyqrcode/modify-qrcode.module#ModifyQrcodeModule'},
+  { path: 'weixinRegister', loadChildren: 'app/weixinregister/weixin-register.module#WeixinRegisterModule'},
   { path: 'lock', loadChildren: 'app/lock/lock.module#LockModule' },
   { path: 'openRange', loadChildren: 'app/opentime/opentime.module#OpentimeModule' },
   { path: 'account', loadChildren: 'app/account/account.module#AccountModule' },

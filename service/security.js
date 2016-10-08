@@ -84,6 +84,42 @@ exports.cardExists = function (req, res) {
     });
 }
 
+exports.phoneExists = function (req, res) {
+    let phone = req.params.phone;
+
+    request.get({
+        url: config.remoteServer + '/security/user/phone/' + phone
+    }, function (err, response, body) {
+        if (err || response.statusCode != 200) {
+            res.status(404).end();
+        } else {
+            if (body === "true") {
+                res.status(200).send({ exist: true });
+            } else {
+                res.status(200).send({ exist: false });
+            }
+        }
+    });
+}
+
+exports.devicePhoneExists = function (req, res) {
+    let phone = req.params.phone;
+
+    request.get({
+        url: config.remoteServer + '/security/device/phone/' + phone
+    }, function (err, response, body) {
+        if (err || response.statusCode != 200) {
+            res.status(404).end();
+        } else {
+            if (body === "true") {
+                res.status(200).send({ exist: true });
+            } else {
+                res.status(200).send({ exist: false });
+            }
+        }
+    });
+}
+
 exports.findUser = function (req, res) {
     var user = req.session.user;
     let id = user.id;
@@ -144,6 +180,29 @@ exports.modifyMerchant = function (req, res) {
         } else {
             req.session.user = JSON.parse(body);
             res.status(200).send(body);
+        }
+    });
+}
+
+exports.registerMerchantInWeixin = function (req, res) {
+    let user = req.session.user;
+    let id = user.id;
+
+    let phone = req.body.phone;
+
+    request({
+        url: config.remoteServer + '/security/merchant/weixin',
+        method: 'PUT',
+        form: {
+            id: id,
+            phone: phone
+        }
+    }, function (err, response, body) {
+        if (err) {
+            console.error("modify merchant in weixin error:", err, " (status: " + err.status + ")");
+            res.status(404).end();
+        } else {
+            res.status(200).end();
         }
     });
 }

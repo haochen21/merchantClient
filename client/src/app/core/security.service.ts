@@ -120,11 +120,23 @@ export class SecurityService {
         return this.http.put('api/customer/modifyPhone', params)
             .toPromise()
             .then(response => {
-                return Promise.resolve();
+                return response.json();
             })
             .catch(this.handleError);
     }
 
+    registerMerchantInWeixin(phone: String): Promise<User> {
+        let params = {
+            phone: phone
+        }
+
+        return this.http.put('api/merchant/weixin', params)
+            .toPromise()
+            .then(response => {
+                return Promise.resolve();
+            })
+            .catch(this.handleError);
+    }
 
     modifyPassword(password: String): Promise<any> {
         let params = {

@@ -86,9 +86,15 @@ router.route('/user')
     .get(service.security.findUser);
 router.route('/user/:id')
     .get(service.security.findUserById);
+router.route('/phoneExists/:phone')
+    .get(service.security.phoneExists);  
+router.route('/devicePhoneExists/:phone')
+    .get(service.security.devicePhoneExists);        
 router.route('/merchant')
     .post(service.security.createMerchant)
     .put(service.security.modifyMerchant);
+router.route('/merchant/weixin')
+    .put(service.security.registerMerchantInWeixin);    
 router.route('/merchant/name/:name')
     .get(service.security.findMechantByName);
 router.route('/customer')

@@ -23,6 +23,8 @@ export class ValidationService {
             'invalidCurrency': '价格格式不正确',
             'invalidNumber': '数量格式不正确',
             'invalidTime': '时间格式不正确',
+            'existPhone': '手机号码已存在',
+            'noExistDevicePhone': '手机号码在设备表中不存在',
             'minlength': `最小长度 ${validatorValue.requiredLength}`,
             'maxlength': `最大长度 ${validatorValue.requiredLength}`
         };
@@ -94,6 +96,60 @@ export class ValidationService {
                         let result = response.json();
                         if (result.exist) {
                             resolve({ 'invalidCardNo': true });
+                        } else {
+                            resolve(null);
+                        }
+                    }).catch(error => {
+                        console.log(error);
+                        return null;
+                    });
+            });
+        }
+    }
+    
+    static devicePhoneExists(control: FormControl) {
+        // Manually inject Http
+        let http = ValidationService.getHttp();
+        if (control.value === '') {
+            return new Promise(resolve => {
+                resolve({ 'required': true });
+            });
+        } else {
+            return new Promise(resolve => {
+                http.get('api/devicePhoneExists/' + control.value)
+                    .toPromise()
+                    .then(response => {
+                        console.log(response.json());
+                        let result = response.json();
+                        if (!result.exist) {
+                            resolve({ 'noExistDevicePhone': true });
+                        } else {
+                            resolve(null);
+                        }
+                    }).catch(error => {
+                        console.log(error);
+                        return null;
+                    });
+            });
+        }
+    }
+
+    static phoneExists(control: FormControl) {
+        // Manually inject Http
+        let http = ValidationService.getHttp();
+        if (control.value === '') {
+            return new Promise(resolve => {
+                resolve({ 'required': true });
+            });
+        } else {
+            return new Promise(resolve => {
+                http.get('api/phoneExists/' + control.value)
+                    .toPromise()
+                    .then(response => {
+                        console.log(response.json());
+                        let result = response.json();
+                        if (result.exist) {
+                            resolve({ 'existPhone': true });
                         } else {
                             resolve(null);
                         }

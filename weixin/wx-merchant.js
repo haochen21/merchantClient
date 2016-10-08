@@ -31,7 +31,7 @@ router.get('/callback', function (req, res) {
     if (req.session.user.phone) {
       res.redirect('/?#/order');
     } else {
-      res.redirect('/?#/modifyuser');
+      res.redirect('/?#/weixinRegister');
     }
   } else {
     client.getAccessToken(code, function (err, result) {
@@ -90,7 +90,7 @@ router.get('/callback', function (req, res) {
           if (user.phone) {
             res.redirect('/?#/order');
           } else {
-            res.redirect('/?#/modifyuser');
+            res.redirect('/?#/weixinRegister');
           }
         }
       });
