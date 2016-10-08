@@ -142,6 +142,7 @@ exports.modifyMerchant = function (req, res) {
         if (err || response.statusCode != 200) {
             res.status(404).end();
         } else {
+            req.session.user = JSON.parse(body);
             res.status(200).send(body);
         }
     });

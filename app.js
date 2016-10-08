@@ -8,6 +8,7 @@ var compression = require('compression');
 var RedisStore = require('connect-redis')(expressSession);
 
 var config = require('./config');
+var weixin = require('./weixin');
 var service = require('./service');
 
 var ticketSocket = require('./message/socket');
@@ -33,6 +34,7 @@ app.use(expressSession({
         logErrors: true
     }),
     secret: '1234567890QWERTY',
+    cookie: {maxAge: 1800000},
     resave: false,
     saveUninitialized: false
 }));
@@ -42,11 +44,7 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 
-var config = {
-    token: 'csyAh8MuCS2D9t5CE5tA',
-    encodingAESKey: 'NxNOSOHzcjQEbdRO1smbbChtPVQEELTW5foj62UptTS',
-    corpId: 'gh_869f79b99915'
-};
+app.use('/weixin', weixin);
 
 function logErrors(err, req, res, next) {
     console.error('logErrors', err.toString());
@@ -63,6 +61,7 @@ function errorHandler(err, req, res, next) {
 
 var router = express.Router();
 
+router.use('/merchant/*', checkLogin);
 router.use('/user/*', checkLogin);
 router.use('/cart/*', checkLogin);
 router.use('/product/*', checkLogin);
@@ -177,6 +176,6 @@ app.use(logErrors);
 app.use(errorHandler);
 
 
-server.listen(3000, function () {
+server.listen(80, function () {
     console.info('server listening on port 80');
 });    

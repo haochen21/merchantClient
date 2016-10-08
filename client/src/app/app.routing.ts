@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { NoContent } from './core/no-content';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'order', pathMatch: 'full' },
   { path: 'login', loadChildren: 'app/login/login.module#LoginModule' },
   { path: 'order', loadChildren: 'app/order/order.module#OrderModule' },
   { path: 'product', loadChildren: 'app/product/product.module#ProductModule' },

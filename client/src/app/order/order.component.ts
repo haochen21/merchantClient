@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 
 import * as moment from 'moment';
 
@@ -35,6 +36,7 @@ export class OrderComponent implements OnInit, OnDestroy {
     openQueryPanel: boolean = false;
 
     constructor(
+        private router: Router,
         private orderService: OrderService,
         private securityService: SecurityService,
         private socketService: SocketService,
@@ -127,6 +129,9 @@ export class OrderComponent implements OnInit, OnDestroy {
 
         }).catch(error => {
             console.log(error);
+            if(error.status && error.status === 401){
+                this.router.navigate(['/login']);
+            }
             this.slimLoader.complete();
         });
     }
