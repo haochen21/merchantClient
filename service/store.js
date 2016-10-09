@@ -17,20 +17,6 @@ exports.findCategoryByMerchant = function (req, res) {
     });
 }
 
-exports.findCategoryByMerchantId = function (req, res) {
-    let merchantId = req.params.merchantId;
-    request.get({
-        url: config.remoteServer + '/store/category/merchant/' + merchantId
-    }, function (err, response, body) {
-        if (err) {
-            console.error("find categorys error:", err, " (status: " + err.status + ")");
-            res.status(404).end();
-        } else {
-            res.status(200).send(body);
-        }
-    });
-}
-
 exports.createCategory = function (req, res) {
     let category = req.body.category;
     let merchant = req.session.merchant;
@@ -153,20 +139,6 @@ exports.findProduct = function (req, res) {
 exports.findProductByMerchant = function (req, res) {
     let merchant = req.session.merchant;
     let merchantId = merchant.id;
-    request.get({
-        url: config.remoteServer + '/store/product/merchant/' + merchantId
-    }, function (err, response, body) {
-        if (err) {
-            console.error("find products error:", err, " (status: " + err.status + ")");
-            res.status(404).end();
-        } else {
-            res.status(200).send(body);
-        }
-    });
-}
-
-exports.findProductByMerchantId = function (req, res) {
-    let merchantId = req.params.merchantId;
     request.get({
         url: config.remoteServer + '/store/product/merchant/' + merchantId
     }, function (err, response, body) {

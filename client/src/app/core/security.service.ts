@@ -55,15 +55,6 @@ export class SecurityService {
             .catch(this.handleError);
     }
 
-    findMerchantById(id: number): Promise<Merchant> {
-        return this.http.get('api/merchant/' + id)
-            .toPromise()
-            .then(response => {
-                return response.json();
-            })
-            .catch(this.handleError);
-    }
-
     registerMerchant(merchant: Merchant): Promise<Merchant> {
         let body = JSON.stringify({ merchant });
         let headers = new Headers({ 'Content-Type': 'application/json' });

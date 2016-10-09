@@ -80,21 +80,16 @@ router.route('/loginNameExists/:loginName')
     .get(service.security.loginNameExists);
 router.route('/deviceExists/:deviceNo')
     .get(service.security.deviceExists);
-router.route('/merchant')
-    .get(service.security.findMerchant);
-router.route('/merchant/:id')
-    .get(service.security.findMerchantById);
 router.route('/phoneExists/:phone')
     .get(service.security.phoneExists);
 router.route('/devicePhoneExists/:phone')
     .get(service.security.devicePhoneExists);
 router.route('/merchant')
+    .get(service.security.findMerchant)
     .post(service.security.createMerchant)
     .put(service.security.modifyMerchant);
 router.route('/merchant/weixin')
     .put(service.security.registerMerchantInWeixin);
-router.route('/merchant/name/:name')
-    .get(service.security.findMechantByName);
 router.route('/password', checkLogin)
     .put(service.security.modifyPassword);
 router.route('/merchant/open')
@@ -117,8 +112,6 @@ router.route('/category/:id')
 
 router.route('/category/find/merchant')
     .get(service.store.findCategoryByMerchant);
-router.route('/category/find/merchant/:merchantId')
-    .get(service.store.findCategoryByMerchantId);
 
 router.route('/product')
     .post(service.store.createProduct)
@@ -127,8 +120,6 @@ router.route('/product/:id')
     .get(service.store.findProduct);
 router.route('/product/find/merchant')
     .get(service.store.findProductByMerchant);
-router.route('/product/find/merchant/:merchantId')
-    .get(service.store.findProductByMerchantId);
 
 router.route('/cart/page')
     .post(service.order.pageCartByFilter);
@@ -169,6 +160,6 @@ app.use(logErrors);
 app.use(errorHandler);
 
 
-server.listen(80, function () {
+server.listen(2080, function () {
     console.info('server listening on port 80');
 });    
