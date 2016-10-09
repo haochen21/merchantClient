@@ -36,7 +36,7 @@ export class MyComponent implements OnInit, OnDestroy {
     document.body.style.backgroundColor = '#f5f5f5';
 
     this.securityService
-      .findUser()
+      .findMerchant()
       .then(user => {
         console.log(user);
         this.merchant = <Merchant>user;

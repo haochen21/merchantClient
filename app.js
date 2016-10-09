@@ -34,7 +34,7 @@ app.use(expressSession({
         logErrors: true
     }),
     secret: '1234567890QWERTY',
-    cookie: {maxAge: 1800000},
+    cookie: { maxAge: 1800000 },
     resave: false,
     saveUninitialized: false
 }));
@@ -67,7 +67,7 @@ router.use('/cart/*', checkLogin);
 router.use('/product/*', checkLogin);
 
 function checkLogin(req, res, next) {
-    if (req.session && req.session.user) {
+    if (req.session && req.session.merchant) {
         return next();
     } else {
         res.status(401).end();
@@ -80,33 +80,21 @@ router.route('/loginNameExists/:loginName')
     .get(service.security.loginNameExists);
 router.route('/deviceExists/:deviceNo')
     .get(service.security.deviceExists);
-router.route('/cardExists/:cardNo')
-    .get(service.security.cardExists);
-router.route('/user')
-    .get(service.security.findUser);
-router.route('/user/:id')
-    .get(service.security.findUserById);
+router.route('/merchant')
+    .get(service.security.findMerchant);
+router.route('/merchant/:id')
+    .get(service.security.findMerchantById);
 router.route('/phoneExists/:phone')
-    .get(service.security.phoneExists);  
+    .get(service.security.phoneExists);
 router.route('/devicePhoneExists/:phone')
-    .get(service.security.devicePhoneExists);        
+    .get(service.security.devicePhoneExists);
 router.route('/merchant')
     .post(service.security.createMerchant)
     .put(service.security.modifyMerchant);
 router.route('/merchant/weixin')
-    .put(service.security.registerMerchantInWeixin);    
+    .put(service.security.registerMerchantInWeixin);
 router.route('/merchant/name/:name')
     .get(service.security.findMechantByName);
-router.route('/customer')
-    .post(service.security.createCustomer)
-    .put(service.security.modifyCustomer);
-router.route('/customer/modifyPhone', checkLogin)
-    .put(service.security.modifyCustomerPhone);
-router.route('/customer/merchant')
-    .get(service.security.findMechantsOfCustomer)
-    .post(service.security.saveMerchantsOfCustomer);
-router.route('/customer/merchant/size')
-    .get(service.security.countMechantsOfCustomer)
 router.route('/password', checkLogin)
     .put(service.security.modifyPassword);
 router.route('/merchant/open')
@@ -118,8 +106,7 @@ router.route('/merchant/lock')
 router.route('/merchant/openRange')
     .get(service.security.findOpenRange)
     .post(service.security.createOpenRange);
-router.route('/merchant/openRange/:id')
-    .get(service.security.findOpenRangeByMerchantId);
+
 
 router.route('/category')
     .post(service.store.createCategory)

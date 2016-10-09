@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import * as io from 'socket.io-client';
 
 import { SecurityService } from './security.service';
-import { User } from '../model/User';
+import { Merchant } from '../model/Merchant';
 
 @Injectable()
 export class SocketService {
@@ -19,9 +19,9 @@ export class SocketService {
         this.socket.emit(event, message);
     }
 
-    get(user:User): Observable<any> {
+    get(merchant:Merchant): Observable<any> {
         this.socket = io.connect();
-        this.socket.on("connect", () => this.connect(user));
+        this.socket.on("connect", () => this.connect(merchant));
         this.socket.on("disconnect", () => this.disconnect());
         this.socket.on("error", (error: string) => {
             console.log('ERROR:'+error);
@@ -33,9 +33,9 @@ export class SocketService {
         });
     }
     
-    private connect(user:User) {
+    private connect(merchant:Merchant) {
         console.log('Connected to websocket');
-        this.socket.emit('set_user', user);
+        this.socket.emit('set_user', merchant);
     }
 
     private disconnect() {

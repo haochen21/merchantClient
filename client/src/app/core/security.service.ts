@@ -3,7 +3,6 @@ import { Headers, Http, RequestOptions } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
-import { User } from '../model/User';
 import { Merchant } from '../model/Merchant';
 import { Customer } from '../model/Customer';
 import { OpenRange } from '../model/OpenRange';
@@ -23,6 +22,7 @@ export class SecurityService {
     getMenuName() {
         return this.menuName;
     }
+
     login(loginName: String, password: String): Promise<any> {
         let params = {
             loginName: loginName,
@@ -46,8 +46,8 @@ export class SecurityService {
             .catch(this.handleError);
     }
 
-    findUser(): Promise<User> {
-        return this.http.get('api/user')
+    findMerchant(): Promise<Merchant> {
+        return this.http.get('api/merchant')
             .toPromise()
             .then(response => {
                 return response.json();
@@ -55,8 +55,8 @@ export class SecurityService {
             .catch(this.handleError);
     }
 
-    findUserById(id: number): Promise<User> {
-        return this.http.get('api/user/' + id)
+    findMerchantById(id: number): Promise<Merchant> {
+        return this.http.get('api/merchant/' + id)
             .toPromise()
             .then(response => {
                 return response.json();
@@ -64,7 +64,7 @@ export class SecurityService {
             .catch(this.handleError);
     }
 
-    registerMerchant(merchant: Merchant): Promise<User> {
+    registerMerchant(merchant: Merchant): Promise<Merchant> {
         let body = JSON.stringify({ merchant });
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
@@ -76,7 +76,7 @@ export class SecurityService {
             .catch(this.handleError);
     }
 
-    modifyMerchant(merchant: Merchant): Promise<User> {
+    modifyMerchant(merchant: Merchant): Promise<Merchant> {
         let body = JSON.stringify({ merchant });
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
@@ -88,44 +88,7 @@ export class SecurityService {
             .catch(this.handleError);
     }
 
-    registerCustomer(customer: Customer): Promise<User> {
-        let body = JSON.stringify({ customer });
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-        return this.http.post('api/customer', body, options)
-            .toPromise()
-            .then(response => {
-                return response.json();
-            })
-            .catch(this.handleError);
-    }
-
-    modifyCustomer(customer: Customer): Promise<User> {
-        let body = JSON.stringify({ customer });
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-        return this.http.put('api/customer', body, options)
-            .toPromise()
-            .then(response => {
-                return response.json();
-            })
-            .catch(this.handleError);
-    }
-
-    modifyCustomerPhone(phone: String): Promise<any> {
-        let params = {
-            phone: phone
-        }
-
-        return this.http.put('api/customer/modifyPhone', params)
-            .toPromise()
-            .then(response => {
-                return response.json();
-            })
-            .catch(this.handleError);
-    }
-
-    registerMerchantInWeixin(phone: String): Promise<User> {
+    registerMerchantInWeixin(phone: String): Promise<Merchant> {
         let params = {
             phone: phone
         }
@@ -203,52 +166,12 @@ export class SecurityService {
             .catch(this.handleError);
     }
 
-    saveMerchantsOfCustomer(merchantIds: Array<number>): Promise<Array<Merchant>> {
-        let params = {
-            merchantIds: merchantIds
-        }
-        return this.http.post('api/customer/merchant', params)
-            .toPromise()
-            .then(response => {
-                console.log(response.json());
-                return response.json();
-            })
-            .catch(this.handleError);
-    }
-
-    findMechantByName(name: string): Promise<Array<Merchant>> {
-        return this.http.get('api/merchant/name/' + name)
-            .toPromise()
-            .then(response => {
-                return response.json();
-            })
-            .catch(this.handleError);
-    }
-
-    findMechantsOfCustomer(): Promise<Array<Merchant>> {
-        return this.http.get('api/customer/merchant')
-            .toPromise()
-            .then(response => {
-                return response.json();
-            })
-            .catch(this.handleError);
-    }
-
     merchantLock(password: String): Promise<any> {
         let params = {
             password: password
         }
 
         return this.http.post('api/merchant/lock', params)
-            .toPromise()
-            .then(response => {
-                return response.json();
-            })
-            .catch(this.handleError);
-    }
-
-    countMechantsOfCustomer(): any {
-        return this.http.get('api/customer/merchant/size')
             .toPromise()
             .then(response => {
                 return response.json();

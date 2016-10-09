@@ -78,34 +78,7 @@ export class ValidationService {
                     });
             });
         }
-    }
-
-    static cardExists(control: FormControl) {
-        // Manually inject Http
-        let http = ValidationService.getHttp();
-        if (control.value === '') {
-            return new Promise(resolve => {
-                resolve({ 'required': true });
-            });
-        } else {
-            return new Promise(resolve => {
-                http.get('api/cardExists/' + control.value)
-                    .toPromise()
-                    .then(response => {
-                        console.log(response.json());
-                        let result = response.json();
-                        if (result.exist) {
-                            resolve({ 'invalidCardNo': true });
-                        } else {
-                            resolve(null);
-                        }
-                    }).catch(error => {
-                        console.log(error);
-                        return null;
-                    });
-            });
-        }
-    }
+    }    
     
     static devicePhoneExists(control: FormControl) {
         // Manually inject Http

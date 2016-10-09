@@ -26,7 +26,7 @@ export class LoginFormComponent implements OnInit {
 
     model = {
         loginName: 'xazj',
-        password: '1234qwer'
+        password: '123456'
     };
 
     onSubmit() {
@@ -38,10 +38,8 @@ export class LoginFormComponent implements OnInit {
                 if (loginResult.result === 'AUTHORIZED') {
                     this.loginNameError = false;
                     this.passwordError = false;
-                    localStorage.setItem('user', JSON.stringify(loginResult.user));
-                    if (loginResult.user.type === 'M') {
-                        this.router.navigate(['/order']);
-                    }
+                    localStorage.setItem('merchant', JSON.stringify(loginResult.merchant));
+                    this.router.navigate(['/my']);
                 } else if (loginResult.result === 'LOGINNAMEERROR') {
                     this.loginNameError = true;
                     this.passwordError = false;
@@ -54,9 +52,9 @@ export class LoginFormComponent implements OnInit {
     }
 
     ngOnInit() {
-        let user: any = JSON.parse(localStorage.getItem('user'));
-        if (user) {
-            this.model.loginName = user.loginName;
+        let merchant: any = JSON.parse(localStorage.getItem('merchant'));
+        if (merchant) {
+            this.model.loginName = merchant.loginName;
         }
     }
 }

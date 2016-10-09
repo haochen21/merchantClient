@@ -38,7 +38,7 @@ export class ModifyImageComponent implements OnInit, OnDestroy {
     ngOnInit() {
 
         this.securityService
-            .findUser()
+            .findMerchant()
             .then(user => {
                 console.log(user);
                 this.merchant = <Merchant>user;

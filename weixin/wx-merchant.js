@@ -3,6 +3,7 @@ var OAuth = require('wechat-oauth');
 var express = require('express');
 var router = express.Router();
 var securityService = require('../service/security');
+var fs = require('fs');
 
 // 微信授权和回调
 var client = new OAuth(config.appid, config.appsecret);
@@ -25,10 +26,10 @@ router.get('/callback', function (req, res) {
   console.log('----weixin callback -----')
   var code = req.query.code;
 
-  if (req.session && req.session.user) {
+  if (req.session && req.session.merchant) {
     console.log('----weixin session exist------');
     // if phone_number exist,go home page
-    if (req.session.user.phone) {
+    if (req.session.merchant.phone) {
       res.redirect('/?#/order');
     } else {
       res.redirect('/?#/weixinRegister');
@@ -36,48 +37,40 @@ router.get('/callback', function (req, res) {
   } else {
     client.getAccessToken(code, function (err, result) {
 
-      //result = fakeData;
-
-      console.log(result);
+      console.log("get weixin access_token" + result);
       var accessToken = result.data.access_token;
       var openid = result.data.openid;
 
-      console.log('token=' + accessToken);
-      console.log('openid=' + openid);
-
-      securityService.findUserByOpenId(openid, function (err, user) {
-        console.log('微信回调后,返回的user = ' + user);
-        if (err || user === null) {
+      securityService.findMerchantByOpenId(openid, function (err, merchant) {
+        console.log('微信回调后,返回的user = ' + merchant);
+        if (err || merchant === null) {
           console.log('user is not exist.');
 
           client.getUser(openid, function (err, result) {
-            console.log('use weixin api get user,err: ' + err);
-            console.log('use weixin api get user,result: ' + result);
+            console.log('use weixin api get merchant,err: ' + err);
+            console.log('use weixin api get merchant,result: ' + JSON.stringify(result));
 
             var oauth_user = result;
 
-            //oauth_user = fakeUser;
+            var _merchant = {};
+            _merchant.openId = oauth_user.openid;
+            _merchant.loginName = oauth_user.nickname;
+            _merchant.name = oauth_user.nickname;
+            _merchant.city = oauth_user.city;
+            _merchant.province = oauth_user.province;
+            _merchant.country = oauth_user.country;
+            _merchant.headImgUrl = oauth_user.headimgurl;
+            _merchant.name = oauth_user.nickname;
+            _merchant.password = '123456';
 
-            var _user = {};
-            _user.openId = oauth_user.openid;
-            _user.loginName = oauth_user.nickname;
-            _user.name = oauth_user.nickname;
-            _user.city = oauth_user.city;
-            _user.province = oauth_user.province;
-            _user.country = oauth_user.country;
-            _user.headImgUrl = oauth_user.headimgurl;
-            _user.name = oauth_user.nickname;
-            _user.password = '123456';
-
-            securityService.createCustomerByWeixin(_user, function (err, result) {
+            securityService.createMerchantByWeixin(_user, function (err, result) {
               if (err) {
                 console.log('merchant save error ....' + err);
               } else {
-                console.log('merchant save sucess ....' + result);
-                console.log(result);
+                console.log('merchant save sucess ....' + JSON.stringify(result));
                 req.session.auth = true;
-                req.session.user = JSON.parse(result);
-                res.redirect('/?#/modifyuser');
+                req.session.merchant = result;
+                res.redirect('/?#/weixinRegister');
               }
             });
 
@@ -85,9 +78,9 @@ router.get('/callback', function (req, res) {
         } else {
           console.log('根据openid查询，用户已经存在');
           req.session.auth = true;
-          req.session.user = user;
+          req.session.merchant = user;
           // if phone_number exist,go home page
-          if (user.phone) {
+          if (merchant.phone) {
             res.redirect('/?#/order');
           } else {
             res.redirect('/?#/weixinRegister');
@@ -99,22 +92,3 @@ router.get('/callback', function (req, res) {
 });
 
 module.exports = router;
-
-const fakeData = {
-  data: {
-    "access_token": "ACCESS_TOKEN",
-    "expires_in": 7200,
-    "refresh_token": "REFRESH_TOKEN",
-    "openid": "111212121",
-    "scope": "SCOPE"
-  }
-};
-
-const fakeUser = {
-  openid: '111212121',
-  nickname: 'xiaomian',
-  city: '重庆',
-  province: '',
-  country: '',
-  headimgurl: ''
-};

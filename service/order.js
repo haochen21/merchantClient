@@ -94,8 +94,8 @@ exports.statCartEarningByStatus = function (req, res) {
 
 exports.statEarningByCreatedOn = function (req, res) {
     let filter = req.body.filter;
-    var user = req.session.user;
-    filter.merchantId = user.id;
+    var merchant = req.session.merchant;
+    filter.merchantId = merchant.id;
     request({
         url: config.remoteServer + '/order/cart/stat/earning/createdOn',
         method: 'POST',

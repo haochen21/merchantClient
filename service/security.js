@@ -7,7 +7,7 @@ exports.login = function (req, res) {
     var session = req.session;
     //res.status(200).send(loginResult);
     request.post({
-        url: config.remoteServer + '/security/login',
+        url: config.remoteServer + '/security/merchant/login',
         form: {
             loginName: loginName,
             password: password
@@ -34,7 +34,7 @@ exports.loginNameExists = function (req, res) {
     let loginName = req.params.loginName;
 
     request.get({
-        url: config.remoteServer + '/security/loginNameExists/' + loginName
+        url: config.remoteServer + '/security/merchant/loginNameExists/' + loginName
     }, function (err, response, body) {
         if (err || response.statusCode != 200) {
             res.status(404).end();
@@ -52,25 +52,7 @@ exports.deviceExists = function (req, res) {
     let deviceNo = req.params.deviceNo;
 
     request.get({
-        url: config.remoteServer + '/security/device/' + deviceNo
-    }, function (err, response, body) {
-        if (err || response.statusCode != 200) {
-            res.status(404).end();
-        } else {
-            if (body === "true") {
-                res.status(200).send({ exist: true });
-            } else {
-                res.status(200).send({ exist: false });
-            }
-        }
-    });
-}
-
-exports.cardExists = function (req, res) {
-    let cardNo = req.params.cardNo;
-
-    request.get({
-        url: config.remoteServer + '/security/card/' + cardNo
+        url: config.remoteServer + '/security/merchant/device/' + deviceNo
     }, function (err, response, body) {
         if (err || response.statusCode != 200) {
             res.status(404).end();
@@ -88,7 +70,7 @@ exports.phoneExists = function (req, res) {
     let phone = req.params.phone;
 
     request.get({
-        url: config.remoteServer + '/security/user/phone/' + phone
+        url: config.remoteServer + '/security/merchant/phone/' + phone
     }, function (err, response, body) {
         if (err || response.statusCode != 200) {
             res.status(404).end();
@@ -120,14 +102,55 @@ exports.devicePhoneExists = function (req, res) {
     });
 }
 
-exports.findUser = function (req, res) {
+exports.cardExists = function (req, res) {
+    let cardNo = req.params.cardNo;
+
+    request.get({
+        url: config.remoteServer + '/security/card/' + cardNo
+    }, function (err, response, body) {
+        if (err || response.statusCode != 200) {
+            res.status(404).end();
+        } else {
+            if (body === "true") {
+                res.status(200).send({ exist: true });
+            } else {
+                res.status(200).send({ exist: false });
+            }
+        }
+    });
+}
+
+exports.registerMerchantInWeixin = function (req, res) {
+    let user = req.session.user;
+    let id = user.id;
+
+    let phone = req.body.phone;
+
+    request({
+        url: config.remoteServer + '/security/merchant/weixin',
+        method: 'PUT',
+        form: {
+            id: id,
+            phone: phone
+        }
+    }, function (err, response, body) {
+        if (err) {
+            console.error("modify merchant in weixin error:", err, " (status: " + err.status + ")");
+            res.status(404).end();
+        } else {
+            res.status(200).end();
+        }
+    });
+}
+
+exports.findMerchant = function (req, res) {
     var user = req.session.user;
     let id = user.id;
     request.get({
-        url: config.remoteServer + '/security/user/' + id
+        url: config.remoteServer + '/security/merchant/' + id
     }, function (err, response, body) {
         if (err) {
-            console.error("find user error:", err, " (status: " + err.status + ")");
+            console.error("find merchant error:", err, " (status: " + err.status + ")");
             res.status(404).end();
         } else {
             res.status(200).send(body);
@@ -135,13 +158,13 @@ exports.findUser = function (req, res) {
     });
 }
 
-exports.findUserById = function (req, res) {
+exports.findMerchantById = function (req, res) {
     let id = req.params.id;
     request.get({
-        url: config.remoteServer + '/security/user/' + id
+        url: config.remoteServer + '/security/merchant/' + id
     }, function (err, response, body) {
         if (err) {
-            console.error("find user error:", err, " (status: " + err.status + ")");
+            console.error("find merchant error:", err, " (status: " + err.status + ")");
             res.status(404).end();
         } else {
             res.status(200).send(body);
@@ -172,37 +195,10 @@ exports.modifyMerchant = function (req, res) {
 
     request({
         url: config.remoteServer + '/security/merchant',
-        method: 'PUT',
-        json: merchant
+        method: 'PUT',json: merchant
     }, function (err, response, body) {
-        if (err || response.statusCode != 200) {
-            res.status(404).end();
-        } else {
-            req.session.user = JSON.parse(body);
-            res.status(200).send(body);
-        }
-    });
-}
-
-exports.registerMerchantInWeixin = function (req, res) {
-    let user = req.session.user;
-    let id = user.id;
-
-    let phone = req.body.phone;
-
-    request({
-        url: config.remoteServer + '/security/merchant/weixin',
-        method: 'PUT',
-        form: {
-            id: id,
-            phone: phone
-        }
-    }, function (err, response, body) {
-        if (err) {
-            console.error("modify merchant in weixin error:", err, " (status: " + err.status + ")");
-            res.status(404).end();
-        } else {
-            res.status(200).end();
+        if (err || response.statusCode != 200) {res.status(404).end();
+        } else {res.status(200).send(body);
         }
     });
 }
@@ -259,6 +255,7 @@ exports.modifyCustomerPhone = function (req, res) {
             console.error("modify phone error:", err, " (status: " + err.status + ")");
             res.status(404).end();
         } else {
+            req.session.user.phone = phone;
             res.status(200).end();
         }
     });
@@ -271,7 +268,7 @@ exports.modifyPassword = function (req, res) {
     let password = req.body.password;
 
     request({
-        url: config.remoteServer + '/security/password',
+        url: config.remoteServer + '/security/merchant/password',
         method: 'PUT',
         form: {
             id: id,
@@ -454,7 +451,7 @@ exports.merchantLock = function (req, res) {
     let password = req.body.password;
 
     request.post({
-        url: config.remoteServer + '/security/login',
+        url: config.remoteServer + '/security/merchant/login',
         form: {
             loginName: loginName,
             password: password
@@ -481,9 +478,9 @@ exports.merchantLock = function (req, res) {
     });
 }
 
-exports.findUserByOpenId = function (openId, callback) {
+exports.findMerchantByOpenId = function (openId, callback) {
     request.get({
-        url: config.remoteServer + '/security/user/openId//' + openId
+        url: config.remoteServer + '/security/merchant/openId/' + openId
     }, function (err, response, body) {
         if (err || response.statusCode != 200) {
             callback(err);

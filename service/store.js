@@ -2,8 +2,8 @@ var request = require("request");
 var config = require("../config");
 
 exports.findCategoryByMerchant = function (req, res) {
-    let user = req.session.user;
-    let merchantId = user.id;
+    var merchant = req.session.merchant;
+    let merchantId = merchant.id;
 
     request.get({
         url: config.remoteServer + '/store/category/merchant/' + merchantId
@@ -33,8 +33,8 @@ exports.findCategoryByMerchantId = function (req, res) {
 
 exports.createCategory = function (req, res) {
     let category = req.body.category;
-    let user = req.session.user;
-    category.merchant = user;
+    let merchant = req.session.merchant;
+    category.merchant = merchant;
 
     request({
         url: config.remoteServer + '/store/category',
@@ -51,9 +51,9 @@ exports.createCategory = function (req, res) {
 
 exports.modifyCategory = function (req, res) {
     let category = req.body.category;
-    let user = req.session.user;
-    category.merchant = user;
-    
+    let merchant = req.session.merchant;
+    category.merchant = merchant;
+
     request({
         url: config.remoteServer + '/store/category',
         method: 'PUT',
@@ -99,10 +99,10 @@ exports.findCategory = function (req, res) {
 }
 
 exports.createProduct = function (req, res) {
-    let user = req.session.user;
+    let merchant = req.session.merchant;
 
     let product = req.body.product;
-    product.merchant = user;
+    product.merchant = merchant;
 
     request({
         url: config.remoteServer + '/store/product',
@@ -118,10 +118,10 @@ exports.createProduct = function (req, res) {
 }
 
 exports.modifyProduct = function (req, res) {
-    let user = req.session.user;
+    let merchant = req.session.merchant;
 
     let product = req.body.product;
-    product.merchant = user;
+    product.merchant = merchant;
 
     request({
         url: config.remoteServer + '/store/product',
@@ -151,8 +151,8 @@ exports.findProduct = function (req, res) {
 }
 
 exports.findProductByMerchant = function (req, res) {
-    let user = req.session.user;
-    let merchantId = user.id;
+    let merchant = req.session.merchant;
+    let merchantId = merchant.id;
     request.get({
         url: config.remoteServer + '/store/product/merchant/' + merchantId
     }, function (err, response, body) {

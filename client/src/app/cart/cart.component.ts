@@ -48,7 +48,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         document.body.style.backgroundColor = '#f2f0f0';
-        this.securityService.findUser().then(user => {
+        this.securityService.findMerchant().then(user => {
             this.merchant = <Merchant>user;
             this.refresh();
             this.connection = this.socketService.get(user).subscribe(value => {

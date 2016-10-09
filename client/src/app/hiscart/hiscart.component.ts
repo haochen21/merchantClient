@@ -45,7 +45,7 @@ export class HisCartComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         document.body.style.backgroundColor = '#f2f0f0';
-        this.securityService.findUser().then(user => {
+        this.securityService.findMerchant().then(user => {
             this.merchant = <Merchant>user;
             let queryDate: moment.Moment = moment(this.date);
             let queryDateStr = queryDate.format('YYYY-MM-DD');
