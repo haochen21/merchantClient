@@ -39,7 +39,7 @@ export class LoginFormComponent implements OnInit {
                     this.loginNameError = false;
                     this.passwordError = false;
                     localStorage.setItem('merchant', JSON.stringify(loginResult.merchant));
-                    this.router.navigate(['/my']);
+                    this.router.navigate(['/order']);
                 } else if (loginResult.result === 'LOGINNAMEERROR') {
                     this.loginNameError = true;
                     this.passwordError = false;
