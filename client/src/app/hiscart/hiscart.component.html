@@ -14,20 +14,20 @@
                 <li>
                     <span>
 			        <div class="bar-holder no-padding">
-				        <p class="margin-bottom-5">
-                            <strong>订单编号：</strong>
-                            <i>{{cart.no}}</i>                    
-                        </p>
-                        <div class="bar-info">
+				        <div class="bar-info">
                             <div class="bar-btn">
                                 <button type="button" class="btn btn-sm btn-secondary" (click)="showDetail(cart)">
                                     {{cart.showDetail?'收起':'详情'}}
                                 </button>
                             </div>
                             <div class="note no-margin">
-                                <span>订单状态：</span>
-                    <i class="fa fa-jpy text-danger padding-right-10" *ngIf="cart.needPay"></i>
-                    <i class="fa fa-check text-success padding-right-10" *ngIf="!cart.needPay"></i> {{cart.status | cartStatusFormatPipe}}
+            <span>订单编号：</span>
+                    <span>{{cart.id}}</span>
+        </div>
+        <div class="note no-margin">
+            <span>订单状态：</span>
+            <i class="fa fa-jpy text-danger padding-right-10" *ngIf="cart.needPay"></i>
+            <i class="fa fa-check text-success padding-right-10" *ngIf="!cart.needPay"></i> {{cart.status | cartStatusFormatPipe}}
         </div>
         <div class="note no-margin">
             <span>商品数量：</span>
@@ -95,7 +95,7 @@
             <form [formGroup]="form" (ngSubmit)="onSubmit()">
                 <div class="form-group">
                     <label>订单编号</label>
-                    <input type="text" class="form-control" formControlName="no">
+                    <input type="number" class="form-control" formControlName="cartId">
                 </div>
                 <div class="form-group">
                     <label>订单日期</label>

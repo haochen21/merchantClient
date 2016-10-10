@@ -35,7 +35,7 @@ export class SocketService {
     
     private connect(merchant:Merchant) {
         console.log('Connected to websocket');
-        this.socket.emit('set_user', merchant);
+        this.socket.emit('set_merchant', merchant);
     }
 
     private disconnect() {

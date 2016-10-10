@@ -10,7 +10,7 @@
         </ul>
         <form class="navbar-form" [class.open]="navbarFormOpen" (ngSubmit)="onQueryOrder()" #queryForm="ngForm">
             <div class="form-group has-feedback">
-                <input type="text" placeholder="输入订单编号 ..." class="form-control" required [(ngModel)]="queryOrder.no" name="no" #no="ngModel">
+                <input type="text" placeholder="输入订单编号 ..." class="form-control" required [(ngModel)]="queryOrder.cartId" name="cartId" #no="ngModel">
                 <div class="fa fa-times form-control-feedback" (click)="navbarFormOpenClick()"></div>
             </div>
             <button type="submit" class="hidden btn btn-default">Submit</button>
@@ -22,15 +22,15 @@
             <li>
                 <span>
 			        <div class="bar-holder no-padding">
-				        <p class="margin-bottom-5">
-                            <strong>订单编号：</strong>
-                            <i>{{cart.no}}</i>                    
-                        </p>
-                        <div class="bar-info">
+				        <div class="bar-info">
                             <div class="bar-btn">
                                 <button type="button" class="btn btn-sm btn-secondary" (click)="showDetail(cart)">
                                     {{cart.showDetail?'收起':'详情'}}
                                 </button>
+                            </div>
+                            <div class="note no-margin">
+                                <span>订单编号：</span>
+                                <span>{{cart.id}}</span>
                             </div>
                             <div class="note no-margin">
                                 <span>订单状态：</span>

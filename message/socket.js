@@ -5,12 +5,14 @@ exports.initialize = function (io) {
     io.on('connection', function (socket) {
 
         socket.on('disconnect', function () {
-            messageSubscribers[socket.merchant.id].logNum = messageSubscribers[socket.merchant.id].logNum - 1;
-            if (messageSubscribers[socket.merchant.id].logNum === 0) {
-                delete messageSubscribers[socket.merchant.id];
-                console.log('client disconnect,id is: ' + socket.merchant.id + ',name is: ' + socket.merchant.loginName + ',time is: 0 ');
-            } else {
-                console.log('client disconnect,id is: ' + socket.merchant.id + ',name is: ' + socket.merchant.loginName + ',time is: ' + messageSubscribers[socket.merchant.id].logNum);
+            if (socket.merchant) {
+                messageSubscribers[socket.merchant.id].logNum = messageSubscribers[socket.merchant.id].logNum - 1;
+                if (messageSubscribers[socket.merchant.id].logNum === 0) {
+                    delete messageSubscribers[socket.merchant.id];
+                    console.log('client disconnect,id is: ' + socket.merchant.id + ',name is: ' + socket.merchant.loginName + ',time is: 0 ');
+                } else {
+                    console.log('client disconnect,id is: ' + socket.merchant.id + ',name is: ' + socket.merchant.loginName + ',time is: ' + messageSubscribers[socket.merchant.id].logNum);
+                }
             }
         });
 

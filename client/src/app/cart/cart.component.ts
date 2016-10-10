@@ -27,7 +27,7 @@ export class CartComponent implements OnInit, OnDestroy {
     navbarFormOpen: boolean = false;
 
     queryOrder: any = {
-        no: ''
+        cartId: ''
     };
 
     cartPage: CartPage = new CartPage();
@@ -48,10 +48,10 @@ export class CartComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         document.body.style.backgroundColor = '#f2f0f0';
-        this.securityService.findMerchant().then(user => {
-            this.merchant = <Merchant>user;
+        this.securityService.findMerchant().then(dbMerchant => {
+            this.merchant = dbMerchant;
             this.refresh();
-            this.connection = this.socketService.get(user).subscribe(value => {
+            this.connection = this.socketService.get(dbMerchant).subscribe(value => {
                 let cart: Cart = value;
                 console.log(cart);
                 if (cart.status === CartStatus.CONFIRMED) {
@@ -136,7 +136,7 @@ export class CartComponent implements OnInit, OnDestroy {
         statuses.push(CartStatus.CONFIRMED);
         this.filter.statuses = statuses;
 
-        this.filter.no = this.queryOrder.no;
+        this.filter.cartId = this.queryOrder.cartId;
 
         this.filter.page = 0;
         this.filter.size = this.size;

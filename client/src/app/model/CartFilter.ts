@@ -2,6 +2,7 @@ import { CartStatus } from './CartStatus';
 
 export class CartFilter {
     
+    cartId: number;
     no: string;    
     merchantId: number;
     customerId: number;

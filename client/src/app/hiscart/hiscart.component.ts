@@ -55,7 +55,7 @@ export class HisCartComponent implements OnInit, OnDestroy {
 
             this.form = this.formBuilder.group({
                 'date': [queryDateStr],
-                'no': [],
+                'cartId': [],
                 'confirmed': [false],
                 'delivered': [true]
             });
@@ -106,9 +106,9 @@ export class HisCartComponent implements OnInit, OnDestroy {
             statuses.push(CartStatus.DELIVERED);
         }
 
-        if (this.form.value.no) {
-            this.filter.no = this.form.value.no;
-            (<FormControl>this.form.controls['no']).setValue('');
+        if (this.form.value.cartId) {
+            this.filter.cartId = this.form.value.cartId;
+            (<FormControl>this.form.controls['cartId']).setValue('');
         } else {
             this.filter.no = null;
         }
