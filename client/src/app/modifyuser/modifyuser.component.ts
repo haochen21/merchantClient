@@ -73,9 +73,9 @@ export class ModifyUserComponent implements OnInit {
     merchant.takeByPhoneSuffix = this.form.value.takeByPhoneSuffix;
     merchant.description = this.form.value.description;
 
-    this.securityService.modifyMerchant(merchant).then(user => {
-      localStorage.setItem('user', JSON.stringify(user));
-      this.router.navigate(['/merchant']);
+    this.securityService.modifyMerchant(merchant).then(value => {
+      localStorage.setItem('merchant', JSON.stringify(value));
+      this.router.navigate(['/my']);
     }).catch(error => {
       console.log(error)
     });

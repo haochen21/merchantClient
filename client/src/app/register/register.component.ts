@@ -47,7 +47,7 @@ export class RegisterComponent {
 
     this.securityService.registerMerchant(merchant).then(value => {
       localStorage.setItem('merchant', JSON.stringify(value));
-      this.router.navigate(['/merchant']);
+      this.router.navigate(['/login']);
     }).catch(error => {
       console.log(error)
     });

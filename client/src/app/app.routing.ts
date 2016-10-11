@@ -12,7 +12,6 @@ export const routes: Routes = [
   { path: 'cart', loadChildren: 'app/cart/cart.module#CartModule' },
   { path: 'hiscart', loadChildren: 'app/hiscart/hiscart.module#HisCartModule' },
   { path: 'category', loadChildren: 'app/category/category.module#CategoryModule' },
-  { path: 'merchant', loadChildren: 'app/merchant/merchant.module#MerchantModule' },
   { path: 'my', loadChildren: 'app/my/my.module#MyModule' },
   { path: 'modifyuser', loadChildren: 'app/modifyuser/modifyuser.module#ModifyUserModule' },
   { path: 'modifypassword', loadChildren: 'app/modifypassword/modify-password.module#ModifyPasswordModule' },

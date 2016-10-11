@@ -67,6 +67,7 @@ export class ProductCreateComponent implements OnInit, OnDestroy {
             'payTimeLimit': ['10', [Validators.required, ValidationService.timeValidator]],
             'takeTimeLimit': ['0', [Validators.required, ValidationService.timeValidator]],
             'needPay': [this.product.needPay],
+            'openRange': [this.product.openRange],
             'infinite': [this.product.infinite],
             'status': ['销售', [Validators.required]],
             'category': [{}]
@@ -94,12 +95,10 @@ export class ProductCreateComponent implements OnInit, OnDestroy {
 
                     product.infinite = true;
                     product.needPay = true;
+                    product.openRange = false;
                     product.unitsInOrder = 0;
 
-                    this.isCreated = false;
-
-                    (<FormControl>this.form.controls['needPay']).setValue(this.product.needPay);
-                    (<FormControl>this.form.controls['infinite']).setValue(this.product.infinite);
+                    this.isCreated = false;                    
 
                     return new Promise<Product>(resolve => {
                         resolve(product);
@@ -118,6 +117,9 @@ export class ProductCreateComponent implements OnInit, OnDestroy {
                     (<FormControl>this.form.controls['unitsInStock']).setValue(this.product.unitsInStock);
                     (<FormControl>this.form.controls['payTimeLimit']).setValue(this.product.payTimeLimit);
                     (<FormControl>this.form.controls['takeTimeLimit']).setValue(this.product.takeTimeLimit);
+                    (<FormControl>this.form.controls['needPay']).setValue(this.product.needPay);
+                    (<FormControl>this.form.controls['infinite']).setValue(this.product.infinite);
+                    (<FormControl>this.form.controls['openRange']).setValue(this.product.openRange);
                     if (this.product.status === ProductStatus.ONLINE) {
                         (<FormControl>this.form.controls['status']).setValue('销售');
                     } else {
@@ -156,6 +158,10 @@ export class ProductCreateComponent implements OnInit, OnDestroy {
         this.product.unitsInStock = +this.form.value.unitsInStock;
         this.product.payTimeLimit = +this.form.value.payTimeLimit;
         this.product.takeTimeLimit = +this.form.value.takeTimeLimit;
+        this.product.needPay = this.form.value.needPay;
+        this.product.infinite = this.form.value.infinite;
+        this.product.openRange = this.form.value.openRange;
+
         if (this.form.value.status === '销售') {
             this.product.status = ProductStatus.ONLINE;
         } else if (this.form.value.status === '下架') {

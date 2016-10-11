@@ -8,7 +8,7 @@ import { SecurityService } from '../core/security.service';
 
 import { Merchant } from '../model/Merchant';
 
-const URL = 'http://120.25.90.244:8080/ticketServer/security/merchant/image';
+const URL = 'http://shop.km086.com:8080/ticketServer/security/merchant/image';
 //const URL = 'http://127.0.0.1:8080/ticketServer/security/merchant/image';
 
 @Component({
