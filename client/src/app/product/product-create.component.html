@@ -37,7 +37,7 @@
 					<div class="form-group row">
 						<label class="col-xs-8 col-form-label pt15">无限库存</label>
 						<div class="col-xs-4">
-							<md-checkbox formControlName="infinite">
+							<md-checkbox formControlName="infinite" [checked]="product.infinite" (change)="product.infinite = $event.checked">
 							</md-checkbox>
 						</div>
 					</div>
@@ -51,7 +51,7 @@
 					<div class="form-group row">
 						<label class="col-xs-8 col-form-label pt15">在线支付</label>
 						<div class="col-xs-4">
-							<md-checkbox formControlName="needPay">
+							<md-checkbox formControlName="needPay" [checked]="product.needPay" (change)="product.needPay = $event.checked">
 							</md-checkbox>
 						</div>
 					</div>

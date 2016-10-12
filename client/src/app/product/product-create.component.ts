@@ -158,9 +158,7 @@ export class ProductCreateComponent implements OnInit, OnDestroy {
         this.product.unitsInStock = +this.form.value.unitsInStock;
         this.product.payTimeLimit = +this.form.value.payTimeLimit;
         this.product.takeTimeLimit = +this.form.value.takeTimeLimit;
-        this.product.needPay = this.form.value.needPay;
-        this.product.infinite = this.form.value.infinite;
-        this.product.openRange = this.form.value.openRange;
+        
 
         if (this.form.value.status === '销售') {
             this.product.status = ProductStatus.ONLINE;

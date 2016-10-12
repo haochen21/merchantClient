@@ -63,7 +63,7 @@ router.get('/callback', function (req, res) {
             _merchant.name = oauth_user.nickname;
             _merchant.password = '123456';
 
-            securityService.createMerchantByWeixin(_user, function (err, result) {
+            securityService.createMerchantByWeixin(_merchant, function (err, result) {
               if (err) {
                 console.log('merchant save error ....' + err);
               } else {
