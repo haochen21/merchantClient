@@ -34,7 +34,6 @@ app.use(expressSession({
         logErrors: true
     }),
     secret: '1234567890QWERTY',
-    cookie: { maxAge: 1800000 },
     resave: false,
     saveUninitialized: false
 }));

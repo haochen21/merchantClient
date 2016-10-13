@@ -48,8 +48,6 @@ export class ModifyUserComponent implements OnInit {
       (<FormControl>this.form.controls['shortName']).setValue(this.merchant.shortName);
       (<FormControl>this.form.controls['email']).setValue(this.merchant.mail);
       (<FormControl>this.form.controls['address']).setValue(this.merchant.address);
-      (<FormControl>this.form.controls['takeByPhone']).setValue(this.merchant.takeByPhone);
-      (<FormControl>this.form.controls['takeByPhoneSuffix']).setValue(this.merchant.takeByPhoneSuffix);
       (<FormControl>this.form.controls['description']).setValue(this.merchant.description);
     }).catch(error => {
       console.log(error)
@@ -69,8 +67,8 @@ export class ModifyUserComponent implements OnInit {
     merchant.deviceNo = this.form.value.deviceNo;
     merchant.shortName = this.form.value.shortName;
     merchant.address = this.form.value.address;
-    merchant.takeByPhone = this.form.value.takeByPhone;
-    merchant.takeByPhoneSuffix = this.form.value.takeByPhoneSuffix;
+    merchant.takeByPhone = this.merchant.takeByPhone;
+    merchant.takeByPhoneSuffix = this.merchant.takeByPhoneSuffix;
     merchant.description = this.form.value.description;
 
     this.securityService.modifyMerchant(merchant).then(value => {

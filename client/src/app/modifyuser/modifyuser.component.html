@@ -50,7 +50,7 @@
                 <div class="row">
                     <div class="col-xs-12 p0 input-text-box input-text-box1">
                         <div class="form-group p-l-20">
-                            <md-checkbox align="start" formControlName="takeByPhone">
+                            <md-checkbox align="start" formControlName="takeByPhone" [checked]="merchant.takeByPhone" (change)="merchant.takeByPhone = $event.checked">
                                 手机号码提货
                             </md-checkbox>
                         </div>
@@ -59,7 +59,7 @@
                 <div class="row">
                     <div class="col-xs-12 p0 input-text-box input-text-box1">
                         <div class="form-group p-l-20">
-                            <md-checkbox align="start" formControlName="takeByPhoneSuffix">
+                            <md-checkbox align="start" formControlName="takeByPhoneSuffix" [checked]="merchant.takeByPhoneSuffix" (change)="merchant.takeByPhoneSuffix = $event.checked">
                                 手机号码后四位提货
                             </md-checkbox>
                         </div>
