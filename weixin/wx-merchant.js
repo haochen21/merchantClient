@@ -44,11 +44,11 @@ router.get('/callback', function (req, res) {
       securityService.findMerchantByOpenId(openid, function (err, merchant) {
         console.log('微信回调后,返回的user = ' + merchant);
         if (err || merchant === null) {
-          console.log('user is not exist.');
+          console.log('merchant is not exist.');
 
           client.getUser(openid, function (err, result) {
-            console.log('use weixin api get merchant,err: ' + err);
-            console.log('use weixin api get merchant,result: ' + JSON.stringify(result));
+            console.log('weixin api get merchant,err: ' + err);
+            console.log('weixin api get merchant,result: ' + JSON.stringify(result));
 
             var oauth_user = result;
 
@@ -78,7 +78,7 @@ router.get('/callback', function (req, res) {
         } else {
           console.log('根据openid查询，用户已经存在');
           req.session.auth = true;
-          req.session.merchant = user;
+          req.session.merchant = merchant;
           // if phone_number exist,go home page
           if (merchant.phone) {
             res.redirect('/?#/order');
