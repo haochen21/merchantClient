@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { ToastyService, ToastyConfig, ToastOptions, ToastData } from 'ng2-toasty';
 import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
@@ -17,7 +17,7 @@ import { ProductStatus } from '../model/ProductStatus';
     templateUrl: './product-list.component.html',
     styleUrls: ['./product-list.component.css']
 })
-export class ProductListComponent implements OnInit, OnDestroy {    
+export class ProductListComponent implements OnInit, OnDestroy {
 
     categorys: Array<Category>;
 
@@ -25,47 +25,66 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
     imagePreUrl: string = this.storeService.imagePreUrl;
 
+    selectedCategoryId: number = -1;
+
+    private sub: any;
+
     constructor(
         private storeService: StoreService,
         private securityService: SecurityService,
+        private route: ActivatedRoute,
         private router: Router,
         private toastyService: ToastyService,
         private toastyConfig: ToastyConfig,
-        private slimLoader: SlimLoadingBarService) { 
-            this.toastyConfig.theme = 'material';
-        }
+        private slimLoader: SlimLoadingBarService) {
+        this.toastyConfig.theme = 'material';
+    }
 
     ngOnInit() {
         this.slimLoader.start();
 
-        //document.body.style.overflow = 'hidden';        
-
-        this.storeService.findCategoryByMerchant().then(value => {
-            this.categorys = value;
-            //add other for product which has not a category
-            let other: Category = new Category();
-            other.id = -1;
-            other.name = '其它';
-            this.categorys.push(other);
-            console.log(value);
-            return this.storeService.findProductByMerchant();
-        }).then(value => {
-            this.products = value;
-            for (let category of this.categorys) {
-                let productOfCategory = this.products.filter(p => {
-                    if (category.id === -1 && !p.category) {
-                        return true;
-                    } else if (p.category && p.category.id == category.id) {
-                        return true;
+        this.sub = this.route.params.subscribe(params => {
+            let categoryId = +params['categoryId']; // (+) converts string 'id' to a number
+            this.storeService.findCategoryByMerchant().then(value => {
+                this.categorys = value;
+                //add other for product which has not a category
+                let other: Category = new Category();
+                other.id = -1;
+                other.name = '其它';
+                this.categorys.push(other);
+                //default category 
+                for (let category of this.categorys) {
+                    if (categoryId === -1) {
+                        this.selectedCategoryId = category.id;
+                        break;
+                    } else if (category.id === categoryId) {
+                        this.selectedCategoryId = category.id;
+                        break;
                     }
-                });
-                category.products = productOfCategory;
-            }
-            console.log(value);
-            this.slimLoader.complete();
-        }).catch(error => {
-            console.log(error)
+                }
+                console.log(value);
+                return this.storeService.findProductByMerchant();
+            }).then(value => {
+                this.products = value;
+                for (let category of this.categorys) {
+                    let productOfCategory = this.products.filter(p => {
+                        if (category.id === -1 && !p.category) {
+                            return true;
+                        } else if (p.category && p.category.id == category.id) {
+                            return true;
+                        }
+                    });
+                    category.products = productOfCategory;
+                }
+                console.log(value);
+                this.slimLoader.complete();
+            }).catch(error => {
+                console.log(error);
+            });
         });
+
+
+
     }
 
     changeProductStatus(event: any, p: Product) {
@@ -91,7 +110,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
         }).catch(error => {
             console.log(error);
         });
-        
+
     }
 
     addToast(p: Product) {
@@ -110,9 +129,9 @@ export class ProductListComponent implements OnInit, OnDestroy {
         };
         this.toastyService.success(toastOptions);
     }
-    
+
     ngOnDestroy() {
-        //document.body.style.overflow = 'auto';
+        this.sub.unsubscribe();
     }
 
 } 

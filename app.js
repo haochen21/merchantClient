@@ -160,6 +160,6 @@ app.use(logErrors);
 app.use(errorHandler);
 
 
-server.listen(2080, function () {
+server.listen(80, function () {
     console.info('server listening on port 80');
 });    

@@ -41,7 +41,7 @@ export class NavbarComponent implements OnInit {
     menuClick(menuName: string) {
         this.securityService.setMenuName(menuName);
         if (this.securityService.getMenuName() === 'product') {
-             this.router.navigate(['/product']);
+             this.router.navigate(['/product/-1']);
         } else if (this.securityService.getMenuName() === 'cart') {
            this.router.navigate(['/cart']);
         } else if (this.securityService.getMenuName() === 'order') {

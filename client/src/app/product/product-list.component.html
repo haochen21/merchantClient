@@ -1,6 +1,6 @@
 <div class="product-container">
     <tabset class="varieties-shop">
-        <tab *ngFor="let c of categorys;let i = index" [heading]="c.name" [active]="i === 0">
+        <tab *ngFor="let c of categorys" [heading]="c.name" [active]="c.id === selectedCategoryId ">
             <div *ngFor="let p of c.products">
                 <div class="product-edit-panel container">
                     <div class="info-head row  bbe9">

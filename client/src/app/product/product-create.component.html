@@ -66,7 +66,7 @@
 					<div class="form-group row">
 						<label class="col-xs-8 col-form-label pt15">允许在当前营业时间段下单</label>
 						<div class="col-xs-4">
-							<md-checkbox formControlName="openRange"></md-checkbox>
+							<md-checkbox formControlName="openRange" [checked]="product.openRange" (change)="product.openRange = $event.checked"></md-checkbox>
 						</div>
 					</div>
 					<div class="form-group">

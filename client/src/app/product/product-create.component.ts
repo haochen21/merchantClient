@@ -165,10 +165,12 @@ export class ProductCreateComponent implements OnInit, OnDestroy {
         } else if (this.form.value.status === '下架') {
             this.product.status = ProductStatus.OFFLINE;
         }
+        let categoryId:number = -1;
         if (!this.form.value.category.id) {
             this.product.category = null;
         } else {
             this.product.category = this.form.value.category;
+            categoryId = this.form.value.category.id;
         }
 
         if (!this.product.id) {
@@ -178,6 +180,7 @@ export class ProductCreateComponent implements OnInit, OnDestroy {
                 this.isCreated = true;
                 this.addToast("创建成功", this.product.name + " 创建成功");
                 this.slimLoader.complete();
+                this.router.navigate(['/product', categoryId]);
             }).catch(error => {
                 console.log(error);
             });
@@ -188,6 +191,7 @@ export class ProductCreateComponent implements OnInit, OnDestroy {
                 this.getStockDescription();
                 this.addToast("更新成功", this.product.name + " 更新成功");
                 this.slimLoader.complete();
+                this.router.navigate(['/product', categoryId]);
             }).catch(error => {
                 console.log(error);
             });
