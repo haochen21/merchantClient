@@ -14,6 +14,9 @@ export class OrderListComponent {
     @Input()
     openRange: OpenRange;
 
+    @Input()
+    listLayout: boolean;
+
     getTotalOrder(): number {
         let value: number = 0;
         if (typeof this.openRange.statusStat === 'undefined' || !this.openRange.statusStat) {            

@@ -35,6 +35,8 @@ export class OrderComponent implements OnInit, OnDestroy {
 
     openQueryPanel: boolean = false;
 
+    listLayout: boolean = false;
+
     constructor(
         private router: Router,
         private orderService: OrderService,
@@ -64,13 +66,7 @@ export class OrderComponent implements OnInit, OnDestroy {
         this.securityService.findOpenRanges().then(value => {
             this.covertTimeToDate(value.openRanges);
             this.merchant = value;
-            let index = 0;
-            for (let openRange of this.merchant.openRanges) {
-                openRange.index = index;
-                index++;
-                this.tabs.push(openRange);
-            }
-            this.tabs.sort(function (a, b) {
+            this.merchant.openRanges.sort(function (a, b) {
                 if (a.beginTime > b.beginTime) {
                     return 1;
                 }
@@ -79,6 +75,12 @@ export class OrderComponent implements OnInit, OnDestroy {
                 }
                 return 0;
             });
+            let index = 0;
+            for (let openRange of this.merchant.openRanges) {
+                openRange.index = index;
+                index++;
+                this.tabs.push(openRange);
+            }
             // 24 hours
             let beginTime: moment.Moment = moment(new Date());
             beginTime.hours(0).minutes(0).seconds(0).milliseconds(0);
@@ -93,7 +95,7 @@ export class OrderComponent implements OnInit, OnDestroy {
             this.selectedIndex = 0;
             let now: Date = new Date();
             let hasSelectedIndex: boolean = false;
-            for (let i = 0; i < this.tabs.length-1; i++) {
+            for (let i = 0; i < this.tabs.length - 1; i++) {
                 if (now >= this.tabs[i].beginTime && now <= this.tabs[i].endTime) {
                     this.selectedIndex = i;
                     hasSelectedIndex = true;
@@ -101,10 +103,10 @@ export class OrderComponent implements OnInit, OnDestroy {
                 }
             }
             if (!hasSelectedIndex) {
-                for (let i = 0; i < this.tabs.length-1; i++) {
+                for (let i = 0; i < this.tabs.length - 1; i++) {
                     if (now > this.tabs[i].endTime) {
                         if (i < this.tabs.length - 2) {
-                            if (now < this.tabs[i+1].beginTime) {
+                            if (now < this.tabs[i + 1].beginTime) {
                                 this.selectedIndex = i + 1;
                                 break;
                             }
@@ -129,7 +131,7 @@ export class OrderComponent implements OnInit, OnDestroy {
 
         }).catch(error => {
             console.log(error);
-            if(error.status && error.status === 401){
+            if (error.status && error.status === 401) {
                 this.router.navigate(['/login']);
             }
             this.slimLoader.complete();
@@ -218,8 +220,19 @@ export class OrderComponent implements OnInit, OnDestroy {
         filter.takeEndTime = openRange.endTime;
 
         return this.orderService.statCartByProduct(filter).then(value => {
-            openRange.products = value;
-            console.log(value);
+            openRange.products = [];
+            for (let product of value) {
+                if (openRange.index === this.tabs.length - 1) {
+                    openRange.products.push(product);
+                } else {
+                    for (let range of product.openRanges) {
+                        if (range.id === openRange.id) {
+                            openRange.products.push(product);
+                            break;
+                        }
+                    }
+                }
+            }
             return new Promise(resolve => {
                 resolve(value);
             });
@@ -247,6 +260,12 @@ export class OrderComponent implements OnInit, OnDestroy {
     selectedOpenRange(event) {
         this.openQueryPanel = false;
         this.selectedIndex = event.value.index;
+    }
+
+    changeListLayout(event) {
+        this.listLayout = !this.listLayout;
+        event.stopPropagation();
+        event.preventDefault();
     }
 
 }

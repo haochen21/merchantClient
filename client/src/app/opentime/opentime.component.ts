@@ -24,8 +24,7 @@ export class OpenTimeComponent implements OnInit, OnDestroy {
   mstep: number = 1;
   ismeridian: boolean = false;
 
-  beginTime: Date = new Date();
-  endTime: Date = new Date();
+  tempOpenRange:OpenRange;
 
   constructor(
     private securityService: SecurityService,
@@ -55,28 +54,35 @@ export class OpenTimeComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
   }
 
-  openCreate(event) {
+  openCreate(event,openRange:OpenRange) {
     this.creating = true;
+    if(openRange == null){
+      this.tempOpenRange = new OpenRange();
+      this.tempOpenRange.beginTime = new Date();
+      this.tempOpenRange.beginTime.setSeconds(0);
+      this.tempOpenRange.endTime = new Date();
+      this.tempOpenRange.endTime.setSeconds(59);
+    }else{
+      this.tempOpenRange = openRange;
+    }
     event.stopPropagation();
     event.preventDefault();
   }
 
   create(event) {
     this.slimLoader.start();
-    let range: OpenRange = new OpenRange();
-    this.beginTime.setSeconds(0);
-    this.endTime.setSeconds(59);
-    range.beginTime = this.beginTime;
-    range.endTime = this.endTime;
-
+    
     if (!this.merchant.openRanges) {
       this.merchant.openRanges = new Array()
     }
-    this.merchant.openRanges.push(range);
-
+    if(!this.tempOpenRange.id){
+      this.merchant.openRanges.push(this.tempOpenRange);
+    }
+    
     this.securityService.createOpenRanges(this.merchant.openRanges).then(value => {
       this.creating = false;
       this.merchant = value;
+      this.covertTimeToDate(this.merchant.openRanges);
       this.merchant.openRanges.sort(function (a, b) {
         if (a.beginTime > b.beginTime) {
           return 1;
@@ -115,6 +121,18 @@ export class OpenTimeComponent implements OnInit, OnDestroy {
     this.merchant.openRanges = this.merchant.openRanges.filter(o => o !== openRange);
     this.securityService.createOpenRanges(this.merchant.openRanges).then(value => {
       this.merchant = value;
+      this.covertTimeToDate(this.merchant.openRanges);
+      this.creating = false;
+    }).catch(error => {
+      console.log(error);
+    });
+  }
+
+  modify(openRange: OpenRange) {
+    this.merchant.openRanges = this.merchant.openRanges.filter(o => o !== openRange);
+    this.securityService.createOpenRanges(this.merchant.openRanges).then(value => {
+      this.merchant = value;
+      this.covertTimeToDate(this.merchant.openRanges);
       this.creating = false;
     }).catch(error => {
       console.log(error);

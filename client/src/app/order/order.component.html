@@ -5,6 +5,7 @@
         </div>
         <div class="table-btns col-xs-5">
             <div>
+                <button type="button" class="btn btn-info btn-sm" (click)="changeListLayout($event)"><i class="fa fa-list"></i></button>
                 <button type="button" class="btn btn-info btn-sm" (click)="refresh($event)"><i class="fa fa-refresh"></i></button>
                 <button type="button" class="btn btn-warning btn-sm" (click)="openQuery($event)"><i class="fa fa-calendar"></i></button>
             </div>
@@ -12,13 +13,13 @@
     </div>
     <div class="wrapper row">
         <div class="col-xs-12">
-            <order-list [openRange]="tabs[selectedIndex]" *ngIf="tabs.length > 0"></order-list>
+            <order-list [openRange]="tabs[selectedIndex]" [listLayout]="listLayout" *ngIf="tabs.length > 0"></order-list>
         </div>
     </div>
     <div class="query-panel row" *ngIf="openQueryPanel">
         <div class="form">
-            <label class="col-xs-2 form-control-label">统计时间</label>
-            <div class="col-xs-10">
+            <div class="form-control-label">统计时间：</div>
+            <div class="offset-xs-2">
                 <md-radio-group (change)="selectedOpenRange($event)" [value]="tabs[selectedIndex]">
                     <md-radio-button *ngFor="let tab of tabs" [value]="tab">
                         <div>{{tab.beginTime | dateFormatPipe:'HH:mm'}} - {{tab.endTime | dateFormatPipe:'HH:mm'}}</div>

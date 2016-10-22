@@ -86,6 +86,16 @@
                             </select>
 						</div>
 					</div>
+					<div class="form-group">
+						<label>营业时间</label>
+						<div>
+							<div *ngFor="let mot of merchantOpenTimes">
+								<md-checkbox [checked]="mot.checked" (change)="mot.checked = $event.checked">
+									{{mot.desc}}
+								</md-checkbox>
+							</div>
+						</div>
+					</div>
 					<div class="form-group submit">
 						<button type="submit" class="btn btn-submit btn-block" [disabled]="!form.valid">完&nbsp;成</button>
 					</div>

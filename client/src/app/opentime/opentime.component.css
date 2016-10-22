@@ -27,6 +27,9 @@
 form .btn-group button {
     margin-right: 10px;
 }
+td .btn-group > .btn:first-child {
+    margin-right:20px;
+}
 .l-h-5{
     line-height: 5;
 }

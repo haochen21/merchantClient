@@ -20,25 +20,45 @@
         </div>
     </div>
     <div class="margin-top-10">
-        <template ngFor let-product let-i="index" [ngForOf]="openRange.products">
-            <div class="col-xs-12">
-                <div class="panel-body">
-                    <div class="stats-title text-xs-center" >
-                        <p>{{product.name}}</p>
-                    </div>
-                    <div class="margin-top-5 row text-xs-center">
-                        <div class="col-xs-6 margin-top-10">
-                            <small class="stats-label">未提货</small>
-                            <small class="stats-value">{{product.unTakeNumber}}</small>
+        <div *ngIf="!listLayout">
+            <template ngFor let-product let-i="index" [ngForOf]="openRange.products">
+                <div class="col-xs-12">
+                    <div class="panel-body">
+                        <div class="stats-title text-xs-center">
+                            <p>{{product.name}}</p>
                         </div>
+                        <div class="margin-top-5 row text-xs-center">
+                            <div class="col-xs-6 margin-top-10">
+                                <small class="stats-label">未提货</small>
+                                <small class="stats-value">{{product.unTakeNumber}}</small>
+                            </div>
 
-                        <div class="col-xs-6 margin-top-10">
-                            <small class="stats-label">已提货</small>
-                            <small class="stats-value">{{product.takeNumber}}</small>
+                            <div class="col-xs-6 margin-top-10">
+                                <small class="stats-label">已提货</small>
+                                <small class="stats-value">{{product.takeNumber}}</small>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </template>
+            </template>
+        </div>
+        <div *ngIf="listLayout">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>商品名称</th>
+                        <th>未提货</th>
+                        <th>已提货</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let product of openRange.products">
+                        <td width="50%">{{product.name}}</td>
+                        <td width="25%">{{product.unTakeNumber}}</td>
+                        <td width="25%">{{product.takeNumber}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
