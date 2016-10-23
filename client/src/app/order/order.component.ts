@@ -92,14 +92,20 @@ export class OrderComponent implements OnInit, OnDestroy {
             range.index = index;
             this.tabs.push(range);
 
-            this.selectedIndex = 0;
+            this.selectedIndex = this.tabs.length - 1;
             let now: Date = new Date();
             let hasSelectedIndex: boolean = false;
-            for (let i = 0; i < this.tabs.length - 1; i++) {
-                if (now >= this.tabs[i].beginTime && now <= this.tabs[i].endTime) {
-                    this.selectedIndex = i;
-                    hasSelectedIndex = true;
-                    break;
+            if (now <= this.tabs[0].beginTime) {
+                this.selectedIndex = 0;
+                hasSelectedIndex = true;
+            }
+            if (!hasSelectedIndex) {
+                for (let i = 0; i < this.tabs.length - 1; i++) {
+                    if (now >= this.tabs[i].beginTime && now <= this.tabs[i].endTime) {
+                        this.selectedIndex = i;
+                        hasSelectedIndex = true;
+                        break;
+                    }
                 }
             }
             if (!hasSelectedIndex) {
