@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
+import * as moment from 'moment';
+
 import { ToastyService, ToastyConfig, ToastOptions, ToastData } from 'ng2-toasty';
 import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 
@@ -11,6 +13,7 @@ import { Merchant } from '../model/Merchant';
 import { Category } from '../model/Category';
 import { Product } from '../model/Product';
 import { ProductStatus } from '../model/ProductStatus';
+import { OpenRange } from '../model/OpenRange';
 
 @Component({
     selector: 'product-list',
@@ -102,6 +105,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
     update(p: Product) {
         this.slimLoader.color = 'red';
         this.slimLoader.start();
+        this.covertOpenRangeToDate(p.openRanges);
         this.storeService.modifyProduct(p).then(value => {
             console.log(value);
             p = value;
@@ -132,6 +136,15 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.sub.unsubscribe();
+    }
+
+    covertOpenRangeToDate(openRanges: Array<OpenRange>) {
+        for (let openRange of openRanges) {
+            let beginDate: moment.Moment = moment(openRange.beginTime.toString(), "HH:mm:ss");
+            let endDate: moment.Moment = moment(openRange.endTime.toString(), "HH:mm:ss");
+            openRange.beginTime = beginDate.toDate();
+            openRange.endTime = endDate.toDate();           
+        }       
     }
 
 } 
