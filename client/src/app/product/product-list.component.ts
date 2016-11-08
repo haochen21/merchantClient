@@ -109,18 +109,47 @@ export class ProductListComponent implements OnInit, OnDestroy {
         this.storeService.modifyProduct(p).then(value => {
             console.log(value);
             p = value;
-            this.addToast(p);
+            this.addToast(p, '更新成功');
             this.slimLoader.complete();
         }).catch(error => {
             console.log(error);
         });
-
     }
 
-    addToast(p: Product) {
+    delete(p: Product) {
+        this.slimLoader.color = 'red';
+        this.slimLoader.start();
+        this.covertOpenRangeToDate(p.openRanges);
+        p.status = ProductStatus.DELETE;
+        this.storeService.modifyProduct(p).then(value => {
+            this.products = this.products.filter(temp => {
+                if(temp.id !== p.id){
+                    return true;
+                }else {
+                    return false;
+                }
+            });
+            for (let category of this.categorys) {
+                let productOfCategory = this.products.filter(p => {
+                    if (category.id === -1 && !p.category) {
+                        return true;
+                    } else if (p.category && p.category.id == category.id) {
+                        return true;
+                    }
+                });
+                category.products = productOfCategory;
+            }
+            this.addToast(p, '删除成功');
+            this.slimLoader.complete();
+        }).catch(error => {
+            console.log(error);
+        });
+    }
+
+    addToast(p: Product, title: string) {
         var toastOptions: ToastOptions = {
-            title: "更新完成",
-            msg: p.name + " 更新成功",
+            title: title,
+            msg: p.name + title,
             showClose: true,
             timeout: 5000,
             theme: "material",
@@ -143,8 +172,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
             let beginDate: moment.Moment = moment(openRange.beginTime.toString(), "HH:mm:ss");
             let endDate: moment.Moment = moment(openRange.endTime.toString(), "HH:mm:ss");
             openRange.beginTime = beginDate.toDate();
-            openRange.endTime = endDate.toDate();           
-        }       
+            openRange.endTime = endDate.toDate();
+        }
     }
 
 } 

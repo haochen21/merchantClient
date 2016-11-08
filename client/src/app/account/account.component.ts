@@ -44,7 +44,7 @@ export class AccountComponent implements OnInit {
     ngOnInit() {
 
         let beginDate: moment.Moment = moment(new Date());
-        beginDate.date(1).hours(0).minutes(0).seconds(0).milliseconds(0);
+        beginDate.add('days',-7).hours(0).minutes(0).seconds(0).milliseconds(0);
         let beginDateStr = beginDate.format('YYYY-MM-DD');
         this.beginDate = beginDate.toDate();
 
@@ -57,6 +57,8 @@ export class AccountComponent implements OnInit {
             'beginDate': [beginDateStr],
             'endDate': [endDateStr]
         });
+
+        this.onSubmit();
     }
 
     openQuery(event) {

@@ -2,6 +2,7 @@ var stompit = require('stompit');
 
 var socket = require('./socket');
 var config = require('../config');
+var weixinSendMessage = require('../weixin/wx-sendMessage');
 
 var io = null;
 
@@ -36,10 +37,10 @@ exports.initialize = function (io) {
                     for (var subscriber in cartSubscribers) {
                         console.log('cartSubscriber id is: ' + cartSubscribers[subscriber].id+',type is: '+cartSubscribers[subscriber].type);
                         var merchantId = cartJson.merchant.id;
-                        console.log('merchant id is: '+merchantId);
+                        console.log('merchantId is: '+merchantId);
                         if (merchantId === cartSubscribers[subscriber].id) {
                             console.log('cart no is:'+cartJson.no+',stauts is: '+cartJson.status);
-                            if (cartJson.status === 3 || cartJson.status === 4) {
+                            if (cartJson.status === 3 || cartJson.status === 4 || cartJson.status === 5) {
                                 var roomName = 'ticket-message-' + cartSubscribers[subscriber].id;
                                 console.log("roomName= " + roomName);
                                 if (io.sockets.adapter.rooms[roomName]) {
@@ -49,6 +50,7 @@ exports.initialize = function (io) {
                         }
                     }
                 }
+                weixinSendMessage.sendMessage(cartJson);
             });
         });
     });

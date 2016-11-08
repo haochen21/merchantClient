@@ -1,19 +1,14 @@
-{  
-  "button":[      
-    {  
-      "type":"click",  
-      "name":"系统简介",  
-      "key":"V1001_TODAY_SINGER"  
-    },  
-    {  
-      "name":"菜单",  
-      "sub_button":[  
-        {  
-          "type":"view",  
-          "name":"进入商城",  
-          "url":"http://b.km086.com/weixin/merchant"  
-        }
-      ]  
-    }  
-  ]  
+{
+  "button": [
+    {
+      "type": "view",
+      "name": "使用说明",
+      "url": "http://user.qzone.qq.com/2638192745/blog/1477019988/"
+    },
+    {
+      "type": "view",
+      "name": "管理后台",
+      "url": "http://b.km086.com/weixin/merchant"
+    }
+  ]
 }
