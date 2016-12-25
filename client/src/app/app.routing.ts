@@ -21,6 +21,7 @@ export const routes: Routes = [
   { path: 'lock', loadChildren: 'app/lock/lock.module#LockModule' },
   { path: 'openRange', loadChildren: 'app/opentime/opentime.module#OpentimeModule' },
   { path: 'account', loadChildren: 'app/account/account.module#AccountModule' },
+  { path: 'discount', loadChildren: 'app/discount/discount.module#DiscountModule' },
   { path: '**', component: NoContent },
 ];
 

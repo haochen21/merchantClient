@@ -62,6 +62,7 @@ router.get('/callback', function (req, res) {
             _merchant.headImgUrl = oauth_user.headimgurl;
             _merchant.name = oauth_user.nickname;
             _merchant.password = '123456';
+            _merchant.discount = 1.0;
 
             securityService.createMerchantByWeixin(_merchant, function (err, result) {
               if (err) {

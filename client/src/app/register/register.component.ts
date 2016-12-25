@@ -44,7 +44,8 @@ export class RegisterComponent {
     merchant.deviceNo = this.form.value.deviceNo;
     merchant.shortName = this.form.value.shortName;
     merchant.address = this.form.value.address;
-
+    merchant.discount = 1.0;
+    
     this.securityService.registerMerchant(merchant).then(value => {
       localStorage.setItem('merchant', JSON.stringify(value));
       this.router.navigate(['/login']);

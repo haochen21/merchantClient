@@ -189,3 +189,7 @@ table {
 table tr.dashed td {
     border-top: 1px dashed #cccccc;
 }
+.break-line {
+    word-wrap: break-word;
+    word-break: break-all;
+}

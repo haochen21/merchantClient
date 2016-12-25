@@ -4,7 +4,7 @@ var moment = require('moment');
 var API = require('wechat-api');
 var api = new API(config.appid, config.appsecret);
 
-const ORDERTEMPLATE = 'XX7ZcIQZVDCfNYFhQJSrIWLd3iP7ZoyCfEqVUL8y7aw';
+const ORDERTEMPLATE = 'IvBTQmuWSJ2HJ9FD5ke3Ve2nwrggu23lgSqJh23Vqgk';
 
 exports.getLatestToken = function (callback) {
     api.getLatestToken(callback);
@@ -35,11 +35,25 @@ function createConfirmStr(cart) {
     json.first.color = '#173177';
 
     json.keyword1 = {};
-    json.keyword1.value = cart.id;
+    var updatedOn = moment(new Date().setTime(cart.updatedOn));
+    json.keyword1.value = updatedOn.format('YYYY-MM-DD HH:mm:ss');
 
     json.keyword2 = {};
-    var updatedOn = moment(new Date().setTime(cart.updatedOn));
-    json.keyword2.value = updatedOn.format('YYYY-MM-DD HH:mm:ss');
+    json.keyword2.value = cart.id;
+
+    json.keyword3 = {};
+    var products = '';
+    for(var i=0; i< cart.cartItems.length;i++){
+        products += cart.cartItems[i].name+',数量:'+cart.cartItems[i].quantity+' '
+    }
+    json.keyword3.value = products;
+
+    json.remark = {};
+    var remark = '';
+    if(cart.remark != null){
+        remark = '商品备注：'+cart.remark;
+    }
+    json.remark.value = remark;
 
     return json;
 }

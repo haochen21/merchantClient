@@ -20,6 +20,7 @@ export class Cart {
     takeEndTime: Date;
     createdOn: Date;
     updatedOn: Date;
+    remark: string;
     cartItems: Array<CartItem>;
     version: number;    
     
