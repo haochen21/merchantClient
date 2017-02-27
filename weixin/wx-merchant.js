@@ -27,7 +27,7 @@ router.get('/callback', function (req, res) {
   var code = req.query.code;
 
   if (req.session && req.session.merchant) {
-    console.log('----weixin session exist------');
+    console.log('----weixin session exist------'+JSON.stringify(req.session.merchant));
     // if phone_number exist,go home page
     if (req.session.merchant.phone) {
       res.redirect('/?#/order');
