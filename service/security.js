@@ -216,6 +216,29 @@ exports.modifyOpen = function (req, res) {
     });
 }
 
+exports.modifyTakeOut = function (req, res) {
+    let takeOut = req.body.takeOut;
+
+    let merchant = req.session.merchant;
+    let id = merchant.id;
+
+    request({
+        url: config.remoteServer + '/security/merchant/takeOut',
+        method: 'POST',
+        form: {
+            id: id,
+            takeOut: takeOut
+        }
+    }, function (err, response, body) {
+        if (err) {
+            console.error("modify takeOut error:", err, " (status: " + err.status + ")");
+            res.status(404).end();
+        } else {
+            res.status(200).end();
+        }
+    });
+}
+
 exports.updateMerchantQrCode = function (req, res) {
     let merchant = req.session.merchant;
     let id = merchant.id;

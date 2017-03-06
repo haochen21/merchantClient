@@ -5,7 +5,7 @@ import { SharedModule } from '../shared/shared.module';
 import { NavbarModule } from '../navbar/navbar.module';
 
 import { ModifyPasswordComponent } from './modify-password.component';
-import { routing } from './modify-password.routing';
+import { ModifyPasswordRoutingModule } from './modify-password.routing';
 
 @NgModule({
     imports: [
@@ -13,7 +13,7 @@ import { routing } from './modify-password.routing';
         ReactiveFormsModule,
         RouterModule,
         NavbarModule,
-        routing
+        ModifyPasswordRoutingModule
     ],
     declarations: [ModifyPasswordComponent]
 })

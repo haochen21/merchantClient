@@ -13,7 +13,7 @@ import { CategoryComponent } from './category.component';
 import { CategoryListComponent } from './category-list.component';
 import { CategoryCreateComponent } from './category-create.component';
 import { CategoryModifyComponent } from './category-modify.component';
-import { routing } from './category.routing';
+import { CategoryRoutingModule } from './category.routing';
 
 
 @NgModule({
@@ -24,7 +24,7 @@ import { routing } from './category.routing';
         SlimLoadingBarModule.forRoot(),
         MaterialModule.forRoot(),
         NavbarModule,
-        routing
+        CategoryRoutingModule
     ],
     declarations: [CategoryComponent, CategoryListComponent, CategoryCreateComponent, CategoryModifyComponent]
 })

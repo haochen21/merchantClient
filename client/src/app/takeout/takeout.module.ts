@@ -4,20 +4,18 @@ import { SharedModule } from '../shared/shared.module';
 import { NavbarModule } from '../navbar/navbar.module';
 import { MaterialModule } from '@angular/material';
 import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
-import { TimepickerModule } from 'ng2-bootstrap';
 
-import { OpenTimeComponent } from './opentime.component';
-import { OpenTimeRoutingModule } from './opentime.routing';
+import { TakeOutComponent } from './takeout.component';
+import { TakeOutRoutingModule } from './takeout.routing';
 
 @NgModule({
     imports: [
         SharedModule,
-        MaterialModule.forRoot(),
+        MaterialModule,
         SlimLoadingBarModule.forRoot(),
-        TimepickerModule.forRoot(),
         NavbarModule,
-        OpenTimeRoutingModule
+        TakeOutRoutingModule
     ],
-    declarations: [OpenTimeComponent]
+    declarations: [TakeOutComponent]
 })
-export class OpentimeModule { }
+export class TakeOutModule { }

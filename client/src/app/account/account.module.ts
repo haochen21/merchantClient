@@ -9,16 +9,16 @@ import { MaterialModule } from '@angular/material';
 import { NavbarModule } from '../navbar/navbar.module';
 
 import { AccountComponent } from './account.component';
-import { routing } from './account.routing';
+import { AccountRoutingModule } from './account.routing';
 
 @NgModule({
     imports: [
         ReactiveFormsModule,
         SharedModule,
         SlimLoadingBarModule.forRoot(),
-        MaterialModule.forRoot(),
+        MaterialModule,
         NavbarModule,
-        routing
+        AccountRoutingModule
     ],
     declarations: [AccountComponent]
 })

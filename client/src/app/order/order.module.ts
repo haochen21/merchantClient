@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 
 import { MaterialModule } from '@angular/material';
 import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
-import { TabsModule } from 'ng2-bootstrap/ng2-bootstrap';
+import { TabsModule } from 'ng2-bootstrap';
 
 import { SharedModule } from '../shared/shared.module';
 
@@ -12,7 +12,7 @@ import { NavbarModule } from '../navbar/navbar.module';
 
 import { OrderComponent } from './order.component';
 import { OrderListComponent } from './order-list.component';
-import { routing } from './order.routing';
+import { OrderRoutingModule } from './order.routing';
 
 
 @NgModule({
@@ -23,7 +23,7 @@ import { routing } from './order.routing';
         MaterialModule.forRoot(),
         TabsModule,
         NavbarModule,
-        routing
+        OrderRoutingModule
     ],
     declarations: [OrderComponent, OrderListComponent]
 })

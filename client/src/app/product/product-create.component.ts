@@ -104,7 +104,8 @@ export class ProductCreateComponent implements OnInit, OnDestroy {
                         product.needPay = true;
                         product.openRange = false;
                         product.unitsInOrder = 0;
-
+                        product.openRanges = [];
+                        
                         this.isCreated = false;
 
                         return new Promise<Product>(resolve => {

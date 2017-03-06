@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RegisterComponent } from './register.component';
+import { TakeOutComponent } from './takeout.component';
 
 const routes: Routes = [
-    { path: '', redirectTo: 'register', pathMatch: 'full' },
-    { path: 'register', component: RegisterComponent }
+    { path: '', redirectTo: 'takeout', pathMatch: 'full' },
+    { path: 'takeout', component: TakeOutComponent }
 ];
 
 @NgModule({
@@ -15,4 +15,4 @@ const routes: Routes = [
         RouterModule
     ]
 })
-export class RegisterRoutingModule { }
+export class TakeOutRoutingModule { }

@@ -7,7 +7,7 @@ import { NavbarModule } from '../navbar/navbar.module';
 import { MaterialModule } from '@angular/material';
 
 import { MyComponent } from './my.component';
-import { routing } from './my.routing';
+import { MyRoutingModule } from './my.routing';
 
 
 @NgModule({
@@ -17,7 +17,7 @@ import { routing } from './my.routing';
         MaterialModule.forRoot(),
         SlimLoadingBarModule.forRoot(),
         NavbarModule,
-        routing
+        MyRoutingModule
     ],
     declarations: [MyComponent]
 })

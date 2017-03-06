@@ -5,9 +5,8 @@ import { RouterModule } from '@angular/router';
 
 import { MaterialModule } from '@angular/material';
 import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
-import { TabsModule } from 'ng2-bootstrap/ng2-bootstrap';
+import { TabsModule, ProgressbarModule } from 'ng2-bootstrap';
 import { ToastyModule } from 'ng2-toasty';
-import { ProgressbarModule } from 'ng2-bootstrap/ng2-bootstrap';
 import { FileUploadModule } from 'ng2-file-upload';
 
 import { SharedModule } from '../shared/shared.module';
@@ -17,7 +16,7 @@ import { ProductComponent } from './product.component';
 import { ProductListComponent } from './product-list.component';
 import { ProductCreateComponent } from './product-create.component';
 
-import { routing } from './product.routing';
+import { ProductRoutingModule } from './product.routing';
 
 
 @NgModule({
@@ -26,13 +25,13 @@ import { routing } from './product.routing';
         ReactiveFormsModule,
         RouterModule,
         SlimLoadingBarModule.forRoot(),
-        MaterialModule.forRoot(),
+        MaterialModule,
         ToastyModule.forRoot(),
-        TabsModule,
-        ProgressbarModule,
+        TabsModule.forRoot(),
+        ProgressbarModule.forRoot(),
         FileUploadModule,
         NavbarModule,
-        routing
+        ProductRoutingModule
     ],
     declarations: [ProductComponent, ProductListComponent, ProductCreateComponent]
 })

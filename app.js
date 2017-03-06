@@ -94,6 +94,8 @@ router.route('/password', checkLogin)
     .put(service.security.modifyPassword);
 router.route('/merchant/open')
     .put(service.security.modifyOpen);
+router.route('/merchant/takeOut')
+    .put(service.security.modifyTakeOut);    
 router.route('/merchant/qrCode')
     .put(service.security.updateMerchantQrCode);
 router.route('/merchant/lock')

@@ -1,10 +1,10 @@
-import { ModuleWithProviders } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 import { CategoryComponent } from './category.component';
 import { CategoryListComponent } from './category-list.component';
 import { CategoryCreateComponent } from './category-create.component';
 import { CategoryModifyComponent } from './category-modify.component';
+
 
 const routes: Routes = [
     {
@@ -17,4 +17,12 @@ const routes: Routes = [
     }
 ];
 
-export const routing: ModuleWithProviders = RouterModule.forChild(routes);
+@NgModule({
+    imports: [
+        RouterModule.forChild(routes)
+    ],
+    exports: [
+        RouterModule
+    ]
+})
+export class CategoryRoutingModule { }

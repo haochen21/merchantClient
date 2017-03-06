@@ -6,7 +6,7 @@ import { SharedModule } from '../shared/shared.module';
 import { NavbarModule } from '../navbar/navbar.module';
 
 import { ModifyQrCodeComponent } from './modify-qrcode.component';
-import { routing } from './modify-qrcode.routing';
+import { ModifyQrcodeRoutingModule } from './modify-qrcode.routing';
 
 
 @NgModule({
@@ -14,7 +14,7 @@ import { routing } from './modify-qrcode.routing';
         SharedModule,
         RouterModule,
         NavbarModule,
-        routing
+        ModifyQrcodeRoutingModule
     ],
     declarations: [ModifyQrCodeComponent]
 })

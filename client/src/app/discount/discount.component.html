@@ -4,12 +4,25 @@
     <div class="password-modify-form">
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <div class="form-group">
-                <div class="form-group">
-                    <label>折扣</label>
-                    <div>
-                        <input type="number" class="form-control" min="0.00" max="1.00" step="0.01" placeholder="商品折扣" formControlName="discount">
-                        <control-messages [control]="form.controls.discount"></control-messages>
-                    </div>
+                <md-radio-group class="example-radio-group" (change)="changeDiscountType($event)">
+                    <md-radio-button value="打折" [checked]="isPercent">打折</md-radio-button>
+                    <md-radio-button value="减价" [checked]="isAmount">减价</md-radio-button>
+                </md-radio-group>
+            </div>
+
+            <div class="form-group" *ngIf="isPercent">
+                <label>打折</label>
+                <div>
+                    <input type="number" class="form-control" min="0.00" max="1.00" step="0.01" placeholder="商品折扣" formControlName="discount">
+                    <control-messages [control]="form.controls.discount"></control-messages>
+                </div>
+            </div>
+
+            <div class="form-group" *ngIf="isAmount">
+                <label>减价(元)</label>
+                <div>
+                    <input type="number" class="form-control" min="0.00" step="0.01" placeholder="商品减价" formControlName="amount">
+                    <control-messages [control]="form.controls.amount"></control-messages>
                 </div>
             </div>
 

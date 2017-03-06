@@ -5,7 +5,7 @@ import { SharedModule } from '../shared/shared.module';
 import { MaterialModule } from '@angular/material';
 import { NavbarModule } from '../navbar/navbar.module';
 import { ModifyUserComponent } from './modifyuser.component';
-import { routing } from './modifyuser.routing';
+import { ModifyUserRoutingModule } from './modifyuser.routing';
 
 @NgModule({
   imports: [
@@ -14,7 +14,7 @@ import { routing } from './modifyuser.routing';
     MaterialModule.forRoot(),
     RouterModule,
     NavbarModule,
-    routing
+    ModifyUserRoutingModule
   ],
   declarations: [ModifyUserComponent]
 })

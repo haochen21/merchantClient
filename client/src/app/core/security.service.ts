@@ -118,6 +118,19 @@ export class SecurityService {
             .catch(this.handleError);
     }
 
+    modifyTakeOut(takeOut: boolean): Promise<any> {
+        let params = {
+            takeOut: takeOut
+        }
+
+        return this.http.put('api/merchant/takeOut', params)
+            .toPromise()
+            .then(response => {
+                return Promise.resolve();
+            })
+            .catch(this.handleError);
+    }
+
     modifyQrCode(): Promise<any> {
         return this.http.put('api/merchant/qrCode', {})
             .toPromise()

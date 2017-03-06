@@ -1,0 +1,13 @@
+<div class="container takeout-container">
+    <div class="row" *ngIf="merchant">
+        <form class="form-inline">
+            <div class="form-group">
+                <label>外卖开关</label>
+                <md-slide-toggle [color]="primary" [checked]="merchant.takeOut" (change)="modifyTakeOut($event)">
+                </md-slide-toggle>
+            </div>
+        </form>
+    </div>
+    <ng2-slim-loading-bar></ng2-slim-loading-bar>
+</div>
+<ticket-navbar></ticket-navbar>

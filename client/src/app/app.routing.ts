@@ -1,29 +1,36 @@
-import { ModuleWithProviders } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 import { NoContent } from './core/no-content';
 
-export const routes: Routes = [
+export const appRoutes: Routes = [
   { path: '', redirectTo: 'order', pathMatch: 'full' },
-  { path: 'login', loadChildren: 'app/login/login.module#LoginModule' },
-  { path: 'register', loadChildren: 'app/register/register.module#RegisterModule' },
-  { path: 'order', loadChildren: 'app/order/order.module#OrderModule' },
-  { path: 'product', loadChildren: 'app/product/product.module#ProductModule' },
-  { path: 'cart', loadChildren: 'app/cart/cart.module#CartModule' },
-  { path: 'hiscart', loadChildren: 'app/hiscart/hiscart.module#HisCartModule' },
-  { path: 'category', loadChildren: 'app/category/category.module#CategoryModule' },
-  { path: 'my', loadChildren: 'app/my/my.module#MyModule' },
-  { path: 'modifyuser', loadChildren: 'app/modifyuser/modifyuser.module#ModifyUserModule' },
-  { path: 'modifypassword', loadChildren: 'app/modifypassword/modify-password.module#ModifyPasswordModule' },
-  { path: 'modifyimage', loadChildren: 'app/modifyimage/modify-image.module#ModifyImageModule' },
-  { path: 'modifyQrCode', loadChildren: 'app/modifyqrcode/modify-qrcode.module#ModifyQrcodeModule'},
-  { path: 'weixinRegister', loadChildren: 'app/weixinregister/weixin-register.module#WeixinRegisterModule'},
-  { path: 'lock', loadChildren: 'app/lock/lock.module#LockModule' },
-  { path: 'openRange', loadChildren: 'app/opentime/opentime.module#OpentimeModule' },
-  { path: 'account', loadChildren: 'app/account/account.module#AccountModule' },
-  { path: 'discount', loadChildren: 'app/discount/discount.module#DiscountModule' },
-  { path: '**', component: NoContent },
+  { path: 'login', loadChildren: './login/login.module#LoginModule' },
+  { path: 'register', loadChildren: './register/register.module#RegisterModule' },
+  { path: 'order', loadChildren: './order/order.module#OrderModule' },
+  { path: 'product', loadChildren: './product/product.module#ProductModule' },
+  { path: 'cart', loadChildren: './cart/cart.module#CartModule' },
+  { path: 'hiscart', loadChildren: './hiscart/hiscart.module#HisCartModule' },
+  { path: 'category', loadChildren: './category/category.module#CategoryModule' },
+  { path: 'my', loadChildren: './my/my.module#MyModule' },
+  { path: 'modifyuser', loadChildren: './modifyuser/modifyuser.module#ModifyUserModule' },
+  { path: 'modifypassword', loadChildren: './modifypassword/modify-password.module#ModifyPasswordModule' },
+  { path: 'modifyimage', loadChildren: './modifyimage/modify-image.module#ModifyImageModule' },
+  { path: 'modifyQrCode', loadChildren: './modifyqrcode/modify-qrcode.module#ModifyQrcodeModule'},
+  { path: 'weixinRegister', loadChildren: './weixinregister/weixin-register.module#WeixinRegisterModule'},
+  { path: 'lock', loadChildren: './lock/lock.module#LockModule' },
+  { path: 'openRange', loadChildren: './opentime/opentime.module#OpentimeModule' },
+  { path: 'account', loadChildren: './account/account.module#AccountModule' },
+  { path: 'discount', loadChildren: './discount/discount.module#DiscountModule' },
+  { path: 'takeout', loadChildren: './takeout/takeout.module#TakeOutModule' },
+  { path: '**', component: NoContent }
 ];
 
-export const routing: ModuleWithProviders = RouterModule.forRoot(routes, { useHash: true });
-
+@NgModule({
+    imports: [
+        RouterModule.forRoot(appRoutes,{ useHash: true })
+    ],
+    exports: [
+        RouterModule
+    ]
+})
+export class AppRoutingModule { }

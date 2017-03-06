@@ -1,5 +1,5 @@
-import { ModuleWithProviders } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 import { ModifyImageComponent } from './modify-image.component';
 
 const routes: Routes = [
@@ -7,5 +7,12 @@ const routes: Routes = [
     { path: 'modifyimage', component: ModifyImageComponent }
 ];
 
-export const routing: ModuleWithProviders = RouterModule.forChild(routes);
-
+@NgModule({
+    imports: [
+        RouterModule.forChild(routes)
+    ],
+    exports: [
+        RouterModule
+    ]
+})
+export class ModifyImageRoutingModule { }

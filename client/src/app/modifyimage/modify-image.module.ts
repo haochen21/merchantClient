@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { ProgressbarModule } from 'ng2-bootstrap/ng2-bootstrap';
+import { ProgressbarModule } from 'ng2-bootstrap';
 import { FileUploadModule } from 'ng2-file-upload';
 
 import { SharedModule } from '../shared/shared.module';
@@ -9,7 +9,7 @@ import { SharedModule } from '../shared/shared.module';
 import { NavbarModule } from '../navbar/navbar.module';
 
 import { ModifyImageComponent } from './modify-image.component';
-import { routing } from './modify-image.routing';
+import { ModifyImageRoutingModule } from './modify-image.routing';
 
 
 @NgModule({
@@ -19,7 +19,7 @@ import { routing } from './modify-image.routing';
         ProgressbarModule,
         FileUploadModule,
         NavbarModule,
-        routing
+        ModifyImageRoutingModule
     ],
     declarations: [ModifyImageComponent]
 })
