@@ -119,6 +119,7 @@ exports.registerMerchantInWeixin = function (req, res) {
             console.error("modify merchant in weixin error:", err, " (status: " + err.status + ")");
             res.status(404).end();
         } else {
+            req.session.merchant.phone = phone;
             res.status(200).end();
         }
     });
@@ -162,10 +163,12 @@ exports.modifyMerchant = function (req, res) {
 
     request({
         url: config.remoteServer + '/security/merchant',
-        method: 'PUT',json: merchant
+        method: 'PUT', json: merchant
     }, function (err, response, body) {
-        if (err || response.statusCode != 200) {res.status(404).end();
-        } else {res.status(200).send(body);
+        if (err || response.statusCode != 200) {
+            res.status(404).end();
+        } else {
+            res.status(200).send(body);
         }
     });
 }
@@ -335,7 +338,7 @@ exports.merchantLock = function (req, res) {
 
 exports.findMerchantByOpenId = function (openId, callback) {
     request.get({
-        url: config.remoteServer + '/security/merchant/openId/' + openId
+        url: config.remoteServer + '/security/merchant/openId/' + openId + '?' + new Date().getTime()
     }, function (err, response, body) {
         if (err || response.statusCode != 200) {
             callback(err);

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>商家二维码</title>
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    #name {
+      line-height: 3;
+    }
+  </style>
+  <script src="assets/js/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(function(){
+      var id = getUrlParam('id');
+      var request = $.ajax({
+        url: "weixin/merchant/findMerchant/"+id,
+        method: "GET",
+        dataType: "json"
+      });
+ 
+      request.done(function( data ) {
+         var merchant = data;
+         $("#qrcode").attr('src', 'https://mp.weixin.qq.com/cgi-bin/showqrcode'+ '?ticket='+encodeURI(merchant.qrCode));
+         $("#name").html('商铺名称:&nbsp&nbsp&nbsp&nbsp'+merchant.name);
+      });
+ 
+      request.fail(function( jqXHR, textStatus ) {
+        alert( "Request failed: " + JSON.stringify(jqXHR) );
+      });
+    });
+
+    function getUrlParam(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); 
+      var r = window.location.search.substr(1).match(reg); 
+      if (r != null) return unescape(r[2]); return null; 
+    }
+</script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <img id="qrcode" src="" class="img-responsive">
+    </div>
+    <div class="row">
+      <div class="col-md-12 name-div">
+        <span id="name" class="center-block label label-primary"></span>
+      </div>
+    </div>
+  </div>
+
+
+</body>
+
+</html>

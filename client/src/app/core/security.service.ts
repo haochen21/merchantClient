@@ -131,8 +131,8 @@ export class SecurityService {
             .catch(this.handleError);
     }
 
-    modifyQrCode(): Promise<any> {
-        return this.http.put('api/merchant/qrCode', {})
+    modifyQrCode(id: number): Promise<any> {
+        return this.http.get('weixin/merchant/qrcode/'+id)
             .toPromise()
             .then(response => {
                 return response.json();

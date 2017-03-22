@@ -6,7 +6,7 @@ import { SecurityService } from '../core/security.service';
 import { Merchant } from '../model/Merchant';
 
 
-const URL = 'http://120.25.90.244:8080/ticketServer/security/merchant/image';
+const URL = 'https://mp.weixin.qq.com/cgi-bin/showqrcode';
 
 @Component({
     selector: 'modify-qrCode',
@@ -31,7 +31,7 @@ export class ModifyQrCodeComponent implements OnInit, OnDestroy {
                 console.log(user);
                 this.merchant = <Merchant>user;
                 if (this.merchant.qrCode) {
-                    this.qrCodeUrl = URL + '/' + this.merchant.qrCode + '?' + new Date().getTime();
+                    this.qrCodeUrl = URL + '?ticket='+encodeURI(this.merchant.qrCode);
                 }
             })
             .catch(error => {
@@ -45,11 +45,11 @@ export class ModifyQrCodeComponent implements OnInit, OnDestroy {
 
     createTicket(event) {
         this.securityService
-            .modifyQrCode()
+            .modifyQrCode(this.merchant.id)
             .then(value => {
                 console.log(value);
-                this.merchant.qrCode = value.qrCode;
-                this.qrCodeUrl = URL + '/' + value.qrCode + '?' + new Date().getTime();
+                this.merchant.qrCode = value.ticket;
+                this.qrCodeUrl = URL +'?ticket='+encodeURI(value.ticket);
             })
             .catch(error => {
                 console.log(error);

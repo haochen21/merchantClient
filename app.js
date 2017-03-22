@@ -87,7 +87,7 @@ router.route('/devicePhoneExists/:phone')
 router.route('/merchant')
     .get(service.security.findMerchant)
     .post(service.security.createMerchant)
-    .put(service.security.modifyMerchant);
+    .put(service.security.modifyMerchant);  
 router.route('/merchant/weixin')
     .put(service.security.registerMerchantInWeixin);
 router.route('/password', checkLogin)
