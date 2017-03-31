@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy  } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
@@ -37,7 +37,21 @@ export class CategoryListComponent implements OnInit, OnDestroy {
 
         this.storeService.findCategoryByMerchant().then(value => {
             this.categorys = value;
-            console.log(value);
+            this.categorys.sort(function (a, b) {
+                if (a.sequence == null) {
+                    return 1;
+                }
+                if (b.sequence == null) {
+                    return -1;
+                }
+                if (a.sequence > b.sequence) {
+                    return 1;
+                }
+                if (a.sequence < b.sequence) {
+                    return -1;
+                }
+                return 0;
+            });
             this.slimLoader.complete();
             this.hasInit = true;
         }).catch(error => {

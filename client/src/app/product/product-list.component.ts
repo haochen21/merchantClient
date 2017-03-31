@@ -50,6 +50,21 @@ export class ProductListComponent implements OnInit, OnDestroy {
             let categoryId = +params['categoryId']; // (+) converts string 'id' to a number
             this.storeService.findCategoryByMerchant().then(value => {
                 this.categorys = value;
+                this.categorys.sort(function (a, b) {
+                    if (a.sequence == null) {
+                        return 1;
+                    }
+                    if (b.sequence == null) {
+                        return -1;
+                    }
+                    if (a.sequence > b.sequence) {
+                        return 1;
+                    }
+                    if (a.sequence < b.sequence) {
+                        return -1;
+                    }
+                    return 0;
+                });
                 //add other for product which has not a category
                 let other: Category = new Category();
                 other.id = -1;
@@ -123,9 +138,9 @@ export class ProductListComponent implements OnInit, OnDestroy {
         p.status = ProductStatus.DELETE;
         this.storeService.modifyProduct(p).then(value => {
             this.products = this.products.filter(temp => {
-                if(temp.id !== p.id){
+                if (temp.id !== p.id) {
                     return true;
-                }else {
+                } else {
                     return false;
                 }
             });

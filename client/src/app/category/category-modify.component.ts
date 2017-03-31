@@ -26,7 +26,8 @@ export class CategoryModifyComponent {
 
     this.form = formBuilder.group({
       'name': ['', [Validators.minLength(2), Validators.maxLength(20)]],
-      'description': ['', [Validators.minLength(4), Validators.maxLength(255)]]
+      'description': ['', [Validators.minLength(4), Validators.maxLength(255)]],
+      'sequence': ['1', ,],
     });
   }
 
@@ -38,6 +39,11 @@ export class CategoryModifyComponent {
       this.storeService.findCategory(this.id).then(category => {
         (<FormControl>this.form.controls['name']).setValue(category.name);
         (<FormControl>this.form.controls['description']).setValue(category.description);
+        let sequence = 0;
+        if(category.sequence){
+          sequence = category.sequence;
+        }
+        (<FormControl>this.form.controls['sequence']).setValue(sequence);
       }).catch(error => {
         console.log(error)
       });
@@ -54,6 +60,7 @@ export class CategoryModifyComponent {
     category.id = this.id;
     category.name = this.form.value.name;
     category.description = this.form.value.description;
+    category.sequence = this.form.value.sequence;
 
     this.storeService.modifyCategory(category).then(value => {
       console.log(value);

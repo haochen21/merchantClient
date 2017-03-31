@@ -16,6 +16,13 @@
                 <small *ngIf="form.controls.description.pristine">分类说明长度4-255个字符</small>
             </div>
         </div>
+        <div class="form-group row">
+            <label class="col-sm-2 form-control-label">排序</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" min="1" max="1000" step="1" placeholder="分类排序" formControlName="sequence">
+                <control-messages [control]="form.controls.sequence"></control-messages>
+            </div>
+        </div>
         <div class="form-group">
             <button type="submit" class="btn btn-submit btn-block" [disabled]="!form.valid">完&nbsp;成</button>
         </div>

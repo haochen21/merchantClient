@@ -22,7 +22,8 @@ export class CategoryCreateComponent {
 
     this.form = formBuilder.group({          
       'name': ['', [Validators.minLength(2), Validators.maxLength(20)]],
-      'description': ['',[Validators.minLength(4), Validators.maxLength(255)]]
+      'description': ['',[Validators.minLength(4), Validators.maxLength(255)]],
+      'sequence': ['1', ,],
     });
   }
 
@@ -31,7 +32,8 @@ export class CategoryCreateComponent {
     
     category.name = this.form.value.name;
     category.description = this.form.value.description;
-
+    category.sequence = this.form.value.sequence;
+    
     this.storeService.createCategory(category).then(value => {
       console.log(value);
       this.router.navigate(['/category']);

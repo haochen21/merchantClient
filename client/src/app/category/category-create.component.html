@@ -19,6 +19,13 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label>排序</label>
+                    <div>
+                       <input type="number" class="form-control" min="1" max="1000" step="1" placeholder="分类排序" formControlName="sequence">
+                       <control-messages [control]="form.controls.sequence"></control-messages>
+                    </div>
+                </div>
+                <div class="form-group">
                     <button type="submit" class="btn btn-submit btn-block" [disabled]="!form.valid">完&nbsp;成</button>
                 </div>
             </form>

@@ -24,7 +24,7 @@ export class OpenTimeComponent implements OnInit, OnDestroy {
   mstep: number = 1;
   ismeridian: boolean = false;
 
-  tempOpenRange:OpenRange;
+  tempOpenRange: OpenRange;
 
   constructor(
     private securityService: SecurityService,
@@ -54,15 +54,15 @@ export class OpenTimeComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
   }
 
-  openCreate(event,openRange:OpenRange) {
+  openCreate(event, openRange: OpenRange) {
     this.creating = true;
-    if(openRange == null){
+    if (openRange == null) {
       this.tempOpenRange = new OpenRange();
       this.tempOpenRange.beginTime = new Date();
       this.tempOpenRange.beginTime.setSeconds(0);
       this.tempOpenRange.endTime = new Date();
       this.tempOpenRange.endTime.setSeconds(59);
-    }else{
+    } else {
       this.tempOpenRange = openRange;
     }
     event.stopPropagation();
@@ -71,14 +71,14 @@ export class OpenTimeComponent implements OnInit, OnDestroy {
 
   create(event) {
     this.slimLoader.start();
-    
+
     if (!this.merchant.openRanges) {
       this.merchant.openRanges = new Array()
     }
-    if(!this.tempOpenRange.id){
+    if (!this.tempOpenRange.id) {
       this.merchant.openRanges.push(this.tempOpenRange);
     }
-    
+
     this.securityService.createOpenRanges(this.merchant.openRanges).then(value => {
       this.creating = false;
       this.merchant = value;
@@ -141,11 +141,13 @@ export class OpenTimeComponent implements OnInit, OnDestroy {
 
   covertTimeToDate(openRanges: Array<OpenRange>) {
     for (let openRange of openRanges) {
-      let beginDate: moment.Moment = moment(openRange.beginTime.toString(), "HH:mm:ss");
-      let endDate: moment.Moment = moment(openRange.endTime.toString(), "HH:mm:ss");
+      if (openRange.beginTime && openRange.endTime) {
+        let beginDate: moment.Moment = moment(openRange.beginTime.toString(), "HH:mm:ss");
+        let endDate: moment.Moment = moment(openRange.endTime.toString(), "HH:mm:ss");
 
-      openRange.beginTime = beginDate.toDate();
-      openRange.endTime = endDate.toDate();
+        openRange.beginTime = beginDate.toDate();
+        openRange.endTime = endDate.toDate();
+      }
     }
   }
 }
