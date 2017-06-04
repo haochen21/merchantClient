@@ -22,9 +22,13 @@
         "../node_modules/bootstrap/dist/css/bootstrap.css",
         "../node_modules/ng2-toasty/style-material.css",
         "../node_modules/ng2-slim-loading-bar/style.css",
+        "../node_modules/font-awesome/css/font-awesome.css",
+        "../node_modules/froala-editor/css/froala_editor.pkgd.min.css",
         "styles.css"
       ],
       "scripts": [
+        "../node_modules/jquery/dist/jquery.min.js",
+        "../node_modules/froala-editor/js/froala_editor.pkgd.min.js"
       ],
       "environments": {
         "source": "environments/environment.ts",

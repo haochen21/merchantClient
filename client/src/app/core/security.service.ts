@@ -55,6 +55,15 @@ export class SecurityService {
             .catch(this.handleError);
     }
 
+    findMerchantWithIntroduce(): Promise<Merchant> {
+        return this.http.get('api/merchant/introduce')
+            .toPromise()
+            .then(response => {
+                return response.json();
+            })
+            .catch(this.handleError);
+    }
+
     registerMerchant(merchant: Merchant): Promise<Merchant> {
         let body = JSON.stringify({ merchant });
         let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -79,7 +88,7 @@ export class SecurityService {
             .catch(this.handleError);
     }
 
-    registerMerchantInWeixin(phone: String): Promise<Merchant> {
+    registerMerchantInWeixin(phone: String): Promise<any> {
         let params = {
             phone: phone
         }
@@ -124,6 +133,19 @@ export class SecurityService {
         }
 
         return this.http.put('api/merchant/takeOut', params)
+            .toPromise()
+            .then(response => {
+                return Promise.resolve();
+            })
+            .catch(this.handleError);
+    }
+
+    modifyIntroduce(introduce: string): Promise<any> {
+        let params = {
+            introduce: introduce
+        }
+
+        return this.http.put('api/merchant/introduce', params)
             .toPromise()
             .then(response => {
                 return Promise.resolve();

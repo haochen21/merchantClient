@@ -88,6 +88,9 @@ router.route('/merchant')
     .get(service.security.findMerchant)
     .post(service.security.createMerchant)
     .put(service.security.modifyMerchant);  
+router.route('/merchant/introduce')
+    .get(service.security.findMerchantWithIntroduce)
+    .put(service.security.modifyMerchantIntroduce);      
 router.route('/merchant/weixin')
     .put(service.security.registerMerchantInWeixin);
 router.route('/password', checkLogin)

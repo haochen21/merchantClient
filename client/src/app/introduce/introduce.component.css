@@ -1,0 +1,54 @@
+.tab-content {
+    border: 1px solid #ddd;
+    border-top: none;
+	padding: 10px;
+}
+.varieties-shop .nav-tabs .active > a,
+.varieties-shop .nav-tabs .active > a:hover, 
+.varieties-shop .nav-tabs .active > a:focus {
+    border-color: #e7eaec transparent #e7eaec #e7eaec;
+}
+
+.varieties-shop .nav-tabs {
+    background: #f2f2f2;
+    width: 100px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+}
+.varieties-shop .nav-tabs > li {
+    float: none;
+    margin-bottom: 0px;
+}
+.varieties-shop .nav-tabs > li > a {
+    border-bottom: 1px solid #ddd;
+    margin-right: 0px;
+    color: #555;
+    border-radius: 0px;
+    word-wrap: break-word;
+}
+.varieties-shop .tab-content {    
+    margin-left: 100px;
+	overflow-y: auto;
+    height: 100%;
+	padding-bottom: 90px;
+	border: none
+}
+.varieties-shop .nav-tabs .nav-item+.nav-item {
+    margin-left: 0;
+}
+.varieties-shop .nav-tabs > li.active {
+	background-color: #fff;
+	border: 0px;
+	border-bottom: 1px solid #ddd;
+	border-left: 3px solid #2d91e6;
+}
+
+.varieties-shop .nav-tabs>li.active>a,
+.varieties-shop .nav-tabs>li.active>a:hover,
+.varieties-shop .nav-tabs>li.active>a:focus {
+	color: #fb5e00;
+	-webkit-box-shadow: 0 0 0 #57889c;
+    -moz-box-shadow: 0 0 0 #57889c;
+    box-shadow: 0 0 0 #57889c;
+}

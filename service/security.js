@@ -140,6 +140,21 @@ exports.findMerchant = function (req, res) {
     });
 }
 
+exports.findMerchantWithIntroduce = function (req, res) {
+    var merchant = req.session.merchant;
+    let id = merchant.id;
+    request.get({
+        url: config.remoteServer + '/security/merchant/introduce/' + id
+    }, function (err, response, body) {
+        if (err) {
+            console.error("find merchant error:", err, " (status: " + err.status + ")");
+            res.status(404).end();
+        } else {
+            res.status(200).send(body);
+        }
+    });
+}
+
 exports.createMerchant = function (req, res) {
     let merchant = req.body.merchant;
     console.log(merchant);
@@ -231,6 +246,29 @@ exports.modifyTakeOut = function (req, res) {
         form: {
             id: id,
             takeOut: takeOut
+        }
+    }, function (err, response, body) {
+        if (err) {
+            console.error("modify takeOut error:", err, " (status: " + err.status + ")");
+            res.status(404).end();
+        } else {
+            res.status(200).end();
+        }
+    });
+}
+
+exports.modifyMerchantIntroduce = function (req, res) {
+    let introduce = req.body.introduce;
+
+    let merchant = req.session.merchant;
+    let id = merchant.id;
+
+    request({
+        url: config.remoteServer + '/security/merchant/introduce',
+        method: 'PUT',
+        form: {
+            id: id,
+            introduce: introduce
         }
     }, function (err, response, body) {
         if (err) {

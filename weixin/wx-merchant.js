@@ -127,9 +127,14 @@ function createMerchant(code, req, res) {
               console.log('merchant save error ....' + err);
             } else {
               console.log('merchant save sucess ....' + JSON.stringify(result));
-              req.session.auth = true;
-              req.session.merchant = result;
-              res.redirect('/?#/weixinRegister');
+              if (result) {
+                req.session.auth = true;
+                req.session.merchant = result;
+                res.redirect('/?#/weixinRegister');
+              } else {
+                req.session.auth = false;
+                req.session.merchant = null;
+              }
             }
           });
 

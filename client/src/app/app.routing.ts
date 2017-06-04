@@ -22,6 +22,7 @@ export const appRoutes: Routes = [
   { path: 'account', loadChildren: './account/account.module#AccountModule' },
   { path: 'discount', loadChildren: './discount/discount.module#DiscountModule' },
   { path: 'takeout', loadChildren: './takeout/takeout.module#TakeOutModule' },
+  { path: 'introduce', loadChildren: './introduce/introduce.module#IntroduceModule' },
   { path: '**', component: NoContent }
 ];
 

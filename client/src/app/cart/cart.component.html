@@ -45,6 +45,18 @@
         <span>生成时间：</span>
         <span>{{cart.createdOn | dateFormatPipe:"YYYY-MM-DD HH:mm:ss"}}</span>
     </div>
+    <div class="note no-margin" *ngIf="cart.takeOut">
+        <span>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</span>
+        <span class="break-line">{{cart.name}}</span>
+    </div>
+    <div class="note no-margin" *ngIf="cart.takeOut">
+        <span>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：</span>
+        <span class="break-line">{{cart.address}}</span>
+    </div>
+    <div class="note no-margin" *ngIf="cart.takeOut">
+        <span>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话：</span>
+        <span class="break-line">{{cart.phone}}</span>
+    </div>
     <div class="note no-margin" *ngIf="cart.remark != null">
         <span>商品备注：</span>
         <span class="break-line">{{cart.remark}}</span>

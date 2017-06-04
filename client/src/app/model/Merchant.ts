@@ -1,5 +1,6 @@
 import { OpenRange } from './OpenRange';
 import { DiscountType } from './DiscountType';
+import { MerchantIntro } from './MerchantIntro';
 
 export class Merchant {
 
@@ -20,12 +21,15 @@ export class Merchant {
     takeByPhoneSuffix: boolean;
     imageSource: string;
     qrCode: string;
+
     discountType: DiscountType;
     discount: number;
     amount: number;
     openRanges: Array<OpenRange>;
     version: number;
     concern: boolean;
+    
+    introduce: MerchantIntro;
 
     constructor() {
     }
