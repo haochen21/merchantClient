@@ -12,7 +12,7 @@ var weixin = require('./weixin');
 var service = require('./service');
 
 var ticketSocket = require('./message/socket');
-var stompMessage = require('./message/stompMessage');
+var kafkaMessage = require('./message/kafkaMessage');
 
 var server = http.createServer(app);
 
@@ -20,7 +20,7 @@ var io = socketio(server);
 io.set("origins", "*:*");
 ticketSocket.initialize(io);
 
-stompMessage.initialize(io);
+kafkaMessage.initialize(io);
 
 app.use(compression());
 
