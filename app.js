@@ -148,6 +148,8 @@ router.route('/cart/paid/:id')
     .get(service.order.paid);
 router.route('/cart/deliver/:id')
     .get(service.order.deliver);
+router.route('/cart/print/:id')
+    .get(service.order.manualPrint);    
 
 app.use('/api', router);
 

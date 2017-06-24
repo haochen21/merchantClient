@@ -32,12 +32,16 @@ router.get('/callback', function (req, res) {
 
   if (req.session && req.session.merchant) {
     securityService.findMerchantByOpenId(req.session.merchant.openId, function (err, merchant) {
+      console.log('find by openid:', JSON.stringify(merchant));
       if (err || merchant === null) {
         createMerchant(code, req, res);
       } else {
-        console.log('----weixin session exist------' + JSON.stringify(req.session.merchant));
+        req.session.merchant = merchant;
         // if phone_number exist,go home page
-        if (req.session.merchant.phone) {
+        if (!req.session.merchant.approved) {
+          req.session.merchant = merchant;
+          res.redirect('/?#/approved');
+        } else if (req.session.merchant.phone) {
           res.redirect('/?#/order');
         } else {
           res.redirect('/?#/weixinRegister');
@@ -112,14 +116,13 @@ function createMerchant(code, req, res) {
           var _merchant = {};
           _merchant.openId = oauth_user.openid;
           _merchant.loginName = oauth_user.nickname;
-          _merchant.name = oauth_user.nickname;
           _merchant.city = oauth_user.city;
           _merchant.province = oauth_user.province;
           _merchant.country = oauth_user.country;
           _merchant.headImgUrl = oauth_user.headimgurl;
-          _merchant.name = oauth_user.nickname;
           _merchant.password = '123456';
           _merchant.open = true;
+          _merchant.approved = false;
           _merchant.discount = 1.0;
 
           securityService.createMerchantByWeixin(_merchant, function (err, result) {
@@ -130,7 +133,7 @@ function createMerchant(code, req, res) {
               if (result) {
                 req.session.auth = true;
                 req.session.merchant = result;
-                res.redirect('/?#/weixinRegister');
+                res.redirect('/?#/approved');
               } else {
                 req.session.auth = false;
                 req.session.merchant = null;
@@ -144,7 +147,9 @@ function createMerchant(code, req, res) {
         req.session.auth = true;
         req.session.merchant = merchant;
         // if phone_number exist,go home page
-        if (merchant.phone) {
+        if (!merchant.approved) {
+          res.redirect('/?#/approved');
+        } else if (merchant.phone) {
           res.redirect('/?#/order');
         } else {
           res.redirect('/?#/weixinRegister');

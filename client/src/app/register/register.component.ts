@@ -26,7 +26,6 @@ export class RegisterComponent {
       'password': ['', [Validators.required, ValidationService.passwordValidator]],
       'passwordConfirm': ['', Validators.required],
       'name': ['', Validators.required],
-      'deviceNo': ['', [Validators.required], ValidationService.deviceExists],
       'phone': ['', [Validators.required, ValidationService.phoneValidator]],
       'email': ['', [Validators.required, ValidationService.emailValidator]],
       'shortName': ['', ,],
@@ -41,7 +40,6 @@ export class RegisterComponent {
     merchant.name = this.form.value.name;
     merchant.phone = this.form.value.phone;
     merchant.mail = this.form.value.email;
-    merchant.deviceNo = this.form.value.deviceNo;
     merchant.shortName = this.form.value.shortName;
     merchant.address = this.form.value.address;
     merchant.discount = 1.0;

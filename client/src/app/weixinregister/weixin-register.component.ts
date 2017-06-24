@@ -23,7 +23,7 @@ export class WeixinRegisterComponent implements OnInit {
     private router: Router) {
 
     this.form = formBuilder.group({
-      'phone': ['', [Validators.required, ValidationService.phoneValidator, Validators.minLength(11), Validators.maxLength(11)], [ValidationService.devicePhoneExists, ValidationService.phoneExists]]
+      'phone': ['', [Validators.required, ValidationService.phoneValidator, Validators.minLength(11), Validators.maxLength(11)], [ValidationService.phoneExists]]
     });
   }
 

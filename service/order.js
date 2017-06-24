@@ -169,3 +169,18 @@ exports.deliver = function (req, res) {
         }
     });
 }
+
+exports.manualPrint = function (req, res) {
+    let id = req.params.id;
+
+    request.get({
+        url: config.remoteServer + '/order/cart/print/' + id
+    }, function (err, response, body) {
+        if (err) {
+            console.error("maual print cart error:", err, " (status: " + err.status + ")");
+            res.status(404).end();
+        } else {
+            res.status(200).send(body);
+        }
+    });
+}

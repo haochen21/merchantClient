@@ -23,6 +23,7 @@ export const appRoutes: Routes = [
   { path: 'discount', loadChildren: './discount/discount.module#DiscountModule' },
   { path: 'takeout', loadChildren: './takeout/takeout.module#TakeOutModule' },
   { path: 'introduce', loadChildren: './introduce/introduce.module#IntroduceModule' },
+  { path: 'approved', loadChildren: './approved/approved.module#ApprovedModule' },
   { path: '**', component: NoContent }
 ];
 

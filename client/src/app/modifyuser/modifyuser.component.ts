@@ -26,7 +26,6 @@ export class ModifyUserComponent implements OnInit {
     this.form = formBuilder.group({
       'loginName': ['', ,],
       'name': ['', Validators.required],
-      'deviceNo': ['', [], ValidationService.deviceExists],
       'phone': ['', [Validators.required, ValidationService.phoneValidator]],
       'email': ['', [Validators.required, ValidationService.emailValidator]],
       'shortName': ['', ,],
@@ -43,7 +42,6 @@ export class ModifyUserComponent implements OnInit {
       console.log(user);
       (<FormControl>this.form.controls['loginName']).setValue(this.merchant.loginName);
       (<FormControl>this.form.controls['name']).setValue(this.merchant.name);
-      (<FormControl>this.form.controls['deviceNo']).setValue(this.merchant.deviceNo);
       (<FormControl>this.form.controls['phone']).setValue(this.merchant.phone);
       (<FormControl>this.form.controls['shortName']).setValue(this.merchant.shortName);
       (<FormControl>this.form.controls['email']).setValue(this.merchant.mail);
@@ -64,7 +62,6 @@ export class ModifyUserComponent implements OnInit {
     merchant.name = this.form.value.name;
     merchant.phone = this.form.value.phone;
     merchant.mail = this.form.value.email;
-    merchant.deviceNo = this.form.value.deviceNo;
     merchant.shortName = this.form.value.shortName;
     merchant.address = this.form.value.address;
     merchant.takeByPhone = this.merchant.takeByPhone;

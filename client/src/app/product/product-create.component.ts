@@ -102,7 +102,7 @@ export class ProductCreateComponent implements OnInit, OnDestroy {
 
                         product.infinite = true;
                         product.needPay = true;
-                        product.openRange = false;
+                        product.openRange = true;
                         product.unitsInOrder = 0;
                         product.openRanges = [];
                         

@@ -156,6 +156,15 @@ export class OrderService {
             .catch(this.handleError);
     }
 
+    print(id: number): Promise<OrderResult> {
+        return this.http.get('api/cart/print/'+id)
+            .toPromise()
+            .then(response => {
+                return response.json();
+            })
+            .catch(this.handleError);
+    }
+
     private handleError(error: any) {
         console.error('An error occurred', error);
         return Promise.reject(error.message || error);

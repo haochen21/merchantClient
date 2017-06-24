@@ -160,4 +160,14 @@ export class CartComponent implements OnInit, OnDestroy {
     queryNextPage() {
         this.queryByFilter();
     }
+
+    print(cart: Cart) {
+        this.slimLoader.start();
+        this.orderService.print(cart.id).then(value => {
+            this.slimLoader.complete();
+        }).catch(error => {
+            console.log(error);
+            this.slimLoader.complete();
+        });
+    }
 }

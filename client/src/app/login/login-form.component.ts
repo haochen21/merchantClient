@@ -16,12 +16,15 @@ export class LoginFormComponent implements OnInit {
 
     passwordError: boolean;
 
+    approvedError: boolean;
+
     constructor(
         private router: Router,
         private securityService: SecurityService) {
 
         this.loginNameError = false;
         this.passwordError = false;
+        this.approvedError = false;
     }
 
     model = {
@@ -43,9 +46,15 @@ export class LoginFormComponent implements OnInit {
                 } else if (loginResult.result === 'LOGINNAMEERROR') {
                     this.loginNameError = true;
                     this.passwordError = false;
+                    this.approvedError = false;
                 } else if (loginResult.result === 'PASSWORDERROR') {
                     this.loginNameError = false;
                     this.passwordError = true;
+                    this.approvedError = false;
+                } else if (loginResult.result === 'APPROVEDERROR') {
+                    this.loginNameError = false;
+                    this.passwordError = false;
+                    this.approvedError = true;
                 }
             })
             .catch(error => this.error = error);
