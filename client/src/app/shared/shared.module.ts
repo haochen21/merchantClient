@@ -7,12 +7,13 @@ import { CartStatusFormatPipe } from './CartStatus.pipe';
 import { DateFormatPipe } from './DateFormat.pipe';
 import { MapToIterable } from './MapToIterable.pipe';
 import { NumberFormatPipe } from './NumberFormat.pipe';
+import { OpenRangeTypePipe } from './OpenRangeType.pipe';
 
 import { ControlMessages } from './control-messages.component';
 
 @NgModule({
     imports: [CommonModule],
-    declarations: [CartStatusFormatPipe, DateFormatPipe, MapToIterable, NumberFormatPipe, ControlMessages],
-    exports: [CartStatusFormatPipe, DateFormatPipe, MapToIterable, NumberFormatPipe, ControlMessages, CommonModule, FormsModule, HttpModule]
+    declarations: [CartStatusFormatPipe, DateFormatPipe, MapToIterable, NumberFormatPipe, OpenRangeTypePipe,ControlMessages],
+    exports: [CartStatusFormatPipe, DateFormatPipe, MapToIterable, NumberFormatPipe, OpenRangeTypePipe, ControlMessages, CommonModule, FormsModule, HttpModule]
 })
 export class SharedModule { }

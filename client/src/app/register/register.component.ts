@@ -26,7 +26,7 @@ export class RegisterComponent {
       'password': ['', [Validators.required, ValidationService.passwordValidator]],
       'passwordConfirm': ['', Validators.required],
       'name': ['', Validators.required],
-      'phone': ['', [Validators.required, ValidationService.phoneValidator]],
+      'phone': ['', [Validators.required]],
       'email': ['', [Validators.required, ValidationService.emailValidator]],
       'shortName': ['', ,],
       'address': ['', ,]

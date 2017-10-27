@@ -7,7 +7,6 @@ import { TabsModule } from 'ng2-bootstrap';
 
 import { SharedModule } from '../shared/shared.module';
 
-
 import { NavbarModule } from '../navbar/navbar.module';
 
 import { HisCartComponent } from './hiscart.component';

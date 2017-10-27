@@ -22,7 +22,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let range of merchant.openRanges">
+                    <tr *ngFor="let range of merchant.openRanges | openRangeTypePipe:type">
                         <td>{{range.beginTime | dateFormatPipe:"HH:mm:ss"}}</td>
                         <td>{{range.endTime | dateFormatPipe:"HH:mm:ss"}}</td>
                         <td>

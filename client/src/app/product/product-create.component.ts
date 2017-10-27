@@ -18,6 +18,7 @@ import { Category } from '../model/Category';
 import { Product } from '../model/Product';
 import { ProductStatus } from '../model/ProductStatus';
 import { OpenRange } from '../model/OpenRange';
+import { OpenRangeType } from '../model/OpenRangeType';
 
 const URL = 'http://shop.km086.com:8080/ticketServer/store/product/image';
 
@@ -105,7 +106,7 @@ export class ProductCreateComponent implements OnInit, OnDestroy {
                         product.openRange = true;
                         product.unitsInOrder = 0;
                         product.openRanges = [];
-                        
+
                         this.isCreated = false;
 
                         return new Promise<Product>(resolve => {
@@ -237,6 +238,9 @@ export class ProductCreateComponent implements OnInit, OnDestroy {
 
     covertOpenRangeToDate(openRanges: Array<OpenRange>) {
         for (let openRange of openRanges) {
+            if (openRange.type == OpenRangeType.OFF) {
+                continue;
+            }
             let beginDateTime: moment.Moment = moment(new Date()).add(1, 'd');
             let beginTimes: any = openRange.beginTime.toString().split(':');
             beginDateTime = beginDateTime.hours(beginTimes[0]).minutes(beginTimes[1]).seconds(beginTimes[2]).milliseconds(0);

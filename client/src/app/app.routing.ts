@@ -19,6 +19,7 @@ export const appRoutes: Routes = [
   { path: 'weixinRegister', loadChildren: './weixinregister/weixin-register.module#WeixinRegisterModule'},
   { path: 'lock', loadChildren: './lock/lock.module#LockModule' },
   { path: 'openRange', loadChildren: './opentime/opentime.module#OpentimeModule' },
+  { path: 'offTime', loadChildren: './offtime/offtime.module#OfftimeModule' },
   { path: 'account', loadChildren: './account/account.module#AccountModule' },
   { path: 'discount', loadChildren: './discount/discount.module#DiscountModule' },
   { path: 'takeout', loadChildren: './takeout/takeout.module#TakeOutModule' },

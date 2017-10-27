@@ -8,6 +8,7 @@ import { SecurityService } from '../core/security.service';
 
 import { Merchant } from '../model/Merchant';
 import { OpenRange } from '../model/OpenRange';
+import { OpenRangeType } from '../model/OpenRangeType';
 
 @Component({
   selector: 'merchant-opentime',
@@ -25,6 +26,8 @@ export class OpenTimeComponent implements OnInit, OnDestroy {
   ismeridian: boolean = false;
 
   tempOpenRange: OpenRange;
+
+  type: OpenRangeType = OpenRangeType.ON;
 
   constructor(
     private securityService: SecurityService,
@@ -62,6 +65,7 @@ export class OpenTimeComponent implements OnInit, OnDestroy {
       this.tempOpenRange.beginTime.setSeconds(0);
       this.tempOpenRange.endTime = new Date();
       this.tempOpenRange.endTime.setSeconds(59);
+      this.tempOpenRange.type = this.type;
     } else {
       this.tempOpenRange = openRange;
     }

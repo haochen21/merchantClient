@@ -1,0 +1,44 @@
+.offtime-container {
+    outline: 0;
+    top: 0;
+    left: 0px;
+    right: 0px;
+    bottom: 40px;
+    margin-left: 0;
+    margin-right: 0;    
+    position: absolute;
+    overflow: auto;
+}
+.table-btns{
+    position: relative;
+    height: 50px;
+}
+.table-btns button{
+    position: absolute;
+    right: 10px;  
+}
+.off-time-list {
+    margin-top: 10px;
+}
+.off-label {
+    padding-left: 25px;
+    padding-top: 15px;
+}
+form .btn-group button {
+    margin-right: 10px;
+}
+td .btn-group > .btn:first-child {
+    margin-right:20px;
+}
+.l-h-5{
+    line-height: 5;
+}
+md-slide-toggle {
+    float: right;
+}
+.md-myprimary[md-raised-button], .md-myprimary[md-fab], .md-myprimary[md-mini-fab] {
+    background-color: #0275d8;
+}
+.md-myprimary.md-checked .md-slide-toggle-thumb {
+    background-color: #0275d8;
+}

@@ -11,6 +11,7 @@ import { SocketService } from '../core/socket.service';
 
 import { Merchant } from '../model/Merchant';
 import { OpenRange } from '../model/OpenRange';
+import { OpenRangeType } from '../model/OpenRangeType';
 import { Cart } from '../model/Cart';
 import { CartStatus } from '../model/CartStatus';
 import { CartFilter } from '../model/CartFilter';
@@ -52,7 +53,9 @@ export class OrderComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.connection.unsubscribe();
+        if(this.connection){
+            this.connection.unsubscribe();
+        }
         document.body.style.backgroundColor = '';
     }
 
@@ -77,9 +80,11 @@ export class OrderComponent implements OnInit, OnDestroy {
             });
             let index = 0;
             for (let openRange of this.merchant.openRanges) {
-                openRange.index = index;
-                index++;
-                this.tabs.push(openRange);
+                if (openRange.type == OpenRangeType.ON){
+                    openRange.index = index;
+                    index++;
+                    this.tabs.push(openRange);
+                }
             }
             // 24 hours
             let beginTime: moment.Moment = moment(new Date());

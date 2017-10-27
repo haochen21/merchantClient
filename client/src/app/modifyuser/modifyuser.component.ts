@@ -26,7 +26,7 @@ export class ModifyUserComponent implements OnInit {
     this.form = formBuilder.group({
       'loginName': ['', ,],
       'name': ['', Validators.required],
-      'phone': ['', [Validators.required, ValidationService.phoneValidator]],
+      'phone': ['', [Validators.required]],
       'email': ['', [Validators.required, ValidationService.emailValidator]],
       'shortName': ['', ,],
       'address': ['', ,],

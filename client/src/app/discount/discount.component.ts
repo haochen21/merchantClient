@@ -31,7 +31,8 @@ export class DiscountComponent implements OnInit {
 
         this.form = formBuilder.group({
             'discount': ['1.00', ,],
-            'amount': ['0.00', ,]
+            'amount': ['0.00', ,],
+            'minimumOrder': ['', [ValidationService.currencyValidator]],
         });
     }
 
@@ -50,6 +51,9 @@ export class DiscountComponent implements OnInit {
             if (this.merchant.amount) {
                 (<FormControl>this.form.controls['amount']).setValue(this.merchant.amount);
             }
+            if (this.merchant.minimumOrder) {
+                (<FormControl>this.form.controls['minimumOrder']).setValue(this.merchant.minimumOrder);
+            }
         }).catch(error => {
             console.log(error)
         });
@@ -59,6 +63,7 @@ export class DiscountComponent implements OnInit {
         this.merchant.discount = this.form.value.discount;
         this.merchant.amount = this.form.value.amount;
         this.merchant.discountType = this.discountType;
+        this.merchant.minimumOrder = this.form.value.minimumOrder;
         this.securityService.modifyMerchant(this.merchant).then(value => {
             localStorage.setItem('merchant', JSON.stringify(value));
             this.router.navigate(['/my']);
