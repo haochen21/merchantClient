@@ -76,6 +76,8 @@ export class ProductCreateComponent implements OnInit, OnDestroy {
             'openRange': [this.product.openRange],
             'infinite': [this.product.infinite],
             'status': ['销售', [Validators.required]],
+            'sequence': ['1', ,],
+            'code': ['', [Validators.maxLength(10)]],
             'category': [{}]
         });
         this.uploader.onBuildItemForm = (item, form) => {
@@ -121,6 +123,7 @@ export class ProductCreateComponent implements OnInit, OnDestroy {
                     this.setMerchantOpenTimeChecked(this.product.openRanges);
                     if (this.product.id) {
                         (<FormControl>this.form.controls['name']).setValue(this.product.name);
+                        (<FormControl>this.form.controls['code']).setValue(this.product.code);
                         (<FormControl>this.form.controls['unitPrice']).setValue(this.product.unitPrice);
                         this.form.controls['unitPrice'].markAsDirty();
                         (<FormControl>this.form.controls['description']).setValue(this.product.description ? this.product.description : '');
@@ -130,6 +133,7 @@ export class ProductCreateComponent implements OnInit, OnDestroy {
                         (<FormControl>this.form.controls['needPay']).setValue(this.product.needPay);
                         (<FormControl>this.form.controls['infinite']).setValue(this.product.infinite);
                         (<FormControl>this.form.controls['openRange']).setValue(this.product.openRange);
+                        (<FormControl>this.form.controls['sequence']).setValue(this.product.sequence);
                         if (this.product.status === ProductStatus.ONLINE) {
                             (<FormControl>this.form.controls['status']).setValue('销售');
                         } else {
@@ -163,49 +167,89 @@ export class ProductCreateComponent implements OnInit, OnDestroy {
     }
 
     onSubmit(event) {
-        this.slimLoader.color = 'red';
-        this.slimLoader.start();
+        if (!this.product['id']) {
+            this.storeService.productExist(this.form.value.name).then(value => {
+                if (value.exist) {
+                    this.addToast("创建失败", this.form.value.name + " 商品名称已存在！");
+                } else {
+                    this.slimLoader.color = 'red';
+                    this.slimLoader.start();
 
-        this.product.name = this.form.value.name;
-        this.product.unitPrice = +this.form.value.unitPrice;
-        this.product.description = this.form.value.description;
-        this.product.unitsInStock = +this.form.value.unitsInStock;
-        this.product.payTimeLimit = +this.form.value.payTimeLimit;
-        this.product.takeTimeLimit = +this.form.value.takeTimeLimit;
+                    this.product.name = this.form.value.name;
+                    this.product.code = this.form.value.code;
+                    this.product.unitPrice = +this.form.value.unitPrice;
+                    this.product.description = this.form.value.description;
+                    this.product.unitsInStock = +this.form.value.unitsInStock;
+                    this.product.payTimeLimit = +this.form.value.payTimeLimit;
+                    this.product.takeTimeLimit = +this.form.value.takeTimeLimit;
+                    this.product.sequence = this.form.value.sequence;
 
+                    if (this.form.value.status === '销售') {
+                        this.product.status = ProductStatus.ONLINE;
+                    } else if (this.form.value.status === '下架') {
+                        this.product.status = ProductStatus.OFFLINE;
+                    }
+                    let categoryId: number = -1;
+                    if (!this.form.value.category.id) {
+                        this.product.category = null;
+                    } else {
+                        this.product.category = this.form.value.category;
+                        categoryId = this.form.value.category.id;
+                    }
 
-        if (this.form.value.status === '销售') {
-            this.product.status = ProductStatus.ONLINE;
-        } else if (this.form.value.status === '下架') {
-            this.product.status = ProductStatus.OFFLINE;
-        }
-        let categoryId: number = -1;
-        if (!this.form.value.category.id) {
-            this.product.category = null;
-        } else {
-            this.product.category = this.form.value.category;
-            categoryId = this.form.value.category.id;
-        }
+                    this.product.openRanges = [];
+                    for (let merchantOpenTime of this.merchantOpenTimes) {
+                        if (merchantOpenTime.checked) {
+                            this.product.openRanges.push(merchantOpenTime);
+                        }
+                    }
 
-        this.product.openRanges = [];
-        for (let merchantOpenTime of this.merchantOpenTimes) {
-            if (merchantOpenTime.checked) {
-                this.product.openRanges.push(merchantOpenTime);
-            }
-        }
-
-        if (!this.product.id) {
-            this.storeService.createProduct(this.product).then(value => {
-                this.product = value;
-                this.getStockDescription();
-                this.isCreated = true;
-                this.addToast("创建成功", this.product.name + " 创建成功");
-                this.slimLoader.complete();
-                this.router.navigate(['/product', categoryId]);
-            }).catch(error => {
-                console.log(error);
+                    this.storeService.createProduct(this.product).then(value => {
+                        this.product = value;
+                        this.getStockDescription();
+                        this.isCreated = true;
+                        this.addToast("创建成功", this.product.name + " 创建成功");
+                        this.slimLoader.complete();
+                        this.router.navigate(['/product', categoryId]);
+                    }).catch(error => {
+                        console.log(error);
+                        this.slimLoader.complete();
+                    });
+                }
             });
         } else {
+            this.slimLoader.color = 'red';
+            this.slimLoader.start();
+
+            this.product.name = this.form.value.name;
+            this.product.code = this.form.value.code;
+            this.product.unitPrice = +this.form.value.unitPrice;
+            this.product.description = this.form.value.description;
+            this.product.unitsInStock = +this.form.value.unitsInStock;
+            this.product.payTimeLimit = +this.form.value.payTimeLimit;
+            this.product.takeTimeLimit = +this.form.value.takeTimeLimit;
+            this.product.sequence = this.form.value.sequence;
+
+            if (this.form.value.status === '销售') {
+                this.product.status = ProductStatus.ONLINE;
+            } else if (this.form.value.status === '下架') {
+                this.product.status = ProductStatus.OFFLINE;
+            }
+            let categoryId: number = -1;
+            if (!this.form.value.category.id) {
+                this.product.category = null;
+            } else {
+                this.product.category = this.form.value.category;
+                categoryId = this.form.value.category.id;
+            }
+
+            this.product.openRanges = [];
+            for (let merchantOpenTime of this.merchantOpenTimes) {
+                if (merchantOpenTime.checked) {
+                    this.product.openRanges.push(merchantOpenTime);
+                }
+            }
+
             this.storeService.modifyProduct(this.product).then(value => {
                 console.log(value);
                 this.product = value;
@@ -215,8 +259,11 @@ export class ProductCreateComponent implements OnInit, OnDestroy {
                 this.router.navigate(['/product', categoryId]);
             }).catch(error => {
                 console.log(error);
+                this.slimLoader.complete();
             });
         }
+
+
         event.stopPropagation();
         event.preventDefault();
     }

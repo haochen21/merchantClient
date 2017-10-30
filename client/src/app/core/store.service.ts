@@ -10,7 +10,7 @@ import { SecurityService } from './security.service';
 
 @Injectable()
 export class StoreService {
-    
+
     //imagePreUrl: string = "http://127.0.0.1:8080/ticketServer/store/product/image/";
 
     imagePreUrl: string = "http://120.25.90.244:8080/ticketServer/store/product/image/";
@@ -49,7 +49,7 @@ export class StoreService {
             .catch(this.handleError);
     }
 
-    modifyCategory(category: Category): Promise<Category> {  
+    modifyCategory(category: Category): Promise<Category> {
         let body = JSON.stringify({ category });
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
@@ -122,8 +122,17 @@ export class StoreService {
             .catch(this.handleError);
     }
 
-    findProductByMerchantId(merchantId: number): Promise<Product[]> {       
+    findProductByMerchantId(merchantId: number): Promise<Product[]> {
         return this.http.get('api/product/find/merchant/' + merchantId)
+            .toPromise()
+            .then(response => {
+                return response.json();
+            })
+            .catch(this.handleError);
+    }
+
+    productExist(name: string): Promise<any> {
+        return this.http.get('api/product/exists/' + name)
             .toPromise()
             .then(response => {
                 return response.json();

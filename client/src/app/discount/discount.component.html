@@ -35,6 +35,14 @@
             </div>
 
             <div class="form-group">
+                <label>打包费用</label>
+                <div>
+                    <input type="number" class="form-control" min="0.00" step="0.01" formControlName="packageFee">
+                    <control-messages [control]="form.controls.packageFee"></control-messages>
+                </div>
+            </div>
+
+            <div class="form-group">
                 <button type="submit" class="btn btn-submit btn-block" [disabled]="!form.valid">完&nbsp;成</button>
             </div>
         </form>

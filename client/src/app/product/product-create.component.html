@@ -19,6 +19,14 @@
 					</div>
 				</div>
 				<div class="form-group">
+						<label>快速查询编号</label>
+						<div>
+							<input type="text" class="form-control" placeholder="快速查询编号" formControlName="code">
+							<control-messages [control]="form.controls.code"></control-messages>
+							<small *ngIf="form.controls.code.pristine">长度0-20个字符</small>
+						</div>
+					</div>
+				<div class="form-group">
 					<label>商品描述</label>
 					<div>
 						<textarea class="form-control" rows="2" placeholder="商品描述" formControlName="description"></textarea>
@@ -85,6 +93,13 @@
                             </select>
 					</div>
 				</div>
+				<div class="form-group">
+                    <label>排序</label>
+                    <div>
+                       <input type="number" class="form-control" min="1" max="1000" step="1" placeholder="分类排序" formControlName="sequence">
+                       <control-messages [control]="form.controls.sequence"></control-messages>
+                    </div>
+                </div>
 				<div class="form-group">
 					<label>营业时间</label>
 					<div>

@@ -93,6 +93,21 @@ export class ProductListComponent implements OnInit, OnDestroy {
                         }
                     });
                     category.products = productOfCategory;
+                    category.products.sort(function (a, b) {
+                        if (a.sequence == null) {
+                            return 1;
+                        }
+                        if (b.sequence == null) {
+                            return -1;
+                        }
+                        if (a.sequence > b.sequence) {
+                            return 1;
+                        }
+                        if (a.sequence < b.sequence) {
+                            return -1;
+                        }
+                        return 0;
+                    });
                 }
                 console.log(value);
                 this.slimLoader.complete();

@@ -125,6 +125,8 @@ router.route('/product/:id')
     .get(service.store.findProduct);
 router.route('/product/find/merchant')
     .get(service.store.findProductByMerchant);
+router.route('/product/exists/:name')
+    .get(service.store.productNameExists);
 
 router.route('/cart/page')
     .post(service.order.pageCartByFilter);

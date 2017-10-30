@@ -150,3 +150,24 @@ exports.findProductByMerchant = function (req, res) {
         }
     });
 }
+
+exports.productNameExists = function (req, res) {
+    let merchant = req.session.merchant;
+    let merchantId = merchant.id;
+
+    let name = req.params.name;
+
+    request.get({
+        url: config.remoteServer + '/store/product/exist/'+merchantId + '/' + encodeURI(name)
+    }, function (err, response, body) {
+        if (err || response.statusCode != 200) {
+            res.status(404).end();
+        } else {
+            if (body === "true") {
+                res.status(200).send({ exist: true });
+            } else {
+                res.status(200).send({ exist: false });
+            }
+        }
+    });
+}

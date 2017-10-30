@@ -2,7 +2,7 @@
     <tabset class="varieties-shop">
         <tab heading="简介">
             <div [froalaEditor] [(froalaModel)]="editorContent">
-                <img *ngIf = "imgObj.src !== ''" class="card-img-top" [src]="imgObj.src">
+                <img *ngIf="imgObj.src !== ''" class="card-img-top" [src]="imgObj.src">
             </div>
         </tab>
         <tab heading="预览">
@@ -11,8 +11,17 @@
                 <button type="submit" class="btn btn-primary btn-block" (click)="save($event)">保&nbsp;存</button>
             </div>
         </tab>
+        <tab heading="显示">
+            <div class="row">
+                <label class="col-xs-6 form-control-label open-label">显示简介</label>
+                <div class="col-xs-6 text-xs-right">
+                    <md-slide-toggle color="primary" [(ngModel)]="merchant.showIntroduce" (change)="modifyShowIntroduce($event)">
+                    </md-slide-toggle>
+                </div>
+            </div>
+        </tab>
     </tabset>
     <ng2-toasty position="top-right"></ng2-toasty>
-	<ng2-slim-loading-bar></ng2-slim-loading-bar>
+    <ng2-slim-loading-bar></ng2-slim-loading-bar>
 </div>
 <ticket-navbar></ticket-navbar>

@@ -19,7 +19,7 @@ declare var $: any;
 })
 export class IntroduceComponent implements OnInit, OnDestroy {
 
-  merchant: Merchant;
+  merchant: Merchant = new Merchant();
 
   imgObj: Object = {
     src: ''
@@ -35,7 +35,7 @@ export class IntroduceComponent implements OnInit, OnDestroy {
 
     this.toastyConfig.theme = 'material';
     this.toastyConfig.position = 'top-center';
-    
+
   }
 
   ngOnInit() {
@@ -80,6 +80,16 @@ export class IntroduceComponent implements OnInit, OnDestroy {
       });
     event.stopPropagation();
     event.preventDefault();
+  }
+
+  modifyShowIntroduce(event) {
+    let checkValue = event.checked;
+    this.merchant.showIntroduce = checkValue;
+    this.securityService.modifyMerchant(this.merchant).then(value => {
+      localStorage.setItem('merchant', JSON.stringify(value));
+    }).catch(error => {
+      console.log(error)
+    });
   }
 
   addToast(title: string, msg: string) {

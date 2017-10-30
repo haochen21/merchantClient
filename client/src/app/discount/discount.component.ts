@@ -33,6 +33,7 @@ export class DiscountComponent implements OnInit {
             'discount': ['1.00', ,],
             'amount': ['0.00', ,],
             'minimumOrder': ['', [ValidationService.currencyValidator]],
+            'packageFee': ['', [ValidationService.currencyValidator]]
         });
     }
 
@@ -54,6 +55,9 @@ export class DiscountComponent implements OnInit {
             if (this.merchant.minimumOrder) {
                 (<FormControl>this.form.controls['minimumOrder']).setValue(this.merchant.minimumOrder);
             }
+            if (this.merchant.packageFee) {
+                (<FormControl>this.form.controls['packageFee']).setValue(this.merchant.packageFee);
+            }
         }).catch(error => {
             console.log(error)
         });
@@ -64,6 +68,7 @@ export class DiscountComponent implements OnInit {
         this.merchant.amount = this.form.value.amount;
         this.merchant.discountType = this.discountType;
         this.merchant.minimumOrder = this.form.value.minimumOrder;
+        this.merchant.packageFee = this.form.value.packageFee;
         this.securityService.modifyMerchant(this.merchant).then(value => {
             localStorage.setItem('merchant', JSON.stringify(value));
             this.router.navigate(['/my']);
