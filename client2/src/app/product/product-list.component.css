@@ -1,0 +1,31 @@
+.product-edit-panel {
+    margin: 5px;
+    border: 1px solid #cfdbe2;
+    border-radius: 4px;
+	border-top-width: 3px;
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+.product-edit-panel .product-image-panel {
+    padding: 15px;
+    float: left;
+}
+.product-edit-panel .product-info-panel {
+    overflow: hidden;
+    padding: 7px 10px 10px 2px;
+    display: table-cell;
+    width: 10000px;
+}
+.product-info-panel .unit-in-stock {
+    border: 1px solid #f0f0f0;
+    width: 70px;
+	float: right;
+}
+.info-head {
+    margin: 0;
+}
+.product-price {
+    padding-top: 10px;
+}
+.product-image-panel {
+    padding: 10px 10px 0px 0px;
+}

@@ -1,0 +1,75 @@
+<TabBar [barTintColor]="'white'" [ngStyle]="tabbarStyle" [activeTab]="0" (onPress)="tabBarTabOnPress($event)">
+  <TabBarItem [title]="'首页'" [key]="'order'" [icon]="icon1" [selectedIcon]="icon11">
+    <ng-template #icon1>
+      <div><i class="fas fa-home"></i></div>
+    </ng-template>
+    <ng-template #icon11><i class="icon-warning-sign"></i>
+      <div><i class="fas fa-home" style="color: rgb(16, 142, 233);"></i></div>
+    </ng-template>
+    <div style="margin: 5px 0">
+      <div class="table-btns-container row">
+        <div class="col-7 time-range" *ngIf="tabs.length > 0">
+          {{ selectedDay | amDateFormat:'MM-DD'}} {{ tabs[selectedIndex].beginTime | amDateFormat:'HH:mm'}} -
+          {{tabs[selectedIndex].endTime | amDateFormat:'HH:mm' }}
+        </div>
+        <div class="table-btns col-5">
+          <div>
+            <button type="button" class="btn btn-info btn-sm" (click)="changeListLayout($event)"><i
+                class="fas fa-list"></i></button>
+            <button type="button" class="btn btn-info btn-sm" (click)="refresh()"><i class="fas fa-sync"></i></button>
+            <button type="button" class="btn btn-info btn-sm" (click)="openQuery($event)"><i
+                class="fas fa-calendar"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper row">
+        <div class="col-12">
+          <order-list [openRange]="tabs[selectedIndex]" [listLayout]="listLayout" *ngIf="tabs.length > 0"></order-list>
+        </div>
+      </div>
+      <div class="query-panel row" *ngIf="openQueryPanel">
+        <div class="form col-12">
+          <List [renderHeader]="'统计时间'">
+            <RadioItemGroup [(ngModel)]="selectedStatus.index" (onChange)="selectedOpenRange($event)">
+              <RadioItem *ngFor="let tab of tabs" [name]="tab.index" [value]="tab.index">
+                {{tab.beginTime | amDateFormat:'HH:mm'}} - {{tab.endTime | amDateFormat:'HH:mm'}}
+              </RadioItem>
+            </RadioItemGroup>
+          </List>
+        </div>
+        <div class="form-group col-12">
+          <List [className]="'date-picker-list'">
+            <ListItem DatePicker [extra]="currentDateFormat(selectedDay, 'yyyy-mm-dd')" [arrow]="'horizontal'"
+              [mode]="'date'" [(ngModel)]="selectedDay" (onOk)="selectedOpenDay()">
+              <Brief>订单日期</Brief>
+            </ListItem>
+          </List>
+        </div>
+      </div>
+    </div>
+  </TabBarItem>
+  <TabBarItem [title]="'商品'" [key]="'product'" [icon]="icon2" [selectedIcon]="icon22">
+    <ng-template #icon2>
+      <div><i class="fab fa-product-hunt"></i></div>
+    </ng-template>
+    <ng-template #icon22>
+      <div><i class="fab fa-product-hunt" style="color: rgb(16, 142, 233);"></i></div>
+    </ng-template>
+  </TabBarItem>
+  <TabBarItem [title]="'订单'" [key]="'cart'" [icon]="icon3" [selectedIcon]="icon33">
+    <ng-template #icon3>
+      <div><i class="fas fa-cart-plus"></i></div>
+    </ng-template>
+    <ng-template #icon33>
+      <div><i class="fas fa-cart-plus" style="color: rgb(16, 142, 233);"></i></div>
+    </ng-template>
+  </TabBarItem>
+  <TabBarItem [title]="'账户'" [key]="'my'" [icon]="icon4" [selectedIcon]="icon44">
+    <ng-template #icon4>
+      <div><i class="fas fa-user"></i></div>
+    </ng-template>
+    <ng-template #icon44>
+      <div><i class="fas fa-user" style="color: rgb(16, 142, 233);"></i></div>
+    </ng-template>
+  </TabBarItem>
+</TabBar>

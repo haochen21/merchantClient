@@ -1,0 +1,193 @@
+<div class="create-container">
+	<Tabs [activeTab]="0" [page]="3" [tabBarPosition]="'top'">
+		<TabPane [title]="'商品信息'">
+			<form class="info-form tab-container" [formGroup]="form" (submit)="onSubmit($event)">
+				<div class="form-group">
+					<label>名称</label>
+					<div>
+						<input type="text" class="form-control" placeholder="商品名称" formControlName="name">
+						<div *ngIf="getFormControl('name').invalid">
+							<small *ngIf="form.controls.name.pristine">长度2-20个字符</small>
+						</div>
+					</div>
+					<div class="form-group">
+						<label>价格</label>
+						<div>
+							<input type="number" class="form-control" min="0.00" step="0.01" placeholder="商品价格"
+								formControlName="unitPrice">
+							<div *ngIf="getFormControl('unitPrice').invalid">
+								价格格式不正确
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label>快速查询编号</label>
+						<div>
+							<input type="text" class="form-control" placeholder="快速查询编号" formControlName="code">
+							<div *ngIf="getFormControl('code').invalid">
+								<small *ngIf="form.controls.code.pristine">长度0-20个字符</small>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label>商品描述</label>
+						<div>
+							<textarea class="form-control" rows="2" placeholder="商品描述"
+								formControlName="description"></textarea>
+							<div *ngIf="getFormControl('description').invalid">
+								<small *ngIf="form.controls.description.pristine">长度4-255个字符</small>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label>商品准备时长(分)</label>
+						<div>
+							<input type="number" class="form-control" formControlName="takeTimeLimit">
+							<div *ngIf="getFormControl('takeTimeLimit').invalid">
+								时间格式不正确
+							</div>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-8 col-form-label pt15">无限库存</label>
+						<div class="col-4">
+							<CheckboxItem formControlName="infinite" [(ngModel)]="product.infinite"
+								(onChange)="product.infinite = $event.checked"></CheckboxItem>
+						</div>
+					</div>
+					<div *ngIf="!product.infinite" class="form-group">
+						<label>数量</label>
+						<div>
+							<input type="number" class="form-control" placeholder="商品数量" formControlName="unitsInStock">
+							<div *ngIf="getFormControl('unitsInStock').invalid">
+								数量格式不正确
+							</div>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-8 col-form-label pt15">在线支付</label>
+						<div class="col-4">
+							<CheckboxItem formControlName="needPay" [(ngModel)]="product.needPay"
+								(onChange)="product.needPay = $event.checked"></CheckboxItem>
+						</div>
+					</div>
+					<div *ngIf="product.needPay" class="form-group">
+						<label>支付时限(分)</label>
+						<div>
+							<input type="number" class="form-control" formControlName="payTimeLimit">
+							<div *ngIf="getFormControl('payTimeLimit').invalid">
+								<small *ngIf="form.controls.payTimeLimit.pristine">超过支付时间订单取消</small>
+							</div>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-8 col-form-label pt15">允许在当前营业时间段下单</label>
+						<div class="col-4">
+							<CheckboxItem formControlName="openRange" (onChange)="product.openRange = $event.checked">
+							</CheckboxItem>
+						</div>
+					</div>
+					<div class="form-group">
+						<label>状态</label>
+						<div>
+							<select class="form-control col-sm-10" formControlName="status">
+								<option *ngFor="let s of status;" [value]="s">{{s}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label>商品分类</label>
+						<div>
+							<select class="form-control col-sm-10" formControlName="category">
+								<option value=''></option>
+								<option *ngFor="let c of categorys;" [ngValue]="c">{{c.name}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label>排序</label>
+						<div>
+							<input type="number" class="form-control" min="1" max="1000" step="1" placeholder="分类排序"
+								formControlName="sequence">
+							<div *ngIf="getFormControl('sequence').invalid">
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label>商品属性</label>
+						<div>
+							<textarea class="form-control" rows="4" placeholder="商品属性"
+								formControlName="productProperties"></textarea>
+						</div>
+					</div>
+					<div class="form-group">
+						<label>营业时间</label>
+						<div>
+							<div *ngFor="let mot of merchantOpenTimes">
+								<CheckboxItem formControlName="openRange" [(ngModel)]="mot.checked"
+									(onChange)="mot.checked = $event.checked">
+									{{mot.desc}}
+								</CheckboxItem>
+							</div>
+						</div>
+					</div>
+					<div class="form-group submit">
+						<button type="submit" class="btn btn-submit btn-block"
+							[disabled]="!form.valid">完&nbsp;成</button>
+					</div>
+				</div>
+			</form>
+		</TabPane>
+		<TabPane [title]="'图片'">
+			<div class="upload-container" *ngIf="isCreated">
+				<div class="card text-center">
+					<div class="card-block">
+						<label class="btn btn-default btn-success">
+							<i class="fa fa-picture-o"></i>选择商品图片<input type="file" ng2FileSelect [uploader]="uploader"
+								style="display: none;">
+						</label>
+					</div>
+					<div *ngFor="let item of uploader.queue">
+						<div class="card-block">
+							<h4 class="card-title">商品图片上传</h4>
+							<p class="card-text">{{item.file.name}}</p>
+							<p class="card-text">{{item.file.size/1024/1024 | number }}MB</p>
+						</div>
+						<div class="card-block">
+							<progress class="progress progress-success" [value]="item.progress"
+								[max]="100"><b>{{item.progress}}%</b></progress>
+						</div>
+						<div class="card-block">
+							<div *ngIf="item.file.size/1024/1024 > fileSize">
+								<p class="card-text">文件大小不能超过5M</p>
+							</div>
+							<div>
+								<button type="button" class="btn btn-success btn-xs" (click)="item.upload()"
+									[disabled]="item.file.size/1024/1024 > fileSize || item.isReady || item.isUploading || item.isSuccess">
+									上传
+								</button>
+								<button type="button" class="btn btn-danger btn-xs" (click)="item.remove()">删除</button>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</TabPane>
+		<TabPane [title]="'预览'">
+			<div class="tab-container preview">
+				<div class="card text-center">
+					<img *ngIf="product.imageSource" class="card-img-top" [src]="imageUrl">
+					<div class="card-block">
+						<h4 class="card-title">{{product.name}}</h4>
+						<p class="card-text">{{product.description}}</p>
+						<p class="card-text"><small class="text-muted">{{stockDescription}}</small></p>
+					</div>
+					<div class="card-block">
+						<a href="#" class="btn btn-primary">加入购物车</a>
+					</div>
+				</div>
+			</div>
+		</TabPane>
+	</Tabs>
+</div>

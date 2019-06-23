@@ -1,0 +1,24 @@
+.table-btns{
+    position: relative;
+    height: 50px;
+}
+.table-btns button{
+    position: absolute;
+    right: 10px;  
+}
+.off-time-list {
+    margin-top: 10px;
+}
+.off-label {
+    padding-left: 25px;
+    padding-top: 15px;
+}
+form .btn-group button {
+    margin-right: 10px;
+}
+td .btn-group > .btn:first-child {
+    margin-right:20px;
+}
+.l-h-5{
+    line-height: 5;
+}

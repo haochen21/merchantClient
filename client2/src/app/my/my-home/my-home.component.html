@@ -1,0 +1,107 @@
+<div class="my-container">
+    <div class="user-info row">
+        <div class="user-info-detail col-12">
+            <div class="login-name">
+                <div class="one">
+                    <p>用户名：</p>
+                </div>
+                <div class="two">
+                    <p>{{merchant.loginName}}</p>
+                </div>
+            </div>
+            <div class="user-level">
+                <div class="one">
+                    <p>等&nbsp;&nbsp;&nbsp;级：</p>
+                </div>
+                <div class="two">
+                    <span class="rank r4"><s></s><span>金牌会员</span></span>
+                </div>
+            </div>
+            <div class="user-email">
+                <div class="one">
+                    <p>邮&nbsp;&nbsp;&nbsp;箱：</p>
+                </div>
+                <div class="two">
+                    <p>{{merchant.mail}}</p>
+                </div>
+            </div>
+            <div class="user-email">
+                <div class="one">
+                </div>
+                <div class="two">
+                    <button type="button" class="btn btn-info" (click)="logout()">注销</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="detail row">
+        <div class="order-number col-5">
+            <div>今日订单</div>
+            <div class="number">{{cartNumber}}</div>
+        </div>
+        <div class="divide col-1"></div>
+        <div class="money-number col-5">
+            <div>本月收入</div>
+            <div class="number">{{earning | number }}</div>
+        </div>
+    </div>
+
+    <ul id="nav" class="row">
+        <li class="col-4 menuitem">
+            <a [routerLink]="['/my/modifyuser']" style="font-size: 25px"><i
+                    class="fas fa-info"></i><span>修改/完善信息</span></a>
+        </li>
+        <li class="col-4 menuitem">
+            <a [routerLink]="['/my/openRange']" style="font-size: 25px"><i
+                    class="far fa-clock ui-menu-color06"></i><span>营业时间</span></a>
+        </li>
+        <li class="col-4 menuitem">
+            <a [routerLink]="['/my/offTime']" style="font-size: 25px"><i
+                    class="fas fa-times-circle ui-menu-color05"></i><span>下单停止时间</span></a>
+        </li>
+        <li class="col-4 menuitem">
+            <a [routerLink]="['/my/modifypassword']" style="font-size: 25px"><i
+                    class="fas fa-key ui-menu-color02"></i><span>修改密码</span></a>
+        </li>
+        <li class="col-4 menuitem">
+            <a [routerLink]="['/my/modifyimage']" style="font-size: 25px"><i
+                    class="far fa-image ui-menu-color04"></i><span>上传图像</span></a>
+        </li>
+        <li class="col-4 menuitem">
+            <a [routerLink]="['/my/introduce']" style="font-size: 25px"><i
+                    class="fas fa-archive ui-menu-color02"></i><span>简介</span></a>
+        </li>
+        <li class="col-4 menuitem">
+            <a [routerLink]="['/my/account']" style="font-size: 25px"><i
+                    class="fas fa-yen-sign ui-menu-color03"></i><span>我的帐户</span></a>
+        </li>
+        <li class="col-4 menuitem">
+            <a [routerLink]="['/my/discount']" style="font-size: 25px"><i
+                    class="fas fa-money-check-alt ui-menu-color04"></i><span>商品价格</span></a>
+        </li>
+        <li class="col-4 menuitem">
+            <a [routerLink]="['/my/category']" style="font-size: 25px"><i
+                    class="fas fa-object-group ui-menu-color05"></i><span>商品分类</span></a>
+        </li>
+        <li class="col-4 menuitem">
+            <a [routerLink]="['/product/create/-1']" style="font-size: 25px"><i
+                    class="fab fa-product-hunt ui-menu-color06"></i><span>添加商品</span></a>
+        </li>
+        <li class="col-4 menuitem">
+            <a [routerLink]="['/my/hiscart']" style="font-size: 25px"><i
+                    class="fas fa-cart-plus ui-menu-color02"></i><span>历史订单</span></a>
+        </li>
+        <li class="col-4 menuitem">
+            <a [routerLink]="['/my/modifyQrCode']" style="font-size: 25px"><i
+                    class="fas fa-barcode ui-menu-color03"></i><span>生成二维码</span></a>
+        </li>
+        <li class="col-4 menuitem">
+            <a [routerLink]="['/my/uploadProduct']" style="font-size: 25px"><i
+                    class="fas fa-upload ui-menu-color05"></i><span>商品上传</span></a>
+        </li>
+        <li class="col-4 menuitem">
+            <a [routerLink]="['/my/needPay']" style="font-size: 25px"><i
+                    class="fas fa-yen-sign ui-menu-color03"></i><span>商品支付</span></a>
+        </li>
+    </ul>
+</div>

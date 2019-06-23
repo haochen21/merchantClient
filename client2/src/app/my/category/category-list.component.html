@@ -1,0 +1,30 @@
+<div class="list-container container">
+    <div *ngIf="hasInit && categorys.length === 0" class="create card">
+        <div class="card-body">
+            <div class="text-center">
+                <div>商品目录为空</div>
+                <div>新建商品目录</div>
+                <div>
+                    <p>您还没有商品目录信息，请先新建一个目录！</p>
+                </div>
+                <a [routerLink]="['/my/createCategory']" class="card-link">新建目录</a>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="hasInit && categorys.length > 0">
+        <div *ngFor="let category of categorys" class="card text-center" style="margin: 10px 0;">
+            <div class="card-body">
+                <a [routerLink]="['/my/createCategory']"
+                    class="label label-success pull-right create-label">新&nbsp;&nbsp;建</a>
+                <div class="card-title">{{category.name}}</div>
+                <div>
+                    <p>{{category.description}}</p>
+                    <p>顺序： {{category.sequence ? category.sequence:'未设置'}}</p>
+                </div>
+                <a href="#" class="card-link" (click)="modify($event,category.id)">编辑</a>
+                <a href="#" class="card-link" (click)="delete($event,category.id)">删除</a>
+            </div>
+        </div>
+    </div>
+</div>

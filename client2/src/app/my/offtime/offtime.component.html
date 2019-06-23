@@ -1,0 +1,52 @@
+<div class="offtime-container">
+    <div class="off-time-list" *ngIf="merchant">
+        <div class="table-container">
+            <div class="table-btns">
+                <button class="btn btn-info" (click)="openCreate($event,null)">新增</button>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>开始时间</th>
+                        <th>结束时间</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let range of merchant.openRanges | openRangeTypePipe:type">
+                        <td>{{range.beginTime | amDateFormat:"HH:mm:ss"}}</td>
+                        <td>{{range.endTime | amDateFormat:"HH:mm:ss"}}</td>
+                        <td>
+                            <div class="btn-group btn-group-sm" role="group">
+                                <button type="button" class="btn btn-secondary"
+                                    (click)="openCreate($event,range)">修改</button>
+                                <button type="button" class="btn btn-secondary" (click)="delete(range)">删除</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    <div *ngIf="creating">
+        <form (ngSubmit)="onSubmit()" #timeForm="ngForm">
+            <List [className]="'date-picker-list'">
+                <ListItem DatePicker [extra]="currentDateFormat(tempOpenRange.beginTime)" [arrow]="'horizontal'"
+                    name="beginTime" [mode]="'time'" [(ngModel)]="tempOpenRange.beginTime">
+                    开始时间
+                    <Brief>选择</Brief>
+                </ListItem>
+                <ListItem DatePicker [extra]="currentDateFormat(tempOpenRange.endTime)" [arrow]="'horizontal'"
+                    name="endTime" [mode]="'time'" [(ngModel)]="tempOpenRange.endTime">
+                    结束时间
+                    <Brief>选择</Brief>
+                </ListItem>
+            </List>
+            <div class="btn-group btn-group-sm"  style="margin-top: 10px;margin-left: 10px;" role="group">
+                <button class="btn btn-info" (click)="cancel($event)">取消</button>
+                <button class="btn btn-info" (click)="create($event)">确认</button>
+            </div>
+        </form>
+    </div>
+</div>

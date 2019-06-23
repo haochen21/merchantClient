@@ -1,0 +1,80 @@
+<div class="container">
+    <!--注册表单-->
+    <div class="merchant-register-form">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-12 p0 input-text-box input-text-box1">
+                        <InputItem [editable]="false" formControlName="loginName">用户名</InputItem>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 p0 input-text-box input-text-box1">
+                        <InputItem [clear]="true" formControlName="loginName">商户全称</InputItem>
+                        <div *ngIf="getFormControl('name').invalid">
+                            不能为空
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 p0 input-text-box input-text-box1">
+                        <InputItem [type]="'phone'" formControlName="phone">手机号码</InputItem>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 p0 input-text-box input-text-box1">
+                        <InputItem [clear]="true" formControlName="email">邮箱</InputItem>
+                        <div *ngIf="getFormControl('email').invalid">
+                            邮箱地址格式不正确
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 p0 input-text-box input-text-box1">
+                        <InputItem [clear]="true" formControlName="shortName">商户简称</InputItem>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 p0 input-text-box input-text-box1">
+                        <InputItem [clear]="true" formControlName="address">商户地址</InputItem>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 p0 input-text-box input-text-box1">
+                        <InputItem [clear]="true" formControlName="description">店铺说明</InputItem>
+                        <div *ngIf="getFormControl('description').invalid">
+                            店铺说明长度4-255个字符
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 p0 input-text-box input-text-box1">
+                        <div class="form-group">
+                            <CheckboxItem formControlName="takeByPhone" [(ngModel)]="merchant.takeByPhone"
+                                (onChange)="merchant.takeByPhone = $event.checked">手机号码提货</CheckboxItem>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 p0 input-text-box input-text-box1">
+                        <div class="form-group">
+                            <CheckboxItem formControlName="takeByPhoneSuffix" [(ngModel)]="merchant.takeByPhoneSuffix"
+                                (onChange)="merchant.takeByPhoneSuffix = $event.checked">手机号码后四位提货</CheckboxItem>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 p0 input-text-box input-text-box1">
+                        <div class="form-group">
+                            <CheckboxItem formControlName="printVoice" [(ngModel)]="merchant.printVoice"
+                                (onChange)="merchant.printVoice = $event.checked">打印机声音</CheckboxItem>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-info btn-block" [disabled]="!form.valid">完&nbsp;成</button>
+            </div>
+        </form>
+    </div>
+</div>

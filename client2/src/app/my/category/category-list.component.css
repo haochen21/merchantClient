@@ -1,0 +1,14 @@
+.create {
+    margin-top: 45%;
+}
+.create-label {
+    padding: 8px;
+    cursor: pointer;    
+    right: 5px;
+    top: 15px;
+    position: absolute;
+}
+.btn-group {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

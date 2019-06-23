@@ -151,6 +151,29 @@ exports.findProductByMerchant = function (req, res) {
     });
 }
 
+exports.modifyNeedPay = function (req, res) {
+    let merchant = req.session.merchant;
+    let merchantId = merchant.id;
+    let needPay = req.body.needPay;
+    console.log("modifyNeedPay merchantId: "+merchantId+", needPay: "+needPay);
+
+    request({
+        url: config.remoteServer + '/store/product/needPay',
+        method: 'PUT',
+        form: {
+            merchantId: merchantId,
+            needPay: needPay
+        }
+    }, function (err, response, body) {
+        if (err) {
+            console.error("modify product needPay error:", err, " (status: " + err.status + ")");
+            res.status(404).end();
+        } else {
+            res.status(200).end();
+        }
+    });
+}
+
 exports.productNameExists = function (req, res) {
     let merchant = req.session.merchant;
     let merchantId = merchant.id;

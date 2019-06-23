@@ -1,0 +1,126 @@
+<div class="hiscart-container container">
+    <div class="row">
+        <div class="col align-self-end">
+            <div class="table-btns">
+                <button class="btn btn-info" (click)="openQuery()"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <ul class="notification-body" *ngFor="let cart of cartPage.content">
+                <li>
+                    <span>
+                        <div class="bar-holder no-padding">
+                            <div class="bar-info">
+                                <div class="bar-btn">
+                                    <button type="button" class="btn btn-sm btn-secondary" (click)="showDetail(cart)">
+                                        {{cart.showDetail?'收起':'详情'}}
+                                    </button>
+                                </div>
+                                <div class="note no-margin">
+                                    <span>订单编号：</span>
+                                    <span>{{cart.id}}</span>
+                                </div>
+                                <div class="note no-margin">
+                                    <span>订单状态：</span>
+                                    <span style="font-size: 20px;">
+                                        <i class="fas fa-yen-sign text-danger padding-right-10"
+                                            *ngIf="cart.needPay"></i>
+                                        <i class="fas fa-check text-success padding-right-10" *ngIf="!cart.needPay"></i>
+                                    </span>
+                                    {{cart.status | cartStatusFormatPipe}}
+                                </div>
+                                <div class="note no-margin">
+                                    <span>商品数量：</span>
+                                    <span>{{getProductNumber(cart)}}</span>
+                                </div>
+                                <div class="note no-margin">
+                                    <span>生成时间：</span>
+                                    <span>{{cart.createdOn | amDateFormat:"YYYY-MM-DD HH:mm:ss"}}</span>
+                                </div>
+                            </div>
+                            <div class="bar-detail" *ngIf="cart.showDetail">
+                                <Tabs [useOnPan]="true" [swipeable]="true" [activeTab]="0" [page]="2"
+                                    [tabBarActiveTextColor]="'#1890ff'">
+                                    <TabPane [title]="'订单信息'">
+                                        <table class="table">
+                                            <tbody>
+                                                <tr *ngFor="let cartItem of cart.cartItems">
+                                                    <td>{{cartItem.name}}</td>
+                                                    <td><i
+                                                            class="fas fa-yen-sign padding-right-5"></i>{{cartItem.unitPrice}}
+                                                    </td>
+                                                    <td>{{cartItem.quantity}}</td>
+                                                    <td><i
+                                                            class="fas fa-yen-sign padding-right-5"></i>{{cartItem.totalPrice}}
+                                                    </td>
+                                                </tr>
+                                                <tr class="dashed">
+                                                    <td colspan="3"></td>
+                                                    <td><i
+                                                            class="fas fa-yen-sign padding-right-5"></i>{{cart.totalPrice}}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </TabPane>
+                                    <TabPane [title]="'客户信息'">
+                                        <table class="table table-fixed">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="width-30">姓名</td>
+                                                    <td>{{cart.customer.name}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>卡号</td>
+                                                    <td>{{cart.customer.cardNo}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>手机</td>
+                                                    <td>{{cart.customer.phone}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>用户名</td>
+                                                    <td>{{cart.customer.loginName}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </TabPane>
+                                </Tabs>
+                            </div>
+                        </div>
+                    </span>
+                </li>
+            </ul>
+            <div class="text-xs-center margin-top-10" *ngIf="cartPage.content && !cartPage.last">
+                <button type="button" class="btn btn-secondary" (click)="queryNextPage()">下一页</button>
+            </div>
+        </div>
+    </div>
+    <div class="query-panel container" *ngIf="openQueryPanel">
+        <div class="row">
+            <div class="col-12">
+                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label>订单编号</label>
+                        <input type="number" class="form-control" formControlName="cartId">
+                    </div>
+                    <div class="form-group">
+                        <label>订单日期</label>
+                        <input type="date" class="form-control" formControlName="date"
+                            (change)="changeQueryDate($event)" />
+                    </div>
+                    <List>
+                        <CheckboxItem formControlName="confirmed">收货中&nbsp;&nbsp;&nbsp;&nbsp;
+                        </CheckboxItem>
+                        <CheckboxItem formControlName="delivered">已完成</CheckboxItem>
+                    </List>
+                    <div class="form-group submit">
+                        <button type="submit" class="btn btn-submit btn-block">完&nbsp;成</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

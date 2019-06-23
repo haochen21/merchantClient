@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="card text-center">        
+        <div class="card-body">
+            <label class="btn btn-default btn-primary">
+                文件上传 <input type="file" ng2FileSelect [uploader]="uploader" style="display: none;">
+            </label>
+        </div>
+        <div *ngFor="let item of uploader.queue">
+            <div class="card-body">
+                <h4 class="card-title">商品文件上传</h4>
+                <p class="card-text">{{item.file.name}}</p>
+                <p class="card-text">{{item.file.size/1024/1024 | number }}MB</p>
+            </div>
+            <div class="card-body">
+                <progress class="progress progress-success" [value]="item.progress"
+                    [max]="100"><b>{{item.progress}}%</b></progress>
+            </div>
+            <div class="card-body">
+                <div *ngIf="item.file.size/1024/1024 > fileSize">
+                    <p class="card-text">文件大小不能超过5M</p>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-success btn-xs" (click)="item.upload()"
+                        [disabled]="item.file.size/1024/1024 > fileSize || item.isReady || item.isUploading || item.isSuccess">
+                        上传
+                    </button>
+                    <button type="button" class="btn btn-danger btn-xs" (click)="item.remove()">删除</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

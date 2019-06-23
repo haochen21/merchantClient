@@ -1,0 +1,25 @@
+<div class="introduce-container">
+    <Tabs [activeTab]="0" [page]="3" [tabBarPosition]="'left'">
+        <TabPane [title]="'简介'">
+            <div [froalaEditor] [(froalaModel)]="editorContent" style="margin: 10px;">
+                <img *ngIf="imgObj.src !== ''" class="card-img-top" [src]="imgObj.src">
+            </div>
+        </TabPane>
+        <TabPane [title]="'预览'">
+            <div [froalaView]="editorContent" style="margin: 10px;"></div>
+            <div class= "text-center">
+                <button type="submit" class="btn btn-info btn-block" (click)="save($event)">保&nbsp;存</button>
+            </div>
+        </TabPane>
+        <TabPane [title]="'显示'">
+            <List [className]="'my-list'" style="margin: 10px;">
+                <ListItem multipleLine [extra]="on">
+                    显示简介
+                </ListItem>
+            </List>
+            <ng-template #on>
+                <Switch [checked]="merchant.showIntroduce" (onChange)="modifyShowIntroduce($event)"></Switch>
+            </ng-template>
+        </TabPane>
+    </Tabs>
+</div>

@@ -1,0 +1,151 @@
+<TabBar [barTintColor]="'white'" [ngStyle]="tabbarStyle" [activeTab]="2"
+    (onPress)="tabBarTabOnPress($event)">
+    <TabBarItem [title]="'首页'" [key]="'order'" [icon]="icon1" [selectedIcon]="icon11">
+        <ng-template #icon1>
+            <div><i class="fas fa-home"></i></div>
+        </ng-template>
+        <ng-template #icon11><i class="icon-warning-sign"></i>
+            <div><i class="fas fa-home" style="color: rgb(16, 142, 233);"></i></div>
+        </ng-template>
+    </TabBarItem>
+    <TabBarItem [title]="'商品'" [key]="'product'" [icon]="icon2" [selectedIcon]="icon22">
+        <ng-template #icon2>
+            <div><i class="fab fa-product-hunt"></i></div>
+        </ng-template>
+        <ng-template #icon22>
+            <div><i class="fab fa-product-hunt" style="color: rgb(16, 142, 233);"></i></div>
+        </ng-template>
+    </TabBarItem>
+    <TabBarItem [title]="'订单'" [key]="'cart'" [icon]="icon3" [selectedIcon]="icon33">
+        <ng-template #icon3>
+            <div><i class="fas fa-cart-plus"></i></div>
+        </ng-template>
+        <ng-template #icon33>
+            <div><i class="fas fa-cart-plus" style="color: rgb(16, 142, 233);"></i></div>
+        </ng-template>
+        <Navbar [leftContent]="'当日待取货订单'" [rightContent]="rightContent" (onRightClick)="refresh()">
+            <ng-template #rightContent>
+                <div (click)="refresh()"><i class="fas fa-sync-alt"></i></div>
+            </ng-template>
+        </Navbar>
+        <SearchBar [placeholder]="'Search'" [maxLength]="8" [(ngModel)]="queryOrder.cartId" (onSubmit)="onQueryOrder()">
+        </SearchBar>
+        <div class="list-container">
+            <ul class="notification-body" *ngFor="let cart of cartPage.content">
+                <li>
+                    <span>
+                        <div class="bar-holder no-padding">
+                            <div class="bar-info">
+                                <div class="bar-btn">
+                                    <button type="button" class="btn btn-sm btn-secondary" (click)="showDetail(cart)">
+                                        {{cart.showDetail?'收起':'详情'}}
+                                    </button>
+                                </div>
+                                <div class="note no-margin">
+                                    <span>订单编号：</span>
+                                    <span>{{cart.id}}</span>
+                                </div>
+                                <div class="note no-margin">
+                                    <span>订单状态：</span>
+                                    <span style="font-size: 20px;">
+                                        <i class="fas fa-yen-sign text-danger padding-right-10"
+                                            *ngIf="cart.needPay"></i>
+                                        <i class="fas fa-check text-success padding-right-10" *ngIf="!cart.needPay"></i>
+                                    </span>
+                                    {{cart.status | cartStatusFormatPipe}}
+                                </div>
+                                <div class="note no-margin">
+                                    <span>商品数量：</span>
+                                    <span>{{getProductNumber(cart)}}</span>
+                                </div>
+                                <div class="note no-margin">
+                                    <span>生成时间：</span>
+                                    <span>{{cart.createdOn | amDateFormat:"YYYY-MM-DD HH:mm:ss"}}</span>
+                                </div>
+                                <div class="note no-margin" *ngIf="cart.takeOut">
+                                    <span>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</span>
+                                    <span class="break-line">{{cart.name}}</span>
+                                </div>
+                                <div class="note no-margin" *ngIf="cart.takeOut">
+                                    <span>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：</span>
+                                    <span class="break-line">{{cart.address}}</span>
+                                </div>
+                                <div class="note no-margin" *ngIf="cart.takeOut">
+                                    <span>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话：</span>
+                                    <span class="break-line">{{cart.phone}}</span>
+                                </div>
+                                <div class="note no-margin" *ngIf="cart.remark != null">
+                                    <span>商品备注：</span>
+                                    <span class="break-line">{{cart.remark}}</span>
+                                </div>
+                            </div>
+                            <div class="bar-detail" *ngIf="cart.showDetail">
+                                <Tabs [useOnPan]="true" [swipeable]="true" [activeTab]="0" [page]="2"
+                                    [tabBarActiveTextColor]="'#1890ff'">
+                                    <TabPane [title]="'订单信息'">
+                                        <table class="table">
+                                            <tbody>
+                                                <tr *ngFor="let cartItem of cart.cartItems">
+                                                    <td>{{cartItem.name}}</td>
+                                                    <td><i
+                                                            class="fas fa-yen-sign padding-right-5"></i>{{cartItem.unitPrice}}
+                                                    </td>
+                                                    <td>{{cartItem.quantity}}</td>
+                                                    <td><i
+                                                            class="fas fa-yen-sign padding-right-5"></i>{{cartItem.totalPrice}}
+                                                    </td>
+                                                </tr>
+                                                <tr class="dashed">
+                                                    <td colspan="3"></td>
+                                                    <td><i
+                                                            class="fas fa-yen-sign padding-right-5"></i>{{cart.totalPrice}}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </TabPane>
+                                    <TabPane [title]="'客户信息'">
+                                        <table class="table table-fixed">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="width-30">姓名</td>
+                                                    <td>{{cart.customer.name}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>卡号</td>
+                                                    <td>{{cart.customer.cardNo}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>手机</td>
+                                                    <td>{{cart.customer.phone}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>用户名</td>
+                                                    <td>{{cart.customer.loginName}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </TabPane>
+                                </Tabs>
+                            </div>
+                            <div class="text-center margin-top-10">
+                                <button class="bill-btn btn btn-info" (click)="print(cart)">打印订单</button>
+                            </div>
+                        </div>
+                    </span>
+                </li>
+            </ul>
+            <div class="text-center margin-top-10" *ngIf="cartPage.content && !cartPage.last">
+                <button type="button" class="btn btn-secondary" (click)="queryNextPage()">下一页</button>
+            </div>
+        </div>
+    </TabBarItem>
+    <TabBarItem [title]="'账户'" [key]="'my'" [icon]="icon4" [selectedIcon]="icon44">
+        <ng-template #icon4>
+            <div><i class="fas fa-user"></i></div>
+        </ng-template>
+        <ng-template #icon44>
+            <div><i class="fas fa-user" style="color: rgb(16, 142, 233);"></i></div>
+        </ng-template>
+    </TabBarItem>
+</TabBar>

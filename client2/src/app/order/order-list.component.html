@@ -1,0 +1,64 @@
+<div>
+    <div class="row text-center">
+        <div class="col-6">
+            <small class="stats-label">今日订单</small>
+            <h4 class="stats-value">{{getTotalOrder()}}</h4>
+        </div>
+        <div class="col-6">
+            <small class="stats-label">总金额</small>
+            <h4 class="stats-value"><i class="fas fa-yen-sign padding-right-5"></i>{{getTotalPrice() | number }}</h4>
+        </div>
+    </div>
+    <div class="row text-center">
+        <div class="col-6 margin-top-10">
+            <small class="stats-label">未提货</small>
+            <h4 class="stats-value">{{getUnTakeNumber()}}</h4>
+        </div>
+        <div class="col-6 margin-top-10">
+            <small class="stats-label">已提货</small>
+            <h4 class="stats-value">{{getTakeNumber()}}</h4>
+        </div>
+    </div>
+    <div class="margin-top-10">
+        <div *ngIf="!listLayout">
+            <ng-template ngFor let-product let-i="index" [ngForOf]="openRange.products">
+                <div class="col-12">
+                    <div class="panel-body">
+                        <div class="stats-title text-center">
+                            <p>{{product.name}}</p>
+                        </div>
+                        <div class="margin-top-5 row text-center">
+                            <div class="col-6 margin-top-10">
+                                <small class="stats-label">未提货</small>
+                                <small class="stats-value">{{product.unTakeNumber}}</small>
+                            </div>
+
+                            <div class="col-6 margin-top-10">
+                                <small class="stats-label">已提货</small>
+                                <small class="stats-value">{{product.takeNumber}}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+        <div *ngIf="listLayout">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>商品名称</th>
+                        <th>未提货</th>
+                        <th>已提货</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let product of openRange.products">
+                        <td width="50%">{{product.name}}</td>
+                        <td width="25%">{{product.unTakeNumber}}</td>
+                        <td width="25%">{{product.takeNumber}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

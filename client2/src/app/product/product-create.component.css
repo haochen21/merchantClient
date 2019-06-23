@@ -1,0 +1,29 @@
+.tab-container {
+    padding: 10px 5px 0 10px;
+}
+.info-form .submit {
+    padding-bottom: 45px;
+}
+.input-tip {    
+    margin-left: 0;
+}
+.btn-submit {
+    background: #4cc05f;
+    color: #fff;
+    font-size: 16px;
+}
+.upload-container {
+    margin-top: 10px;
+}
+.upload-container .card {
+    border: none;
+}
+.upload-container .card-block i {
+    padding-right: 10px;
+}
+img {
+    width: 100%;
+}
+.preview .card {
+    margin-bottom: 45px;
+}

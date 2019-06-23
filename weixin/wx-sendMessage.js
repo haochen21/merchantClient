@@ -39,8 +39,7 @@ function createConfirmStr(cart) {
     json.keyword1.value = updatedOn.format('YYYY-MM-DD HH:mm:ss');
 
     json.keyword2 = {};
-    json.keyword2.value = cart.id;
-
+    json.keyword2.value = cart.id + '(提货码：'+ cart.takeNo+' )';
     json.keyword3 = {};
     var products = '';
     for(var i=0; i< cart.cartItems.length;i++){

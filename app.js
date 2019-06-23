@@ -87,10 +87,10 @@ router.route('/devicePhoneExists/:phone')
 router.route('/merchant')
     .get(service.security.findMerchant)
     .post(service.security.createMerchant)
-    .put(service.security.modifyMerchant);  
+    .put(service.security.modifyMerchant);
 router.route('/merchant/introduce')
     .get(service.security.findMerchantWithIntroduce)
-    .put(service.security.modifyMerchantIntroduce);      
+    .put(service.security.modifyMerchantIntroduce);
 router.route('/merchant/weixin')
     .put(service.security.registerMerchantInWeixin);
 router.route('/password', checkLogin)
@@ -98,7 +98,7 @@ router.route('/password', checkLogin)
 router.route('/merchant/open')
     .put(service.security.modifyOpen);
 router.route('/merchant/takeOut')
-    .put(service.security.modifyTakeOut);    
+    .put(service.security.modifyTakeOut);
 router.route('/merchant/qrCode')
     .put(service.security.updateMerchantQrCode);
 router.route('/merchant/lock')
@@ -127,6 +127,8 @@ router.route('/product/find/merchant')
     .get(service.store.findProductByMerchant);
 router.route('/product/exists/:name')
     .get(service.store.productNameExists);
+router.route('/product/needPay')
+    .put(service.store.modifyNeedPay);
 
 router.route('/cart/page')
     .post(service.order.pageCartByFilter);
@@ -151,7 +153,7 @@ router.route('/cart/paid/:id')
 router.route('/cart/deliver/:id')
     .get(service.order.deliver);
 router.route('/cart/print/:id')
-    .get(service.order.manualPrint);    
+    .get(service.order.manualPrint);
 
 app.use('/api', router);
 
@@ -169,6 +171,6 @@ app.use(logErrors);
 app.use(errorHandler);
 
 
-server.listen(2080, function () {
+server.listen(80, function () {
     console.info('server listening on port 80');
 });    

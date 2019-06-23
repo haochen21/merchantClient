@@ -1,0 +1,66 @@
+<Tabs [activeTab]="0" [page]="5" [tabBarBackgroundColor]="'#fff'" [tabBarPosition]="'left'" [tabDirection]="'vertical'"
+    (onTabClick)="onTabClick($event)">
+    <TabPane *ngFor="let c of categorys" [title]="c.name">
+        <div *ngFor="let p of c.products">
+            <div class="product-edit-panel">
+                <div class="info-head row  bbe9">
+                    <div class="product-image-panel">
+                        <img *ngIf="p.imageSource" [src]="imagePreUrl+p.imageSource+'-sm'"
+                            style="width:50px; height:50px;">
+                        <img *ngIf="!p.imageSource" src="../../assets/images/orderpic_03.png"
+                            style="width:50px; height:50px;">
+                    </div>
+                    <div class="product-price">
+                        <h5>{{p.name}}</h5>
+                        <div class="row pb10">
+                            <div class="col-12">
+                                <div class="gray9 font12 pt5">
+                                    单价：<span class="green">￥<span
+                                            class="font14 arial bold">{{p.unitPrice}}</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-info-panel row">
+                    <form #form="ngForm">
+                        <div class="row bbe9 pb10 pt10" *ngIf="!p.infinite">
+                            <div class="col-12">
+                                <span class="gray9">数量：</span>
+                                <input type="number" class="unit-in-stock" [(ngModel)]="p.unitsInStock"
+                                    name="unitsInStock">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-7 pt20">
+                                无限库存
+                            </div>
+                            <div class="col-5 text-right">
+                                <Switch [checked]="p.infinite" (onChange)="p.infinite = !p.infinite"></Switch>
+                            </div>
+                        </div>
+                        <div class="row bbe9">
+                            <div class="col-7 pt20">
+                                上下架
+                            </div>
+                            <div class="col-5 text-right">
+                                <Switch [checked]="!p.status" (onChange)="changeProductStatus($event,p)"></Switch>
+                            </div>
+                        </div>
+                        <div class="row mt10 text-right">
+                            <div class="col-4">
+                                <button type="button" class="btn btn-danger btn-sm" (click)="delete(p)">删除</button>
+                            </div>
+                            <div class="col-4">
+                                <button type="button" class="btn btn-info btn-sm" (click)="update(p)">更新</button>
+                            </div>
+                            <div class="col-4">
+                                <button type="button" class="btn btn-warning btn-sm" (click)="modify(p.id)">编辑</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </TabPane>
+</Tabs>

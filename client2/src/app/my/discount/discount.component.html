@@ -1,0 +1,49 @@
+<div class="password-modify-container">
+
+    <!--注册表单-->
+    <div class="password-modify-form">
+        <List>
+            <RadioItemGroup [(ngModel)]="selectedStatus.value" (onChange)="changeDiscountType($event)">
+                <RadioItem *ngFor="let i of data" [name]="i.name" [value]="i.value">
+                    {{i.name}}
+                </RadioItem>
+            </RadioItemGroup>
+        </List>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+            <div class="form-group" *ngIf="isPercent">
+                <label>打折</label>
+                <div>
+                    <input type="number" class="form-control" min="0.00" max="1.00" step="0.01" placeholder="商品折扣"
+                        formControlName="discount">
+                </div>
+            </div>
+
+            <div class="form-group" *ngIf="isAmount">
+                <label>减价(元)</label>
+                <div>
+                    <input type="number" class="form-control" min="0.00" step="0.01" placeholder="商品减价"
+                        formControlName="amount">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>订单最少数额</label>
+                <div>
+                    <input type="number" class="form-control" min="0.00" step="0.01" formControlName="minimumOrder">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>打包费用</label>
+                <div>
+                    <input type="number" class="form-control" min="0.00" step="0.01" formControlName="packageFee">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-submit btn-block" [disabled]="!form.valid">完&nbsp;成</button>
+            </div>
+        </form>
+    </div>
+</div>

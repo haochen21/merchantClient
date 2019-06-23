@@ -1,0 +1,12 @@
+<div class="modifyqrcode-container">
+    <div class="card text-center">
+        <img *ngIf="merchant.qrCode" class="card-img-top" [src]="qrCodeUrl">
+        <div class="card-block" *ngIf="merchant.qrCode">
+            <h4 class="card-title">二维码地址</h4>
+            <p class="card-text qrcode-url">{{qrCodeUrl}}</p>
+        </div>
+        <div class="card-block">
+            <button class="btn btn-info" (click)="createTicket($event)">生成商家二维码</button>
+        </div>
+    </div>
+</div>
