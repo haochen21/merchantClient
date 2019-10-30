@@ -102,10 +102,10 @@
     "@angular-devkit/core" "7.2.4"
     rxjs "6.3.3"
 
-"@angular/animations@^7.1.0", "@angular/animations@~7.2.0":
+"@angular/animations@^7.1.0", "@angular/animations@^7.2.15":
   version "7.2.15"
-  resolved "https://registry.npm.taobao.org/@angular/animations/download/@angular/animations-7.2.15.tgz#980c1f523a79d4b7cb44508f57fba06f2e0872fa"
-  integrity sha1-mAwfUjp51LfLRFCPV/ugby4Icvo=
+  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-7.2.15.tgz#980c1f523a79d4b7cb44508f57fba06f2e0872fa"
+  integrity sha512-8oBt3HLgd2+kyJHUgsd7OzKCCss67t2sch15XNoIWlOLfxclqU+EfFE6t/vCzpT8/+lpZS6LU9ZrTnb+UBj5jg==
   dependencies:
     tslib "^1.9.0"
 
@@ -113,6 +113,15 @@
   version "7.3.7"
   resolved "https://registry.npm.taobao.org/@angular/cdk/download/@angular/cdk-7.3.7.tgz#ce1ad53ba04beb9c8e950acc5691ea0143753764"
   integrity sha1-zhrVO6BL65yOlQrMVpHqAUN1N2Q=
+  dependencies:
+    tslib "^1.7.1"
+  optionalDependencies:
+    parse5 "^5.0.0"
+
+"@angular/cdk@^8.0.0":
+  version "8.2.3"
+  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-8.2.3.tgz#16b96ffa935cbf5a646757ecaf2b19c434678f72"
+  integrity sha512-ZwO5Sn720RA2YvBqud0JAHkZXjmjxM0yNzCO8RVtRE9i8Gl26Wk0j0nQeJkVm4zwv2QO8MwbKUKGTMt8evsokA==
   dependencies:
     tslib "^1.7.1"
   optionalDependencies:
@@ -182,6 +191,13 @@
   version "7.2.15"
   resolved "https://registry.npm.taobao.org/@angular/language-service/download/@angular/language-service-7.2.15.tgz#b2ba33e472dc5e530047c408ff7a35deba4427b8"
   integrity sha1-sroz5HLcXlMAR8QI/3o13rpEJ7g=
+
+"@angular/material@^8.0.0":
+  version "8.2.3"
+  resolved "https://registry.yarnpkg.com/@angular/material/-/material-8.2.3.tgz#16543e4e06a3fde2651a25cfe126e88e714ae105"
+  integrity sha512-SOczkIaqes+r+9XF/UUiokidfFKBpHkOPIaFK857sFD0FBNPvPEpOr5oHKCG3feERRwAFqHS7Wo2ohVEWypb5A==
+  dependencies:
+    tslib "^1.7.1"
 
 "@angular/platform-browser-dynamic@~7.2.0":
   version "7.2.15"
@@ -299,6 +315,11 @@
     esutils "^2.0.2"
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
+
+"@fortawesome/fontawesome-free@^5.9.0":
+  version "5.11.2"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.11.2.tgz#8644bc25b19475779a7b7c1fc104bc0a794f4465"
+  integrity sha512-XiUPoS79r1G7PcpnNtq85TJ7inJWe0v+b5oZJZKb0pGHNIV6+UiNeQWiFGmuQ0aj7GEhnD/v9iqxIsjuRKtEnQ==
 
 "@ngtools/webpack@7.2.4":
   version "7.2.4"
@@ -649,6 +670,13 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.npm.taobao.org/amdefine/download/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
   integrity sha1-SlKCrBZHKek2Gbz9OtFR+BfOkfU=
+
+angular-froala-wysiwyg@^3.0.0-rc.2-1:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/angular-froala-wysiwyg/-/angular-froala-wysiwyg-3.0.6.tgz#240c49ecfdd8ec0692ee05d5e9a6471f805974d5"
+  integrity sha512-JFc8fMhdA1P8B0F4L8vSnMgzXqmx0ANpRbsdwmT1B0itd/rWcE9OQLA4aaJbbswQeS28l9OP6xo/fMkHu7IObQ==
+  dependencies:
+    froala-editor "^3.0.6"
 
 ansi-colors@^3.0.0:
   version "3.2.4"
@@ -1111,6 +1139,11 @@ bonjour@^3.5.0:
     dns-txt "^2.0.2"
     multicast-dns "^6.0.1"
     multicast-dns-service-types "^1.1.0"
+
+bootstrap@^4.3.1:
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.3.1.tgz#280ca8f610504d99d7b6b4bfc4b68cec601704ac"
+  integrity sha512-rXqOmH1VilAt2DyPzluTi2blhk17bO7ef+zLLPlWvG494pDxcM234pJ8wTc/6R40UWizAIIMgxjvxZg5kmsbag==
 
 brace-expansion@^1.1.7:
   version "1.1.11"
@@ -2768,6 +2801,11 @@ fresh@0.5.2:
   resolved "https://registry.npm.taobao.org/fresh/download/fresh-0.5.2.tgz#3d8cadd90d976569fa835ab1f8e4b23a105605a7"
   integrity sha1-PYyt2Q2XZWn6g1qx+OSyOhBWBac=
 
+froala-editor@^3.0.6:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/froala-editor/-/froala-editor-3.0.6.tgz#26c1c20acf2f7b3681699c8185a94e804a713dcc"
+  integrity sha512-AU12qDl4t41n/s7awRp3tFE5dWytxwwH4od/JmhhwAEzORyH5OVaKB8Y+oLQQwRNgCTnvSscy9yA518utFx8YA==
+
 from2@^2.1.0:
   version "2.3.0"
   resolved "https://registry.npm.taobao.org/from2/download/from2-2.3.0.tgz#8bfb5502bde4a4d36cfdeea007fcca21d7e382af"
@@ -4129,9 +4167,9 @@ lodash.tail@^4.1.1:
   integrity sha1-0jM6NtnncXyK0vfKyv7HwytERmQ=
 
 lodash@^4.0.0, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.5.0, lodash@~4.17.10:
-  version "4.17.11"
-  resolved "https://registry.npm.taobao.org/lodash/download/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
-  integrity sha1-s56mIp72B+zYniyN8SU2iRysm40=
+  version "4.17.15"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
+  integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
 
 log4js@^3.0.0:
   version "3.0.6"
@@ -4481,6 +4519,11 @@ mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0:
   dependencies:
     minimist "0.0.8"
 
+moment@^2.24.0:
+  version "2.24.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
+  integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
+
 move-concurrently@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npm.taobao.org/move-concurrently/download/move-concurrently-1.0.1.tgz#be2c005fda32e0b29af1f05d7c4b33214c701f92"
@@ -4570,6 +4613,27 @@ ng-zorro-antd-mobile@^0.12.3:
     "@angular/animations" "^7.1.0"
     "@angular/cdk" "^7.2.0"
     "@ant-design/icons-angular" "~2.0.1"
+    tslib "^1.9.0"
+
+ng2-file-upload@^1.3.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/ng2-file-upload/-/ng2-file-upload-1.4.0.tgz#8dea28d573234c52af474ad2a4001b335271e5c4"
+  integrity sha512-3J/KPU/tyh/ad6TFeUbrxX+SihUj0iOEt2Zsg4EX7mB3GFiQscXOfcUOxCkBtPWWWaqt3azrYbVGzsYa3/7NzQ==
+  dependencies:
+    tslib "^1.9.0"
+
+ngx-moment@^3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/ngx-moment/-/ngx-moment-3.4.0.tgz#53bd64557e552c612b0f68b975d1c7ed34f28dfc"
+  integrity sha512-GEqzSsu12VsXXP35aerlQpuZ1ienEYQZxHmp+RH7EuJD7hWamKgLOpmbiDI9Ij3KLW/UApvonYzZvyRSv3ea/w==
+  dependencies:
+    tslib "^1.9.0"
+
+ngx-toastr@^10.0.4:
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/ngx-toastr/-/ngx-toastr-10.2.0.tgz#8a79008de0b1c013f90120a53e0355af5762e969"
+  integrity sha512-6ASr5bcvQmtNKb4D2VEsQjCXyROq6GwberBWO0bVt+xcBYPUea4aRTgX8in9apX9buaTafzG+h3HlnIraspoPg==
+  dependencies:
     tslib "^1.9.0"
 
 nice-try@^1.0.4:
@@ -7305,6 +7369,11 @@ websocket-extensions@>=0.1.1:
   version "0.1.3"
   resolved "https://registry.npm.taobao.org/websocket-extensions/download/websocket-extensions-0.1.3.tgz#5d2ff22977003ec687a4b87073dfbbac146ccf29"
   integrity sha1-XS/yKXcAPsaHpLhwc9+7rBRszyk=
+
+weixin-js-sdk@^1.4.0-test:
+  version "1.4.0-test"
+  resolved "https://registry.yarnpkg.com/weixin-js-sdk/-/weixin-js-sdk-1.4.0-test.tgz#612bbafcc97ad84f5afe6dc84701534cc59fc3ca"
+  integrity sha512-Dh/TwKhaQVAlyqEXdR65aJdexsynOhCEauexY93YZ+gXcV+ITTd/qvAHdwmkGP0nwAp314v0FD4AXUqCBQFm6Q==
 
 when@~3.6.x:
   version "3.6.4"
